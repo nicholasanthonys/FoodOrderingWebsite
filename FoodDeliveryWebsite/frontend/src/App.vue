@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
+    <Navbar/>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import Navbar from './components/Navbar.vue'
+
+import jQuery from 'jquery'
+import 'bootstrap/dist/css/bootstrap.css'
+
+// Install BootstrapVue
+global.jQuery = jQuery
+global .$ = jQuery
+ 
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Navbar
   }
 }
 </script>
@@ -23,6 +33,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin:0px;
+  padding:0px;
 }
 </style>
