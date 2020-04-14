@@ -30,10 +30,23 @@
               label="Password:"
               label-for="input-1"
             >
-              <b-form-input id="login-password" v-model="form.password" type="password" placeholder ="Password" required ></b-form-input>
+              <b-form-input
+                id="login-password"
+                v-model="form.password"
+                type="password"
+                placeholder="Password"
+                required
+              ></b-form-input>
             </b-form-group>
 
-            <b-button block id="btn-login-submit" class = "mt-5" type="submit" variant="info">Submit</b-button>
+            <b-button
+              pill
+              block
+              id="btn-login-submit"
+              class="mt-5"
+              type="submit"
+              variant="info"
+            >Submit</b-button>
           </b-form>
           <!-- <b-card class="mt-3" header="Form Data Result">
             <pre class="m-0">{{ form }}</pre>
