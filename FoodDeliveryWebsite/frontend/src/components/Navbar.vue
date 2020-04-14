@@ -54,7 +54,7 @@ export default {
 <style scoped>
 /*melakukan seleksi lakukan seperti ini*/
 #app .navbar {
-  background-color: rgba(122,204,44) !important;
+  background-color: white !important;
 }
 /*
 #app    .navbar-brand {
