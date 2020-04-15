@@ -205,8 +205,6 @@
         </div>
         
         <!--- menu terbaru end -->
-
-
       </div>
     </div>
   </div>
@@ -246,9 +244,8 @@ export default {
   color: white;
   background-color: #282828;
   padding-bottom: 80px;
-  padding-top:100px;
+  padding-top: 100px;
 }
-
 
 #app .carousel {
   /* position:  absolute; */
@@ -296,16 +293,23 @@ export default {
   text-align: center;
 }
 
-#app #menu-favorit{
-  margin-top:200px;
+#app #menu-favorit {
+  margin-top: 200px;
 }
 
  #app #menu-terbaru {
-   margin-top:100px;
+  margin-top: 100px;
  }
 
- #app h4{
+#app h4 {
    margin-bottom: 40px;
  }
 
+#app .navbar-light >>> .navbar-brand {
+  color: red !important;
+}
+
+ #app .title-1{
+  margin-bottom:200px;
+}
 </style>
