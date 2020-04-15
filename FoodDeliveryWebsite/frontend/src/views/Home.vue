@@ -143,7 +143,7 @@
         <!--- Menu Favorit end -->
 
         <!---Menu Terbaru -->
-         <div id="menu-terbaru">
+        <div id="menu-terbaru">
           <h4>Menu Terbaru</h4>
           <b-card-group deck>
             <!--- INI NANTI HARUS DI V FOR PAKE VUE UNTUK NGULANGIN DATA DARI DATABASE -->
@@ -203,7 +203,7 @@
             </b-card>
           </b-card-group>
         </div>
-        
+
         <!--- menu terbaru end -->
       </div>
     </div>
@@ -297,13 +297,13 @@ export default {
   margin-top: 200px;
 }
 
- #app #menu-terbaru {
+#app #menu-terbaru {
   margin-top: 100px;
- }
+}
 
 #app h4 {
-   margin-bottom: 40px;
- }
+  margin-bottom: 40px;
+}
 
 #app .navbar-light >>> .navbar-brand {
   color: red !important;
