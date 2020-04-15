@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Login from '@/views/Login'
 import Home from '@/views/Home'
 import Promo from '@/views/Promo'
-
+import MenuPasta from '@/views/MenuPasta'
 
 Vue.use(VueRouter);
 
@@ -24,7 +24,11 @@ const routes = [
         name : 'Promo',
         component : Promo
     },
-  
+    {
+        path : '/menupasta',
+        name : 'Menu Pasta',
+        component : MenuPasta
+    }
 ]
 
 const router = new VueRouter({
