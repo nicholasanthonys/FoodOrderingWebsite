@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <Navbar/>
+    <!-- <Navbar/> -->
     <router-view/>
   </div>
 </template>
 
 <script>
-import Navbar from './components/Navbar'
+// import Navbar from './components/Navbar'
 
 import Vue from "vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
@@ -20,7 +20,7 @@ Vue.use(IconsPlugin);
 export default {
   name: "App",
   components: {
-   Navbar
+  //  Navbar
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
 <body>
-  <div></div>
+  <Navbar/>
   <b-container>
     <b-row>
       <b-col></b-col>
@@ -60,8 +60,11 @@
 </template>
 
 <script>
+import Navbar from '../components/Navbar'
 export default {
-  components: {},
+  components: {
+    Navbar,
+  },
   data() {
     return {
       form: {

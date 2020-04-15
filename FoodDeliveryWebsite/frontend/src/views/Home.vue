@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <Navbar />
     <b-carousel
       id="carousel-1"
       v-model="slide"
@@ -13,6 +14,7 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
+     
       <!-- Text slides with image -->
       <b-carousel-slide
         caption="First slide"
@@ -82,7 +84,11 @@
 </template>
 
 <script>
+import Navbar from "../components/Navbar";
 export default {
+  components: {
+    Navbar
+  },
   data() {
     return {
       slide: 0,
@@ -108,8 +114,12 @@ export default {
 
 <style  scoped>
 #app #home {
-  background-color: #282828;
   color: white;
+}
+#app .carousel {
+  position:  absolute;
+  width : 100%;
+  top : 0;
 }
 /* override carousel indicator yang bulet */
 #app .carousel >>> li {

@@ -53,9 +53,16 @@ export default {
 
 <style scoped>
 /*melakukan seleksi lakukan seperti ini*/
-#app .navbar {
-  background-color: white !important;
+#app .navbar-nav , #app .navbar-light >>> .navbar-brand  {
+  background-color: transparent !important;
+
+  z-index : 9 !important;
 }
+
+#app .navbar-nav >>> .nav-link, #app .navbar-light >>> .navbar-brand {
+    color:white !important;
+}
+
 /*
 #app    .navbar-brand {
     color: red !important;
