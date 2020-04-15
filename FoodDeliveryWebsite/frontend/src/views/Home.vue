@@ -113,13 +113,15 @@ export default {
 </script>
 
 <style  scoped>
-#app #home {
+#app .content {
   color: white;
+  background-color : #282828
 }
 #app .carousel {
-  position:  absolute;
+  /* position:  absolute; */
   width : 100%;
-  top : 0;
+  margin-top : -60px;
+  z-index: 0 !important;
 }
 /* override carousel indicator yang bulet */
 #app .carousel >>> li {
