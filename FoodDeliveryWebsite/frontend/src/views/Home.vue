@@ -3,6 +3,7 @@
     <Navbar />
     <b-carousel
       id="carousel-1"
+      fade
       v-model="slide"
       :interval="4000"
       controls
@@ -14,7 +15,6 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-     
       <!-- Text slides with image -->
       <b-carousel-slide
         caption="First slide"
@@ -42,7 +42,7 @@
             alt="image slot"
           />
         </template>
-      </b-carousel-slide> -->
+      </b-carousel-slide>-->
 
       <!-- Slide with blank fluid image to maintain slide aspect ratio -->
       <!-- <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
@@ -50,13 +50,13 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
           a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
         </p>
-      </b-carousel-slide> -->
+      </b-carousel-slide>-->
     </b-carousel>
 
     <div class="content">
       <div class="container">
         <div class="title-1">
-          <h4>We have some Place to Easier You</h4>
+          <h4 class>We have some Place to Easier You</h4>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat sunt facere odio possimus reiciendis magni laudantium recusandae ullam accusamus corporis cum ducimus, facilis laborum illo dolore qui? Consectetur, doloribus quos!
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae debitis laudantium alias dolorum explicabo. Beatae porro necessitatibus nemo eveniet modi soluta aliquam, cupiditate, minima non rem nulla temporibus, iste nesciunt.
@@ -78,6 +78,135 @@
           <br />
           Sliding: {{ sliding }}
         </p>-->
+
+        <!--- Menu Favorit-->
+        <div id="menu-favorit">
+          <h4>Menu Favorit</h4>
+          <b-card-group deck>
+            <!--- INI NANTI HARUS DI V FOR PAKE VUE UNTUK NGULANGIN DATA DARI DATABASE -->
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+          </b-card-group>
+      </div>
+        <!--- Menu Favorit end -->
+
+        <!---Menu Terbaru -->
+         <div id="menu-terbaru">
+          <h4>Menu Terbaru</h4>
+          <b-card-group deck>
+            <!--- INI NANTI HARUS DI V FOR PAKE VUE UNTUK NGULANGIN DATA DARI DATABASE -->
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+
+            <b-card
+              title="Nasi Goreng Sosis"
+              img-src="https://picsum.photos/300/300/?image=41"
+              img-alt="Image"
+              img-top
+            >
+              <b-card-text>Rp.17500</b-card-text>
+              <b-button class="detail">Detail Menu</b-button>
+              <b-button class="pesan">Pesan</b-button>
+            </b-card>
+          </b-card-group>
+    </div>
+        
+        <!--- menu terbaru end -->
+
+
       </div>
     </div>
   </div>
@@ -113,13 +242,19 @@ export default {
 </script>
 
 <style  scoped>
-#app #home {
+#app .content {
   color: white;
+  background-color: #282828;
+  padding-bottom: 80px;
+  padding-top:100px;
 }
+
+
 #app .carousel {
-  position:  absolute;
-  width : 100%;
-  top : 0;
+  /* position:  absolute; */
+  width: 100%;
+  margin-top: -60px;
+  z-index: 0 !important;
 }
 /* override carousel indicator yang bulet */
 #app .carousel >>> li {
@@ -128,4 +263,49 @@ export default {
   height: 10px;
   border: 20px solid transparent;
 }
+
+#app .card {
+  max-width: 200px;
+  color: black !important;
+  border: none;
+}
+#app .btn {
+  display: block;
+  margin-bottom: 10px;
+  width: 150px;
+  border-radius: 10px;
+  border: none;
+}
+
+#app .detail {
+  background-color: #275dc5;
+}
+
+#app .pesan {
+  background-color: #bf9e6b;
+}
+
+#app .card-title {
+  color: #0b3993 !important;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+#app .card-text {
+  text-align: center;
+}
+
+#app #menu-favorit{
+  margin-top:200px;
+}
+
+ #app #menu-terbaru {
+   margin-top:100px;
+ }
+
+ #app h4{
+   margin-bottom: 40px;
+ }
+
 </style>
