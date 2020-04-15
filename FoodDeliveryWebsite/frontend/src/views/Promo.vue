@@ -1,5 +1,5 @@
 <template>
-  <div id="home">
+  <div id="Promo">
     <Navbar />
     <b-carousel
       id="carousel-1"
@@ -56,7 +56,7 @@
     <div class="content">
       <div class="container">
         <div class="title-1">
-          <h4 class>We have some Place to Easier You</h4>
+          <h4 class>We Have Some Promo..</h4>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat sunt facere odio possimus reiciendis magni laudantium recusandae ullam accusamus corporis cum ducimus, facilis laborum illo dolore qui? Consectetur, doloribus quos!
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae debitis laudantium alias dolorum explicabo. Beatae porro necessitatibus nemo eveniet modi soluta aliquam, cupiditate, minima non rem nulla temporibus, iste nesciunt.
@@ -65,7 +65,7 @@
         </div>
 
         <div class="title-2">
-          <h4>We Creating some New to Easier You</h4>
+          <h4>How to Use the Promo??</h4>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat sunt facere odio possimus reiciendis magni laudantium recusandae ullam accusamus corporis cum ducimus, facilis laborum illo dolore qui? Consectetur, doloribus quos!
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae debitis laudantium alias dolorum explicabo. Beatae porro necessitatibus nemo eveniet modi soluta aliquam, cupiditate, minima non rem nulla temporibus, iste nesciunt.
@@ -79,8 +79,8 @@
           Sliding: {{ sliding }}
         </p>-->
 
-        <!--- Menu Favorit-->
-        <div id="menu-favorit">
+        <!--- Menu promo-->
+        <div id="menu-promo">
           <h4>Menu Favorit</h4>
           <b-card-group deck>
             <!--- INI NANTI HARUS DI V FOR PAKE VUE UNTUK NGULANGIN DATA DARI DATABASE -->
@@ -140,71 +140,8 @@
             </b-card>
           </b-card-group>
         </div>
-        <!--- Menu Favorit end -->
+        <!--- Menu Promo end -->
 
-        <!---Menu Terbaru -->
-        <div id="menu-terbaru">
-          <h4>Menu Terbaru</h4>
-          <b-card-group deck>
-            <!--- INI NANTI HARUS DI V FOR PAKE VUE UNTUK NGULANGIN DATA DARI DATABASE -->
-            <b-card
-              title="Nasi Goreng Sosis"
-              img-src="https://picsum.photos/300/300/?image=41"
-              img-alt="Image"
-              img-top
-            >
-              <b-card-text>Rp.17500</b-card-text>
-              <b-button class="detail">Detail Menu</b-button>
-              <b-button class="pesan">Pesan</b-button>
-            </b-card>
-
-            <b-card
-              title="Nasi Goreng Sosis"
-              img-src="https://picsum.photos/300/300/?image=41"
-              img-alt="Image"
-              img-top
-            >
-              <b-card-text>Rp.17500</b-card-text>
-              <b-button class="detail">Detail Menu</b-button>
-              <b-button class="pesan">Pesan</b-button>
-            </b-card>
-
-            <b-card
-              title="Nasi Goreng Sosis"
-              img-src="https://picsum.photos/300/300/?image=41"
-              img-alt="Image"
-              img-top
-            >
-              <b-card-text>Rp.17500</b-card-text>
-              <b-button class="detail">Detail Menu</b-button>
-              <b-button class="pesan">Pesan</b-button>
-            </b-card>
-
-            <b-card
-              title="Nasi Goreng Sosis"
-              img-src="https://picsum.photos/300/300/?image=41"
-              img-alt="Image"
-              img-top
-            >
-              <b-card-text>Rp.17500</b-card-text>
-              <b-button class="detail">Detail Menu</b-button>
-              <b-button class="pesan">Pesan</b-button>
-            </b-card>
-
-            <b-card
-              title="Nasi Goreng Sosis"
-              img-src="https://picsum.photos/300/300/?image=41"
-              img-alt="Image"
-              img-top
-            >
-              <b-card-text>Rp.17500</b-card-text>
-              <b-button class="detail">Detail Menu</b-button>
-              <b-button class="pesan">Pesan</b-button>
-            </b-card>
-          </b-card-group>
-        </div>
-
-        <!--- menu terbaru end -->
       </div>
     </div>
   </div>
@@ -213,6 +150,7 @@
 <script>
 import Navbar from "../components/Navbar";
 export default {
+  name : "Promo",
   components: {
     Navbar
   },
@@ -293,13 +231,10 @@ export default {
   text-align: center;
 }
 
-#app #menu-favorit {
+#app #menu-promo {
   margin-top: 200px;
 }
 
-#app #menu-terbaru {
-  margin-top: 100px;
-}
 
 #app h4 {
   margin-bottom: 40px;
