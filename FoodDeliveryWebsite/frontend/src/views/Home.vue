@@ -308,4 +308,4 @@ export default {
    margin-bottom: 40px;
  }
 
-</template>
+</style>
