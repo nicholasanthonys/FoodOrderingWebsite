@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 
 import Login from '@/views/Login'
 import Home from '@/views/Home'
-import MenuPasta from '@/views/MenuPasta'
+import Promo from '@/views/Promo'
+
 
 Vue.use(VueRouter);
 
@@ -19,10 +20,11 @@ const routes = [
         component : Home
     },
     {
-        path :'/menupasta',
-        name : 'MenuPasta',
-        component : MenuPasta
-    }
+        path :'/promo',
+        name : 'Promo',
+        component : Promo
+    },
+  
 ]
 
 const router = new VueRouter({
