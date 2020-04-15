@@ -1,5 +1,5 @@
 <template>
-  <div id="Promo">
+  <div id="promo">
     <Navbar />
     <b-carousel
       id="carousel-1"
@@ -141,18 +141,22 @@
           </b-card-group>
         </div>
         <!--- Menu Promo end -->
-
       </div>
+      <!---CONTAINER END -->
     </div>
+    <!--- content end -->
+    <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 export default {
-  name : "Promo",
+  name: "Promo",
   components: {
-    Navbar
+    Navbar,
+    Footer
   },
   data() {
     return {
@@ -178,9 +182,12 @@ export default {
 </script>
 
 <style  scoped>
+#app #promo {
+      background-color: #282828;
+}
 #app .content {
+
   color: white;
-  background-color: #282828;
   padding-bottom: 80px;
   padding-top: 100px;
 }
@@ -235,7 +242,6 @@ export default {
   margin-top: 200px;
 }
 
-
 #app h4 {
   margin-bottom: 40px;
 }
@@ -244,7 +250,7 @@ export default {
   color: red !important;
 }
 
- #app .title-1{
-  margin-bottom:200px;
+#app .title-1 {
+  margin-bottom: 200px;
 }
 </style>
