@@ -139,7 +139,7 @@
               <b-button class="pesan">Pesan</b-button>
             </b-card>
           </b-card-group>
-      </div>
+        </div>
         <!--- Menu Favorit end -->
 
         <!---Menu Terbaru -->
@@ -202,7 +202,7 @@
               <b-button class="pesan">Pesan</b-button>
             </b-card>
           </b-card-group>
-    </div>
+        </div>
         
         <!--- menu terbaru end -->
 
@@ -308,4 +308,4 @@ export default {
    margin-bottom: 40px;
  }
 
-</style>
+</template>

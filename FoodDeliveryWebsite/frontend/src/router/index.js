@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Login from '@/views/Login'
 import Home from '@/views/Home'
+import MenuPasta from '@/views/MenuPasta'
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,11 @@ const routes = [
         path :'/home',
         name : 'Home',
         component : Home
+    },
+    {
+        path :'/menupasta',
+        name : 'MenuPasta',
+        component : MenuPasta
     }
 ]
 
