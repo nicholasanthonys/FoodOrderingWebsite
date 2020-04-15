@@ -206,15 +206,20 @@
 
         <!--- menu terbaru end -->
       </div>
+      <!--- End of container -->
     </div>
+    <!--- end of content -->
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar";
+import Footer from '../components/Footer'
 export default {
   components: {
-    Navbar
+    Navbar,
+    Footer
   },
   data() {
     return {
@@ -240,9 +245,12 @@ export default {
 </script>
 
 <style  scoped>
+#app #home {
+  background-color: #282828;
+}
+
 #app .content {
   color: white;
-  background-color: #282828;
   padding-bottom: 80px;
   padding-top: 100px;
 }
@@ -309,7 +317,7 @@ export default {
   color: red !important;
 }
 
- #app .title-1{
-  margin-bottom:200px;
+#app .title-1 {
+  margin-bottom: 200px;
 }
 </style>
