@@ -1,6 +1,6 @@
 <template>
 <body>
-  <Navbar/>
+  <Navbar />
   <b-container>
     <b-row>
       <b-col></b-col>
@@ -60,10 +60,10 @@
 </template>
 
 <script>
-import Navbar from '../components/Navbar'
+import Navbar from "../components/Navbar";
 export default {
   components: {
-    Navbar,
+    Navbar
   },
   data() {
     return {
@@ -120,15 +120,13 @@ export default {
 }
 
 body {
-  background-image: linear-gradient(
+  background: linear-gradient(
       to bottom,
       rgba(11, 11, 11, 0.5),
       rgba(11, 11, 11, 0.5)
     ),
     url("../assets/backgroundLanding.png");
-
-  position: relative;
-  height: 700px;
-  background-size: cover;
+    height: 100vh;
+  background-size: cover !important;
 }
 </style>
