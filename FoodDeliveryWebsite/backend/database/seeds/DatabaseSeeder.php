@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        /* https://laravel.com/docs/7.x/seeding */
+        //Masukin seeder class disini lalu run php artisan db:seed
+        $this->call([
+            UserSeeder::class,
+            
+        ]);
     }
 }
