@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Users extends Model
+class User extends Model
 {
     protected $table = "users";
 
@@ -12,7 +12,7 @@ class Users extends Model
         https://stackoverflow.com/questions/34582535/laravel-5-2-use-a-string-as-a-custom-primary-key-for-eloquent-table-becomes-0
     */
     protected $primaryKey = "email";
-    protected $incrementing = false;
+    public $incrementing = false;
     protected $keyType = 'string';
 
     /* atribute hidden agar tidak kelihatan ketika di return */
