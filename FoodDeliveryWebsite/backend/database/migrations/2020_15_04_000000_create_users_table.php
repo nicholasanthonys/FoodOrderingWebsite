@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->string('province');
             $table->string('city');
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 
