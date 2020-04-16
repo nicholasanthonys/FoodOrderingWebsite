@@ -62,23 +62,25 @@ class UserController extends Controller
      */
     public function signUp(Request $req)
     {
-        $user = User::find($req->email);
+        $user = User::find($req->email) ;
 
         if (!$user) { //check user udah terdaftar apa belom
-            $newUser = new user();
+            $newUser = new User;
             $newUser->name = $req->name;
             $newUser->email = $req->email;
-            $newUser->password = $req->password;
+            //hashing password
+            $newUser->password = Hash::make($req->password);
             $newUser->dob = $req->dob;
             $newUser->address = $req->address;
             $newUser->province = $req->province;
             $newUser->city = $req->city;
-            $newUser->save();
+             $newUser->save();
             return response()->json([
-                'user' => $newUser,
+                'newuser' => $newUser,
                 'signUp' => 'success'
             ], 201);
         } else {
+            //karena udah ada usernya
             return response()->json([
                 'signUp' => 'failed'
             ]);
