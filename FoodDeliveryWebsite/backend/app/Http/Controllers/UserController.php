@@ -43,15 +43,13 @@ class UserController extends Controller
             }
         }
 
+        //if failed return null
         if($isLoginSucess){
             return response()->json([
-                'logInStatus' => 'success'
+                'user' => $user
             ],201);
-        }else{
-            return response()->json([
-                'logInStatus' => 'failed'
-            ],401);
         }
+    
     }
 
     /**

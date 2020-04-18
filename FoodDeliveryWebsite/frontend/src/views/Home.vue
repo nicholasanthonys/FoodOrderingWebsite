@@ -221,6 +221,12 @@ export default {
     Navbar,
     Footer
   },
+  beforeCreate : function(){
+    //kalo session tidak ada redirect ke login
+    if(!this.$session.exists()){
+      this.$router.push('/');
+    }
+  },
   data() {
     return {
       slide: 0,

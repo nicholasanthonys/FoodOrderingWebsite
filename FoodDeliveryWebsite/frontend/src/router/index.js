@@ -5,8 +5,10 @@ import Login from '@/views/Login'
 import Home from '@/views/Home'
 import Promo from '@/views/Promo'
 import MenuPasta from '@/views/MenuPasta'
+import VueSession from 'vue-session'
 
 Vue.use(VueRouter);
+Vue.use(VueSession);
 
 const routes = [
     {
