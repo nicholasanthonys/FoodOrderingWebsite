@@ -6,7 +6,7 @@
       <b-col></b-col>
       <b-col class="mt-5">
         <h1 class="title">Log In</h1>
-        <p class="title mt-5">Welcome Back, Guess</p>
+        <p class="title mt-5">{{message}}</p>
         <div class="form">
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
             <b-form-group
@@ -61,40 +61,58 @@
 
 <script>
 import Navbar from "../components/Navbar";
+import { authentication } from "@/services";
+
 export default {
   components: {
     Navbar
   },
   data() {
     return {
+      message: "Welcome Back, Guess",
       form: {
         email: "",
-        name: "",
-        food: null,
-        checked: []
+        password: ""
       },
-      foods: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn"
-      ],
+      user: null,
       show: true
     };
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
+      // alert(JSON.stringify(this.form));
+      this.authenticationUser();
+    },
+    authenticationUser: async function() {
+      try {
+        let res = await authentication(this.form);
+        console.log("response is ");
+        console.log(res);
+        this.user = res.data.user;
+        if (this.user != null) {
+
+          //session start
+          this.$session.start()
+
+          //redirect
+          this.$router.push("/home");
+          
+
+        } else {
+          this.message = "Log In Failed";
+          //destroy session
+          this.$session.destroy();
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
       this.form.email = "";
-      this.form.name = "";
-      this.form.food = null;
-      this.form.checked = [];
+      this.form.password = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
@@ -126,7 +144,7 @@ body {
       rgba(11, 11, 11, 0.5)
     ),
     url("../assets/backgroundLanding.png");
-    height: 100vh;
+  height: 100vh;
   background-size: cover !important;
 }
 </style>
