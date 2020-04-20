@@ -82,36 +82,17 @@
 
             <!---province -->
             <b-form-group id="input-group-province" class="input-title" label-for="input-0">
-              <b-form-select v-model="form.province" :options="provinceOptions" class="mb-3">
-                <!-- This slot appears above the options from 'options' prop -->
-                <template v-slot:first>
-                  <b-form-select-option :value="null" disabled>Province</b-form-select-option>
-                </template>
-
-                <!-- These options will appear after the ones from 'options' prop -->
-                <!-- <b-form-select-option value="C">Option C</b-form-select-option>
-                <b-form-select-option value="D">Option D</b-form-select-option>-->
-              </b-form-select>
-
-              <!-- <div class="mt-3">
-                Selected:
-                <strong>{{ form.province }}</strong>
-              </div>-->
+              <model-select
+                :options="provinceOptions"
+                v-model="form.province"
+                placeholder="Province"
+              ></model-select>
             </b-form-group>
             <!---end of province -->
 
             <!---city -->
             <b-form-group id="input-group-city" class="input-title" label-for="input-0">
-              <b-form-select v-model="form.city" :options="cityOptions" class="mb-3">
-                <!-- This slot appears above the options from 'options' prop -->
-                <template v-slot:first>
-                  <b-form-select-option :value="null" disabled>City</b-form-select-option>
-                </template>
-
-                <!-- These options will appear after the ones from 'options' prop -->
-                <!-- <b-form-select-option value="C">Option C</b-form-select-option>
-                <b-form-select-option value="D">Option D</b-form-select-option>-->
-              </b-form-select>
+              <model-select :options="cityOptions" v-model="form.city" placeholder="City"></model-select>
             </b-form-group>
             <!---end of city -->
 
@@ -139,9 +120,12 @@
 import Navbar from "../components/Navbar";
 import { authentication } from "@/services";
 
+import { ModelSelect } from "vue-search-select";
+
 export default {
   components: {
-    Navbar
+    Navbar,
+    ModelSelect
   },
   data() {
     return {
