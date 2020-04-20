@@ -88,7 +88,6 @@ export default {
       try {
         let res = await authentication(this.form);
         console.log("response is ");
-        console.log(res);
         this.user = res.data.user;
         if (this.user != null) {
 
