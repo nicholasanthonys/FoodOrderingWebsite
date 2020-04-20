@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
         //Masukin seeder class disini lalu run php artisan db:seed
         $this->call([
             UserSeeder::class,
-            
+            MenuSeeder::class,
+            OrderSeeder::class,
+            OrderMenuSeeder::class
         ]);
     }
 }
