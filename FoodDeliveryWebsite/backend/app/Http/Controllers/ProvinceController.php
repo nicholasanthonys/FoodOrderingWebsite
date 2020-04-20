@@ -8,13 +8,25 @@ use Illuminate\Http\Request;
 class ProvinceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan semua provinsi
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $provinces = Province::all()->toArray();
+
+        //change key id to value, name to text
+        $provinces = array_map(function($province) {
+            return array(
+                'value' => $province['id'],
+                'text' => $province['name']
+            );
+        }, $provinces);
+
+        return response()->json([
+            'provinces' => $provinces
+        ],201);
     }
 
     /**
