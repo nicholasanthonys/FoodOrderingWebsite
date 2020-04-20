@@ -13,7 +13,7 @@
             <b-form-group id="input-group-fullname" class="input-title" label-for="input-0">
               <b-form-input
                 id="register-fullname"
-                v-model="form.fullname"
+                v-model="fullname"
                 type="text"
                 required
                 placeholder="Full Name"
@@ -25,7 +25,7 @@
             <b-form-group id="input-group-email" class="input-title" label-for="input-1">
               <b-form-input
                 id="login-email"
-                v-model="form.email"
+                v-model="email"
                 type="email"
                 required
                 placeholder="Email"
@@ -37,7 +37,7 @@
             <b-form-group id="input-group-password" class="input-title" label-for="input-1">
               <b-form-input
                 id="login-password"
-                v-model="form.password"
+                v-model="password"
                 type="password"
                 placeholder="Password"
                 required
@@ -49,7 +49,7 @@
             <b-form-group id="input-group-confirm-password" class="input-title" label-for="input-1">
               <b-form-input
                 id="confirm-password"
-                v-model="form.confirmPassword"
+                v-model="confirmPassword"
                 type="password"
                 placeholder="Retype Password"
                 required
@@ -61,7 +61,7 @@
             <b-form-group id="input-group-dob" class="input-title" label-for="input-1">
               <b-form-datepicker
                 id="example-datepicker"
-                v-model="form.DOB"
+                v-model="DOB"
                 class="mb-2"
                 placeholder=" Date Of Birth"
               ></b-form-datepicker>
@@ -72,7 +72,7 @@
             <b-form-group id="input-group-address" class="input-title" label-for="input-0">
               <b-form-input
                 id="register-fullname"
-                v-model="form.address"
+                v-model="address"
                 type="text"
                 required
                 placeholder="Address"
@@ -82,17 +82,20 @@
 
             <!---province -->
             <b-form-group id="input-group-province" class="input-title" label-for="input-0">
-              <model-select
-                :options="provinceOptions"
-                v-model="form.province"
-                placeholder="Province"
-              ></model-select>
+              <model-select :options="provinceOptions" v-model="province" placeholder="Province"></model-select>
             </b-form-group>
             <!---end of province -->
 
             <!---city -->
             <b-form-group id="input-group-city" class="input-title" label-for="input-0">
-              <model-select :options="cityOptions" v-model="form.city" placeholder="City"></model-select>
+              <modelSelect
+                v-if="province == null "
+                :options="cityOptions"
+                v-model="city"
+                placeholder="City"
+                :isDisabled="true"
+              ></modelSelect>
+              <modelSelect v-else :options="cityOptions" v-model="city" placeholder="City"></modelSelect>
             </b-form-group>
             <!---end of city -->
 
@@ -105,9 +108,6 @@
               variant="info"
             >Submit</b-button>
           </b-form>
-          <!-- <b-card class="mt-3" header="Form Data Result">
-            <pre class="m-0">{{ form }}</pre>
-          </b-card>-->
         </div>
       </b-col>
       <b-col></b-col>
@@ -118,9 +118,9 @@
 
 <script>
 import Navbar from "../components/Navbar";
-import { authentication } from "@/services";
-
 import { ModelSelect } from "vue-search-select";
+
+import { getProvincies, getCitiesByProvince } from "@/services";
 
 export default {
   components: {
@@ -130,32 +130,30 @@ export default {
   data() {
     return {
       message: "Hello, Let's Join",
-      form: {
-        fullname: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        DOB: "",
-        address: "",
-        province: null,
-        city: null
-      },
-      provinceOptions: [
-        { value: "a", text: "This is First option" },
-        { value: "b", text: "Selected Option" },
-        { value: { C: "3PO" }, text: "This is an option with object value" },
-        { value: "d", text: "This one is disabled", disabled: true }
-      ],
 
-      cityOptions: [
-        { value: "a", text: "This is First option" },
-        { value: "b", text: "Selected Option" },
-        { value: { C: "3PO" }, text: "This is an option with object value" },
-        { value: "d", text: "This one is disabled", disabled: true }
-      ],
+      fullname: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      DOB: "",
+      address: "",
+      province: null,
+      city: null,
+
+      provinceOptions: [],
+
+      cityOptions: [{ id: 0, text: "Select Province First" }],
 
       show: true
     };
+  },
+  watch: {
+    // whenever province changes, this function will run
+    province: function() {
+      console.log(this.province);
+      let idProvince = this.province;
+      this.fillCityOptions(idProvince);
+    }
   },
   methods: {
     onSubmit(evt) {
@@ -163,37 +161,41 @@ export default {
       // alert(JSON.stringify(this.form));
       this.authenticationUser();
     },
-    authenticationUser: async function() {
+    fillProvinceOptions: async function() {
       try {
-        let res = await authentication(this.form);
-        console.log("response is ");
-        this.user = res.data.user;
-        if (this.user != null) {
-          //session start
-          this.$session.start();
-
-          //redirect
-          this.$router.push("/home");
-        } else {
-          this.message = "Log In Failed";
-          //destroy session
-          this.$session.destroy();
+        let resp = await getProvincies();
+        if (resp.status >= 200 && resp.status < 300) {
+          this.provinceOptions = resp.data.provinces;
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    fillCityOptions: async function(idProvince) {
+      try {
+        let resp = await getCitiesByProvince(idProvince);
+        if (resp.status >= 200 && resp.status < 300) {
+          console.log(resp.data);
+          this.cityOptions = resp.data.cities;
+        }
+      } catch (err) {
+        console.log(err);
       }
     },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.form.email = "";
-      this.form.password = "";
+      this.email = "";
+      this.password = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
       });
     }
+  },
+  mounted: function() {
+    this.fillProvinceOptions();
   }
 };
 </script>
