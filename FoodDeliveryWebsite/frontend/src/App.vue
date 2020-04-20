@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <Navbar/> -->
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -11,6 +11,7 @@
 import Vue from "vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "../src/assets/scss/app.scss";
+import "vue-search-select/dist/VueSearchSelect.css";
 
 // Install BootstrapVue
 Vue.use(BootstrapVue);
@@ -20,14 +21,13 @@ Vue.use(IconsPlugin);
 export default {
   name: "App",
   components: {
-  //  Navbar
+    // ModelSelect
   }
 };
 </script>
 
 <style>
-#app{
-  
+#app {
 }
 
 /* #app {
