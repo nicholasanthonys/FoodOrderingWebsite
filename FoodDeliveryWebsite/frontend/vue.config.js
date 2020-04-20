@@ -7,6 +7,9 @@ module.exports = {
     devServer : {
       proxy:"http://localhost:8000",
     },
+    configureWebpack : {
+      devtool : 'source-map'
+    },
     chainWebpack: config => {
       config.module
         .rule('vue')
