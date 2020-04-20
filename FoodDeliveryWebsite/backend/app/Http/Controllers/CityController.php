@@ -39,14 +39,24 @@ class CityController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan city berdasarkan id provinsi
      *
-     * @param  \App\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function show(City $city)
+    public function getCityByProvinceId( $idProvince)
     {
-        //
+        $cities = City::where('province_id',$idProvince)->get()->toArray();
+        
+        $cities = array_map(function ($city) {
+            return array(
+                        'value' => $city['id'],
+                        'text' => $city['name']
+                    );
+        }, $cities);
+        
+        return response()->json([
+            'cities' => $cities
+        ],201);
     }
 
     /**
