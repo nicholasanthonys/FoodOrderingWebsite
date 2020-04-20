@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProvinceSeeder::class,
             CitySeeder::class
-            
+            MenuSeeder::class,
+            OrderSeeder::class,
+            OrderMenuSeeder::class
         ]);
     }
 }
