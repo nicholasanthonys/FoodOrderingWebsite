@@ -61,7 +61,7 @@
 
 <script>
 import Navbar from "../components/Navbar";
-import { authentication } from "@/services";
+import { loginUser } from "@/services";
 
 export default {
   components: {
@@ -86,7 +86,7 @@ export default {
     },
     authenticationUser: async function() {
       try {
-        let res = await authentication(this.form);
+        let res = await loginUser(this.form);
         console.log("response is ");
         this.user = res.data.user;
         if (this.user != null) {
