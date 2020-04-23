@@ -78,12 +78,19 @@ export default {
       show: true
     };
   },
+    beforeCreate : function(){
+    //kalo session ada redirect ke home
+    if(this.$session.exists()){
+      this.$router.push('/home');
+    }
+  },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
       // alert(JSON.stringify(this.form));
       this.authenticationUser();
     },
+    
     authenticationUser: async function() {
       try {
         let res = await loginUser(this.form);

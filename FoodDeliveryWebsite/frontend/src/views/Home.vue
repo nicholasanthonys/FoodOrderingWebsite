@@ -223,6 +223,7 @@ export default {
   },
   beforeCreate : function(){
     //kalo session tidak ada redirect ke login
+    //dengan kode ini user harus login dulu untuk bisa ke /home
     if(!this.$session.exists()){
       this.$router.push('/');
     }
