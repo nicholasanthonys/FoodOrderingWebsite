@@ -9,17 +9,17 @@
         <p class="title mt-5">{{message}}</p>
         <div class="form">
           <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-            <!---Fullname -->
-            <b-form-group id="input-group-fullname" class="input-title" label-for="input-0">
+            <!---name -->
+            <b-form-group id="input-group-name" class="input-title" label-for="input-0">
               <b-form-input
-                id="register-fullname"
-                v-model="fullname"
+                id="register-name"
+                v-model="name"
                 type="text"
                 required
                 placeholder="Full Name"
               ></b-form-input>
             </b-form-group>
-            <!---end of fullname -->
+            <!---end of name -->
 
             <!--- email -->
             <b-form-group id="input-group-email" class="input-title" label-for="input-1">
@@ -71,7 +71,7 @@
             <!---address -->
             <b-form-group id="input-group-address" class="input-title" label-for="input-0">
               <b-form-input
-                id="register-fullname"
+                id="register-name"
                 v-model="address"
                 type="text"
                 required
@@ -120,7 +120,7 @@
 import Navbar from "../components/Navbar";
 import { ModelSelect } from "vue-search-select";
 
-import { getProvincies, getCitiesByProvince } from "@/services";
+import { getProvincies, getCitiesByProvince, registerUser } from "@/services";
 
 export default {
   components: {
@@ -131,7 +131,7 @@ export default {
     return {
       message: "Hello, Let's Join",
 
-      fullname: "",
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -159,7 +159,60 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       // alert(JSON.stringify(this.form));
-      this.authenticationUser();
+      let isFormValidated = this.validateRegisterForm();
+      console.log("isform validated " + isFormValidated);
+      if (isFormValidated) {
+        let form = {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          dob: this.DOB,
+          address: this.address,
+          province: this.city,
+          city: this.city
+        };
+        this.register(form);
+      }
+    },
+    validateRegisterForm: function() {
+      //check if string has value
+      console.log('panjang name ' + this.name.length)
+      console.log('trim ?' + this.name.trim());
+      if (
+        //cek apakah nama kosong atau hanya mengandung spasi
+        (this.name.trim()) &&
+        this.email &&
+        this.password &&
+        this.confirmPassword &&
+        this.DOB &&
+        this.address &&
+        this.province &&
+        this.city
+      ) {
+        if (this.password != this.confirmPassword) {
+          this.message = "password doesn't match!";
+          return false;
+        }
+        return true;
+      } else {
+        this.message = "please fill all the input";
+        console.log("input kosong");
+        return false;
+      }
+    },
+    register: async function(form) {
+      try {
+        let resp = await registerUser(form);
+        if (resp.status >= 200 && resp.status < 300) {
+          console.log(resp.data);
+          //redirect to login page
+          this.$router.push("/");
+        }
+      } catch (err) {
+        this.message = "register failed";
+
+        console.log(err);
+      }
     },
     fillProvinceOptions: async function() {
       try {
