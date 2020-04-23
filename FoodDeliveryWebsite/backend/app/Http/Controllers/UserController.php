@@ -74,7 +74,7 @@ class UserController extends Controller
             $newUser->city = $req->city;
              $newUser->save();
             return response()->json([
-                'newuser' => $newUser,
+                'newUser' => $newUser,
                 'signUp' => 'success'
             ], 201);
         } else {
