@@ -179,7 +179,8 @@ export default {
 
 <style scoped>
 .menu-pasta {
-    font-family: Poppins;
+    /*semetara font family poppins belum ada */
+    /* font-family: Poppins; */
     width: auto;
     height: auto;
     padding-bottom: 20px;
