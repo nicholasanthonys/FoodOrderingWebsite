@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class OrderMenuSeeder extends Seeder
+class MenuOrderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class OrderMenuSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('ordermenus')->insert([
+        DB::table('menu_order')->insert([
             ['order_id' => '1',
             'menu_id' => 'drk07',
             'quantity' => 2,
