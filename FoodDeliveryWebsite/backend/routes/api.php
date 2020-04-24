@@ -32,6 +32,8 @@ Route::get('menus/{idMenu}', 'MenuController@show');
 
 //get list all orders
 Route::get('orders', 'OrderController@index');
+//insert order
+Route::post('orders','OrderController@store');
 
 //get 1 user order
 Route::post('showorder', 'OrderController@showUserOrder');
