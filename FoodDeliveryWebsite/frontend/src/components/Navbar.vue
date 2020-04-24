@@ -19,19 +19,27 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
-            <b-nav-item href="/home">Home</b-nav-item>
-            <b-nav-item href="#">Menu</b-nav-item>
-            <b-nav-item href="#">Promo</b-nav-item>
+            <b-nav-item>
+              <router-link to="/home">Home</router-link>
+            </b-nav-item>
+            <b-nav-item>
+              <router-link to="/menupasta">Menu</router-link>
+            </b-nav-item>
+            <b-nav-item>
+              <router-link to="/promo">Promo</router-link>
+            </b-nav-item>
 
-            <b-nav-item-dropdown right v-if="isSessionExist" >
+            <b-nav-item-dropdown right v-if="isSessionExist">
               <template v-slot:button-content>
                 <em>User</em>
               </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#" v-on:click="signOut">Sign Out</b-dropdown-item>
+              <b-dropdown-item href="/profile"> Profile </b-dropdown-item>
+              <b-dropdown-item v-on:click="signOut">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
 
-            <b-nav-item href="#" v-else >Become a Member</b-nav-item>
+            <b-nav-item v-else>
+              <router-link to="/register">Become a Member</router-link>
+            </b-nav-item>
           </b-navbar-nav>
 
           <!-- <b-nav-item-dropdown right>
@@ -80,10 +88,17 @@ export default {
   z-index: 9 !important;
 }
 
-#app .navbar-nav >>> .nav-link,
+#app .navbar-nav >>> .nav-link , #app .navbar-nav >>> .nav-link a, 
 #app .navbar-light >>> .navbar-brand {
   color: white !important;
+  text-decoration: none;
 }
+
+#app .dropdown-item a{
+  color : black !important;
+  text-decoration: white;
+}
+
 
 /*
 #app    .navbar-brand {

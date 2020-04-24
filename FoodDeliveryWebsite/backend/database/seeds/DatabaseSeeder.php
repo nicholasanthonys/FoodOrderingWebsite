@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             MenuSeeder::class,
             OrderSeeder::class,
-            OrderMenuSeeder::class
+            MenuOrderSeeder::class
         ]);
     }
 }
