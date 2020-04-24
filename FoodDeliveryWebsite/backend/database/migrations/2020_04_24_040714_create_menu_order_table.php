@@ -18,7 +18,6 @@ class CreateMenuOrderTable extends Migration
             $table->string('menu_id', 5);
             $table->integer('quantity');
             $table->bigInteger('price');
-            $table->timestamps();
           
         });
     }
