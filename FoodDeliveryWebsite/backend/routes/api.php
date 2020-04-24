@@ -24,6 +24,24 @@ Route::get('provinces', 'ProvinceController@index');
 menampilkan city berdasarkan id provinsi */
 Route::get('cities/province/{idProvince}', 'CityController@getCityByProvinceId');
 
+//get list all menus
+Route::get('menus','MenuController@index');
+//get specific menu
+Route::get('menus/{idMenu}', 'MenuController@show');
+
+
+//get list all orders
+Route::get('orders', 'OrderController@index');
+
+//get 1 user order
+Route::post('showorder', 'OrderController@showUserOrder');
+//get histroy order
+Route::post('historyorders', 'OrderController@showHistoryOrders');
+
+//get menu from order based on user email and order id
+Route::post('showmenuorder','OrderController@showUserMenuOrder');
+
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
