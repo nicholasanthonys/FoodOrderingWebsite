@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
+    public $timestamps = false;
+    public $incrementing = false;
+
     public function orders(){
-        return $this->belongsToMany('App\Order');
+        return $this->belongsToMany('App\Order')->withPivot('quantity','price');
     }
 }

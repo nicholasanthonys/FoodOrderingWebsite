@@ -21,7 +21,6 @@ class CreateMenusTable extends Migration
             $table->bigInteger('price');
             $table->text('description');
             $table->integer('stock');
-            $table->timestamps();
         });
     }
 

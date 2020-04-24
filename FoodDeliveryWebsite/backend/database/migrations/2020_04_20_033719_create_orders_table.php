@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->tinyInteger('paid');
             $table->timestamp('order_time');
             $table->timestamp('shipped_time')->nullable();
-            $table->timestamps();
+
         });
 
         Schema::table('orders', function (Blueprint $table) {
