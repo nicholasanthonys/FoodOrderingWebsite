@@ -8,25 +8,25 @@
 
       <ul class="list-unstyled components">
         <li>
-          <a href="#" class="link-to-other" active>Pasta</a>
+          <a href="/menupasta" class="link-to-other" active>Pasta</a>
         </li>
         <li>
-          <a href="#" class="link-to-other">Steak</a>
+          <a href="/menusteak" class="link-to-other">Steak</a>
         </li>
         <li>
-          <a href="#" class="link-to-other">Pizza</a>
+          <a href="/menupizza" class="link-to-other">Pizza</a>
         </li>
         <li>
-          <a href="#" class="link-to-other">Rice</a>
+          <a href="/menurice" class="link-to-other">Rice</a>
         </li>
         <li>
-          <a href="#" class="link-to-other">Soup</a>
+          <a href="/menusoup" class="link-to-other">Soup</a>
         </li>
         <li>
-          <a href="#" class="link-to-other">Salad</a>
+          <a href="/menusalad" class="link-to-other">Salad</a>
         </li>
         <li>
-          <a href="#" class="link-to-other">Drinks</a>
+          <a href="/menudrinks" class="link-to-other">Drinks</a>
         </li>
       </ul>
     </nav>
