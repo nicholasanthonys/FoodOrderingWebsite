@@ -4,6 +4,12 @@ export const getAllMenu = async() => {
     return axios
         .get('/api/menus');
 }
+
+export const getDetailMenu = async(id) => {
+    return axios
+    .get('/api/menus/'+id);
+}
+
 //pasta
 export const getMenuPasta = async() => {
     return axios

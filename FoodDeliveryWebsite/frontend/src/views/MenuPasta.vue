@@ -15,7 +15,7 @@
           <p class="menu-name">{{menu.name}}</p>
           <p class="menu-price">Rp{{menu.price}}</p>
 
-          <button class="detail_menu" v-on:click="goToDetail">Detail Menu</button>
+          <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
           <button class="pesan">Pesan</button>
         </div>
       </div>
@@ -49,8 +49,8 @@ export default {
         console.log(err);
       }
     },
-    goToDetail : function() {
-        this.$router.push('/detail');
+    goToDetail : function(id) {
+        this.$router.push('/detailmenu/'+id);
     }
   },
   mounted: function() {
