@@ -33,7 +33,8 @@
               <template v-slot:button-content>
                 <em>User</em>
               </template>
-              <b-dropdown-item href="/profile"> Profile </b-dropdown-item>
+              <b-dropdown-item v-on:click="goToProfile">Profile</b-dropdown-item>
+              <b-dropdown-item v-on:click="goToMyCart">MyCart</b-dropdown-item>
               <b-dropdown-item v-on:click="signOut">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
 
@@ -68,6 +69,12 @@ export default {
       this.$session.destroy();
       //redirect to login
       this.$router.push("/");
+    },
+    goToProfile (){
+      this.$router.push('/profile');
+    },
+    goToMyCart(){
+      this.$router.push('/mycart');
     }
   },
   mounted: function() {
@@ -88,17 +95,17 @@ export default {
   z-index: 9 !important;
 }
 
-#app .navbar-nav >>> .nav-link , #app .navbar-nav >>> .nav-link a, 
+#app .navbar-nav >>> .nav-link,
+#app .navbar-nav >>> .nav-link a,
 #app .navbar-light >>> .navbar-brand {
   color: white !important;
   text-decoration: none;
 }
 
-#app .dropdown-item a{
-  color : black !important;
+#app .dropdown-item a {
+  color: black !important;
   text-decoration: white;
 }
-
 
 /*
 #app    .navbar-brand {
