@@ -26,6 +26,33 @@ Route::get('cities/province/{idProvince}', 'CityController@getCityByProvinceId')
 
 //get list all menus
 Route::get('menus','MenuController@index');
+
+//pasta
+Route::get('menus/pasta','MenuController@indexPasta');
+
+//steak
+Route::get('menus/steak','MenuController@indexSteak');
+
+//pizza
+Route::get('menus/pizza','MenuController@indexPizza');
+
+//rice
+Route::get('menus/rice','MenuController@indexRice');
+
+//soup
+Route::get('menus/soup','MenuController@indexSoup');
+
+//salad
+Route::get('menus/salad','MenuController@indexSalad');
+
+//drinks
+Route::get('menus/drinks','MenuController@indexDrinks');
+
+
+
+
+
+
 //get specific menu
 Route::get('menus/{idMenu}', 'MenuController@show');
 

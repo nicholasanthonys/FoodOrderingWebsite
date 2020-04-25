@@ -10,7 +10,7 @@ class MenuController extends Controller
 {
     /**
      * Menampilkan semua model
-     *
+     *Route::get('menus','MenuController@index');
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -19,6 +19,61 @@ class MenuController extends Controller
        return response() -> json([
            'menus' => $listMenus
        ],201);
+    }
+    //Route::get('menus/pasta','MenuController@indexPasta');
+    public function indexPasta(){
+        $listMenus = Menu::where('type','pasta')->get();
+        return response() -> json([
+            'menus' => $listMenus
+        ],201);
+    }
+
+    //Route::get('menus/steak','MenuController@indexSteak');
+    public function indexSteak(){
+        $listMenus = Menu::where('type','steak')->get();
+        return response() -> json([
+            'menus' => $listMenus
+        ],201);
+    }
+
+    //Route::get('menus/pizza','MenuController@indexPizza');
+    public function indexPizza(){
+        $listMenus = Menu::where('type','pizza')->get();
+        return response() -> json([
+            'menus' => $listMenus
+        ],201);
+    }
+
+    // Route::get('menus/rice','MenuController@indexRice');
+    public function indexRice(){
+        $listMenus = Menu::where('type','rice')->get();
+        return response() -> json([
+            'menus' => $listMenus
+        ],201);
+    }
+
+    // Route::get('menus/soup','MenuController@indexSoup');
+    public function indexSoup(){
+        $listMenus = Menu::where('type','soup')->get();
+        return response() -> json([
+            'menus' => $listMenus
+        ],201);
+    }
+
+    // Route::get('menus/salad','MenuController@indexSalad');
+    public function indexSalad(){
+        $listMenus = Menu::where('type','salad')->get();
+        return response() -> json([
+            'menus' => $listMenus
+        ],201);
+    }
+
+    // Route::get('menus/drinks','MenuController@indexDrinks');
+    public function indexDrinks(){
+        $listMenus = Menu::where('type','drink')->get();
+        return response() -> json([
+            'menus' => $listMenus
+        ],201);
     }
 
     /**
@@ -45,7 +100,7 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      *
-     *
+     *api : menus/{idMenu}
      * @return \Illuminate\Http\Response
      */
     public function show($idMenu)
