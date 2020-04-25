@@ -209,24 +209,36 @@
       <!--- End of container -->
     </div>
     <!--- end of content -->
-    <Footer/>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar";
-import Footer from '../components/Footer'
+import Footer from "../components/Footer";
+import Cookies from "js-cookie";
 export default {
   components: {
     Navbar,
     Footer
   },
-  beforeCreate : function(){
+  beforeCreate: function() {
     //kalo session tidak ada redirect ke login
     // //dengan kode ini user harus login dulu untuk bisa ke /home
     // if(!this.$session.exists()){
     //   this.$router.push('/');
     // }
+
+    //kalo user loggin(session exist true) bikin cart kosong
+    if (this.$session.exists()) {
+      let cart = [];
+      let email = Cookies.get("email");
+
+      //cart name akan jadi : cart-bokir@gmail.com
+      if (Cookies.get("cart-" + email) == null) {
+        Cookies.set("cart-" + email, JSON.stringify(cart));
+      }
+    }
   },
   data() {
     return {

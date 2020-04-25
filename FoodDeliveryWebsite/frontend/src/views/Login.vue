@@ -62,6 +62,7 @@
 <script>
 import Navbar from "../components/Navbar";
 import { loginUser } from "@/services";
+import Cookies from 'js-cookie';
 
 export default {
   components: {
@@ -103,6 +104,9 @@ export default {
 
           //redirect
           this.$router.push("/home");
+
+          //set email cookie
+          Cookies.set('email',this.form.email);
           
 
         } else {

@@ -49,8 +49,6 @@
               centered
               title="Masukkan ke Chard ?"
               size="lg"
-              @show="resetModal"
-              @hidden="resetModal"
               @ok="handleOk"
             >
               <h6>Masukkan ke Chart ?</h6>
@@ -70,6 +68,8 @@
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { getDetailMenu } from "@/services";
+import Cookies from "js-cookie";
+
 export default {
   components: {
     Navbar,
@@ -113,11 +113,11 @@ export default {
       });
     },
 
-    // checkFormValidity() {
-    //   const valid = this.$refs.form.checkValidity();
-    //   this.nameState = valid;
-    //   return valid;
-    // },
+    checkSessionExist() {
+      const valid = this.$session.exists();
+      console.log("valid ? " + valid);
+      return valid;
+    },
     // resetModal() {
     //   this.name = "";
     //   this.nameState = null;
@@ -130,9 +130,20 @@ export default {
     },
     handleSubmit() {
       // Exit when the form isn't valid
-      // if (!this.checkFormValidity()) {
-      //   return;
-      // }
+      if (!this.checkSessionExist()) {
+        alert("You have to log in first");
+      } else {
+        let menuOrder = {
+          idMenu: this.menu.id,
+          quantity: this.quantity,
+          price: this.menu.price
+        };
+        //push menuOrder ke cart
+        let email = Cookies.get("email");
+        let cart = JSON.parse(Cookies.get("cart-" + email));
+        cart.push(menuOrder);
+        Cookies.set("cart-" + email, JSON.stringify(cart));
+      }
 
       // Push the name to submitted names
       // this.submittedNames.push(this.name);
@@ -145,6 +156,12 @@ export default {
   },
   mounted: function() {
     this.fillMenu();
+
+    //coba dapetin value cookie cart nya
+    let email = Cookies.get("email");
+    let cart = JSON.parse(Cookies.get("cart-" + email));
+    console.log("my cart is");
+    console.log(cart);
   }
 };
 </script>
