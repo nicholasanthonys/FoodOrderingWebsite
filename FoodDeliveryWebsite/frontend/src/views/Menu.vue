@@ -1,7 +1,7 @@
 <template>
   <div class="menu-pasta">
-      <!---Sidebar-->
-      <Sidebar/>
+    <!---Sidebar-->
+    <Sidebar />
 
     <div class="content">
       <!-- Navbar -->
@@ -26,7 +26,16 @@
 <script>
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import { getMenuPasta } from "@/services";
+import { 
+  getMenuPasta,
+  getMenuSteak,
+  getMenuPizza,
+  getMenuRice,
+  getMenuSoup,
+  getMenuSalad,
+  getMenuDrinks
+
+} from "@/services";
 export default {
   components: {
     Navbar,
@@ -40,7 +49,40 @@ export default {
   methods: {
     fillMenus: async function() {
       try {
-        let res = await getMenuPasta();
+        let res = null;
+        let path = this.$router.history.current.fullPath;
+        switch (path) {
+          case '/menupasta':
+             res = await getMenuPasta();
+             break;
+
+          case '/menusteak' :
+            res = await getMenuSteak();
+            break;
+
+          case '/menupizza':
+            res = await getMenuPizza();
+            break;
+          
+          case '/menurice' : 
+            res = await getMenuRice();
+            break;
+
+          case '/menusoup' : 
+            res = await getMenuSoup();
+            break;
+
+          case '/menusalad' :
+            res = await getMenuSalad();
+            break;
+
+          case '/menudrinks' : 
+            res = await getMenuDrinks();
+            break;
+          
+
+        }
+
         console.log("res data is ");
         if (res.status >= 200 && res.status < 300) {
           this.menus = res.data.menus;
@@ -49,12 +91,14 @@ export default {
         console.log(err);
       }
     },
-    goToDetail : function(id) {
-        this.$router.push('/detailmenu/'+id);
+    goToDetail: function(id) {
+      this.$router.push("/detailmenu/" + id);
     }
   },
   mounted: function() {
     this.fillMenus();
+    console.log("route is ");
+    console.log(this.$router.history.current.fullPath == "/menusteak");
   }
 };
 </script>
