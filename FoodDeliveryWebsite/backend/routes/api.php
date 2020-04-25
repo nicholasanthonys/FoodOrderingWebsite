@@ -14,6 +14,8 @@ use App\User;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+/* Form LOGIN REGISTER---------------------- */
 Route::post('signup','UserController@signUp');
 Route::post('login', 'UserController@logIn');
 
@@ -24,6 +26,9 @@ Route::get('provinces', 'ProvinceController@index');
 menampilkan city berdasarkan id provinsi */
 Route::get('cities/province/{idProvince}', 'CityController@getCityByProvinceId');
 
+/* END Form LOGIN REGISTER---------------------- */
+
+/* MENU----------------------------------------------------*/
 //get list all menus
 Route::get('menus','MenuController@index');
 
@@ -48,15 +53,13 @@ Route::get('menus/salad','MenuController@indexSalad');
 //drinks
 Route::get('menus/drinks','MenuController@indexDrinks');
 
-
-
-
-
-
 //get specific menu
 Route::get('menus/{idMenu}', 'MenuController@show');
 
+/* MENU END ------------------------------------------*/
 
+
+/*ORDER-------------------------------------------------- */
 //get list all orders
 Route::get('orders', 'OrderController@index');
 //insert order
@@ -69,6 +72,8 @@ Route::post('historyorders', 'OrderController@showHistoryOrders');
 
 //get menu from order based on user email and order id
 Route::post('showmenuorder','OrderController@showUserMenuOrder');
+
+/*END ORDER-------------------------------------------------- */
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
