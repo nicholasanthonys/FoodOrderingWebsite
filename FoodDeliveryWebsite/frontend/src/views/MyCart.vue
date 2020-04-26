@@ -9,27 +9,25 @@
 
       <!-- Content of Menu -->
       <div class="menu-row row">
-        <div>
-          <b-card no-body class="overflow-hidden" style="max-width: 540px;" v-for="menu in menus" v-bind:key="menu.id">
-            <b-row no-gutters>
-              <b-col md="6">
-                <b-card-img
-                  v-bind:src="menu.url_image"
-                  alt="Image"
-                  class="rounded-0"
-                ></b-card-img>
-              </b-col>
-              <b-col md="6">
-                <b-card-body v-bind:title="menu.name">
-                  <b-card-text>
-                    <h6> {{menu.quantity}}pcs - Rp.{{menu.price}} each</h6>
-                   {{menu.description}}
-                  </b-card-text>
-                </b-card-body>
-              </b-col>
-            </b-row>
-          </b-card>
-        </div>
+        <b-card no-body class="overflow-hidden menu" style="max-width: 540px;" v-for="menu in menus" v-bind:key="menu.id">
+          <b-row no-gutters>
+            <b-col md="6">
+              <b-card-img
+                v-bind:src="menu.url_image"
+                alt="Image"
+                class="rounded-0"
+              ></b-card-img>
+            </b-col>
+            <b-col md="6">
+              <b-card-body v-bind:title="menu.name">
+                <b-card-text>
+                  <h6> {{ menu.quantity }} pcs - Rp.{{ menu.price * menu.quantity }}</h6>
+                  {{ menu.description }}
+                </b-card-text>
+              </b-card-body>
+            </b-col>
+          </b-row>
+        </b-card>
       </div>
     </div>
   </div>
@@ -97,17 +95,16 @@ export default {
 }
 
 .menu-row {
-  margin-top: 55px;
+  margin-top: 20px;
   margin-right: 0px;
   margin-left: 0px;
 }
 
 .menu {
   margin-bottom: 30px;
-  width: 18.75%;
+  width: 100%;
   height: auto;
-  padding-bottom: 18px;
-  min-height: 400px;
+  padding: 20px;
   margin-left: 5%;
   border-radius: 10px;
   background-color: #fff;

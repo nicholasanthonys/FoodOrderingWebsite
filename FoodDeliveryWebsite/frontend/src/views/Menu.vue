@@ -12,8 +12,8 @@
         <div class="menu" v-for="menu in menus" :key="menu.id">
           <img class="menu-img" v-bind:src="menu.url_image" alt="Menu" />
 
-          <p class="menu-name">{{menu.name}}</p>
-          <p class="menu-price">Rp{{menu.price}}</p>
+          <p class="menu-name"> {{menu.name}} </p>
+          <p class="menu-price">Rp {{menu.price}} </p>
 
           <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
           <button class="pesan">Pesan</button>
