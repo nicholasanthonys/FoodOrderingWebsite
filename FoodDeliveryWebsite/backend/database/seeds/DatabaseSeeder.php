@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
         /* https://laravel.com/docs/7.x/seeding */
         //Masukin seeder class disini lalu run php artisan db:seed
         $this->call([
-            UserSeeder::class,
+            MenuSeeder::class,
             ProvinceSeeder::class,
             CitySeeder::class,
-            MenuSeeder::class,
+            UserSeeder::class,
             OrderSeeder::class,
             MenuOrderSeeder::class
         ]);

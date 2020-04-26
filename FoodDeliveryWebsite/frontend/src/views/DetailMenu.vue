@@ -8,56 +8,82 @@
 
       <b-row class="detail-menu-row">
         <b-col cols="4">
-          <b-img thumbnail fluid v-bind:src="menu.url_image" rounded="Bottom-rounded image"></b-img>
+          <b-img class="menu-img" thumbnail fluid v-bind:src="menu.url_image" rounded="Bottom-rounded image"></b-img>
         </b-col>
 
         <b-col cols="8">
-          <h5 class="title">{{menu.name}}</h5>
-          <h6 class="price">{{menu.price}}</h6>
+          <h5 class="title"> {{ menu.name }} </h5>
+          <h6 class="price"> {{ menu.price }} </h6>
           <div class="description">
-            <p>{{menu.description}} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum magnam optio repudiandae fugiat accusamus veniam sunt. Est possimus at incidunt vero exercitationem nulla repellendus velit sequi. Sapiente mollitia aperiam eligendi!</p>
+            <p> {{menu.description}} </p>
           </div>
 
           <div>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
               <b-form-group
                 id="input-group-1"
-                label="Quantity:"
-                label-for="input-1"
-                description="Order Quantity"
-              >
-                <b-form-input
+                label="Quantity : "
+                label-for="input-1">
+
+                <div class="form-group row" style="margin-left: 0px">
+                  <div v-on:click="plusQuantity()" id="button-plus" class="col-sm-1">+</div>
+
+                  <b-form-input
                   id="input-1"
+                  class="col-sm-2"
                   v-model="quantity"
                   type="number"
                   min="1"
                   required
-                  placeholder="Enter email"
-                ></b-form-input>
+                  placeholder="Enter quantity">
+                  </b-form-input>
+
+                  <div v-on:click="minusQuantity()" id="button-minus" class="col-sm-1">-</div>
+                </div>
               </b-form-group>
 
-              <!-- <b-button type="submit" variant="primary">Pesan</b-button> -->
-              <b-button v-b-modal.modal-center>Open Modal</b-button>
-              <b-button type="reset" variant="danger">Reset</b-button>
+              <div class="row" style="margin-left: 0px">
+                <b-button class="button-pesan col-sm-4" v-b-modal.modal-center>Pesan</b-button>
+              </div>
+
+              <div class="row" style="margin-left: 0px">
+                <b-button class="button-reset col-sm-4" type="reset" variant="danger">Reset</b-button>
+              </div>
             </b-form>
           </div>
 
           <div id="modal">
             <b-modal
               id="modal-center"
+              class="modal-body styling=modal"
               ref="modal"
               centered
-              title="Masukkan ke Chard ?"
               size="lg"
-              @ok="handleOk"
-            >
-              <h6>Masukkan ke Chart ?</h6>
-              <h6>{{menu.name}}</h6>
-              <h6>{{quantity}} pcs</h6>
-              <b-img thumbnail fluid v-bind:src="menu.url_image" rounded></b-img>
-              <h6>Total Rp {{menu.price * quantity}}</h6>
+              hide-footer
+              hide-header
+              header-text-variant="light"
+              body-text-variant="light"
+              body-bg-variant="dark"
+              body-border-variant="transparent"
+              content-class="shadow"
+              @ok="handleOk">
+
+              <div class="modal-header modal-title">
+                <p id="b-title">Konfirmasi Pesanan Ini?</p>
+              </div>
+
+              <div class="content-modal">
+                <h6>Konfirmasi pesanan anda</h6>
+                <h6> {{ menu.name }} </h6>
+                <h6> {{ quantity }} pcs</h6>
+                <b-img class="modal-img" thumbnail fluid v-bind:src="menu.url_image" rounded></b-img>
+                <h6>Total: Rp {{ menu.price * quantity }} </h6>
+              </div>
+
+              <b-button class="button-ya" v-on:click="handleOk">Pesan Sekarang</b-button>
             </b-modal>
           </div>
+
         </b-col>
       </b-row>
     </div>
@@ -79,7 +105,8 @@ export default {
     return {
       menu: "",
       quantity: 1,
-      show: true
+      show: true,
+      priceInRupiah: ""
 
       // name: '',
       //   nameState: null,
@@ -105,7 +132,7 @@ export default {
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.quantity = 0;
+      this.quantity = 1;
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
@@ -152,10 +179,19 @@ export default {
       this.$nextTick(() => {
         this.$bvModal.hide("modal-center");
       });
+    },
+    plusQuantity() {
+      this.quantity = this.quantity + 1;
+    },
+    minusQuantity() {
+      if (this.quantity > 1) {
+        this.quantity = this.quantity - 1;
+      }
     }
   },
   mounted: function() {
     this.fillMenu();
+    // this.convertToRupiah();
 
     //coba dapetin value cookie cart nya
     let email = Cookies.get("email");
@@ -183,8 +219,167 @@ export default {
 }
 
 .detail-menu-row {
-  margin-top: 55px;
+  margin-top: 20px;
   margin-right: 0px;
   margin-left: 0px;
+}
+
+.menu-img {
+  display: flex;
+  width: 90%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title {
+  color: #BF9E6B;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 18px;
+  color: white;
+  font-weight: normal;
+  margin-bottom: 38px;
+}
+
+.description {
+  font-size: 15px;
+  color: white;
+  margin-bottom: 30px;
+}
+
+#input-1 {
+  border-radius: 0px;
+  border: none;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  min-width: 100px;
+  max-width: 100px;
+}
+
+#button-plus {
+  margin: 0px;
+  border-radius: 10px 0px 0px 10px;
+  background-color: white;
+  color: black;
+  min-width: 40px;
+  max-width: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  transition-duration: 0.4s;
+
+  /* Text can't be selected */
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+#button-minus {
+  margin: 0px;
+  border-radius: 0px 10px 10px 0px;
+  background-color: white;
+  min-width: 40px;
+  max-width: 40px;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  transition-duration: 0.4s;
+  
+  /* Text can't be selected */
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+#button-minus:hover, #button-plus:hover {
+  cursor: pointer;
+  background-color: #BF9E6B;
+}
+
+#button-minus:active, #button-plus:active {
+  transform: translateY(2px);
+}
+
+.button-pesan {
+  margin-bottom: 20px;
+  background-color: #BF9E6B;
+  color: white;
+  box-shadow:  0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  max-width: 180px;
+  min-width: 180px;
+  transition-duration: 0.4s;
+}
+
+.button-pesan:hover, .button-ya:hover {
+  transform: translateY(-1px);
+  filter: brightness(85%);
+  color: white;
+  cursor: pointer;
+}
+
+.button-reset {
+  margin-bottom: 20px;
+  color: white;
+  box-shadow:  0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  max-width: 180px;
+  min-width: 180px;
+}
+
+.shadow {
+  background-color: #887962 !important;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+#b-title {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+  width: 100%;
+}
+
+.modal-title {
+  text-align: center;
+  border-bottom: none;
+}
+
+.content-modal {
+  width: 100%;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.modal-img {
+  display: block;
+  margin: 0px auto 0.5rem auto;
+}
+
+.button-ya {
+  width: 40%;
+  height: 3em;
+  display: block;
+  margin: 0.5rem auto 1rem auto;
+  background-color: #BF9E6B;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  transition-duration: 0.4s;
 }
 </style>
