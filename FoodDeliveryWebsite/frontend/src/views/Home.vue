@@ -235,9 +235,10 @@ export default {
       let email = Cookies.get("email");
 
       //cart name akan jadi : cart-bokir@gmail.com
-      if (Cookies.get("cart-" + email) == null) {
+      //jika cart ingin di clear cukup cookies.set saja gak perlu pake if !
+      // if (Cookies.get("cart-" + email) == null) {
         Cookies.set("cart-" + email, JSON.stringify(cart));
-      }
+      // }
     }
   },
   data() {

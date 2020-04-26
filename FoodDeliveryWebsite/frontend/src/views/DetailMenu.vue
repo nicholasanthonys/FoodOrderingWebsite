@@ -161,14 +161,35 @@ export default {
         alert("You have to log in first");
       } else {
         let menuOrder = {
-          idMenu: this.menu.id,
+          id: this.menu.id,
+          type: this.menu.type,
+          name: this.menu.name,
+          url_image: this.menu.url_image,
+          description: this.menu.description,
           quantity: this.quantity,
           price: this.menu.price
         };
         //push menuOrder ke cart
         let email = Cookies.get("email");
         let cart = JSON.parse(Cookies.get("cart-" + email));
-        cart.push(menuOrder);
+
+        //cek apakah sudah ada di cart kalo ada tinggal tambahin quantity nya;
+        let isMenuInCart = false;
+        cart.forEach(element => {
+          if (element.id == menuOrder.id) {
+            let quantity = parseInt(element.quantity);
+            quantity += parseInt(menuOrder.quantity);
+            element.quantity = quantity;
+            isMenuInCart = true;
+          }
+        });
+
+        //jika menu tidak ada di cart maka push sebagai menu baru di cart
+        if (!isMenuInCart) {
+          cart.push(menuOrder);
+        }
+        
+        //timpa nilai cookie nya
         Cookies.set("cart-" + email, JSON.stringify(cart));
       }
 

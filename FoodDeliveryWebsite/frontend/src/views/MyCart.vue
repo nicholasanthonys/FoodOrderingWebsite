@@ -1,7 +1,7 @@
 <template>
   <div class="menu-pasta">
-      <!---Sidebar-->
-      <Sidebar/>
+    <!---Sidebar-->
+    <Sidebar />
 
     <div class="content">
       <!-- Navbar -->
@@ -9,14 +9,26 @@
 
       <!-- Content of Menu -->
       <div class="menu-row row">
-        <div class="menu" v-for="menu in menus" :key="menu.id">
-          <img class="menu-img" v-bind:src="menu.url_image" alt="Menu" />
-
-          <p class="menu-name">{{menu.name}}</p>
-          <p class="menu-price">Rp{{menu.price}}</p>
-
-          <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
-          <button class="pesan">Pesan</button>
+        <div>
+          <b-card no-body class="overflow-hidden" style="max-width: 540px;" v-for="menu in menus" v-bind:key="menu.id">
+            <b-row no-gutters>
+              <b-col md="6">
+                <b-card-img
+                  v-bind:src="menu.url_image"
+                  alt="Image"
+                  class="rounded-0"
+                ></b-card-img>
+              </b-col>
+              <b-col md="6">
+                <b-card-body v-bind:title="menu.name">
+                  <b-card-text>
+                    <h6> {{menu.quantity}}pcs - Rp.{{menu.price}} each</h6>
+                   {{menu.description}}
+                  </b-card-text>
+                </b-card-body>
+              </b-col>
+            </b-row>
+          </b-card>
         </div>
       </div>
     </div>
@@ -26,7 +38,7 @@
 <script>
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import { getMenuPasta } from "@/services";
+import Cookies from "js-cookie";
 export default {
   components: {
     Navbar,
@@ -38,19 +50,29 @@ export default {
     };
   },
   methods: {
-    fillMenus: async function() {
+    fillMenus() {
       try {
-        let res = await getMenuPasta();
-        console.log("res data is ");
-        if (res.status >= 200 && res.status < 300) {
-          this.menus = res.data.menus;
-        }
+        //get array cart from cookie
+
+        let email = Cookies.get("email");
+        let cart = JSON.parse(Cookies.get("cart-" + email));
+        console.log("my cart is");
+        console.log(cart);
+        
+        this.menus = cart;
+
+
+        // let res = await getMenuPasta();
+        // console.log("res data is ");
+        // if (res.status >= 200 && res.status < 300) {
+        //   this.menus = res.data.menus;
+        // }
       } catch (err) {
         console.log(err);
       }
     },
-    goToDetail : function(id) {
-        this.$router.push('/detailmenu/'+id);
+    goToDetail: function(id) {
+      this.$router.push("/detailmenu/" + id);
     }
   },
   mounted: function() {
