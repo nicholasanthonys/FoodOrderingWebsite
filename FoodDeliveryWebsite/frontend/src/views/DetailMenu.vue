@@ -229,6 +229,7 @@ export default {
   /* font-family: Poppins; */
   width: auto;
   height: auto;
+  min-height: 100vh;
   padding-bottom: 20px;
   background-color: #282828;
 }

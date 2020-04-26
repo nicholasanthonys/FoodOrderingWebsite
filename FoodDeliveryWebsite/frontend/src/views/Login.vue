@@ -154,7 +154,8 @@ body {
       rgba(11, 11, 11, 0.5)
     ),
     url("../assets/backgroundLanding.png");
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   background-size: cover !important;
 }
 </style>

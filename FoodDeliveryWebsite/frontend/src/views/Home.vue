@@ -209,7 +209,7 @@
       <!--- End of container -->
     </div>
     <!--- end of content -->
-    <Footer />
+    <Footer style="padding-bottom: 20px;"/>
   </div>
 </template>
 
@@ -267,6 +267,8 @@ export default {
 <style  scoped>
 #app #home {
   background-color: #282828;
+  height: auto;
+  min-height: 100vh;
 }
 
 #app .content {

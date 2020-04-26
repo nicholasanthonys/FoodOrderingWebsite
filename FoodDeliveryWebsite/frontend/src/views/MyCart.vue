@@ -84,6 +84,7 @@ export default {
   /*semetara font family poppins belum ada */
   /* font-family: Poppins; */
   width: auto;
+  min-height: 100vh;
   height: auto;
   padding-bottom: 20px;
   background-color: #282828;
