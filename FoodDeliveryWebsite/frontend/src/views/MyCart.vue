@@ -15,20 +15,22 @@
               <b-card-img
                 v-bind:src="menu.url_image"
                 alt="Image"
-                class="rounded-0"
+                class="rounded-1"
               ></b-card-img>
             </b-col>
             <b-col md="6">
               <b-card-body v-bind:title="menu.name">
                 <b-card-text>
                   <h6> {{ menu.quantity }} pcs - Rp.{{ menu.price * menu.quantity }}</h6>
-                  {{ menu.description }}
+                  <p class="max-lines"> {{ menu.description }} </p>
                 </b-card-text>
               </b-card-body>
             </b-col>
           </b-row>
         </b-card>
       </div>
+
+      <b-button v-if="menus != null" class="button-order">Order</b-button>
     </div>
   </div>
 </template>
@@ -105,17 +107,10 @@ export default {
   margin-bottom: 30px;
   width: 100%;
   height: auto;
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
   margin-left: 5%;
   border-radius: 10px;
   background-color: #fff;
-}
-
-.menu-img {
-  width: 100%;
-  height: 200px;
-  object-fit: fill;
-  border-radius: 10px 10px 0px 0px;
 }
 
 .menu-name {
@@ -159,5 +154,40 @@ export default {
   color: #fff;
   background-color: #bf9e6b;
   box-shadow: 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.button-order {
+  display: block;
+  width: 40%;
+  height: 50px;
+  margin: 20px auto 20px auto;
+  transition-duration: 0.4s;
+  color: white;
+  background-color: #BF9E6B;
+}
+
+.button-order:hover {
+  transform: translateY(1px);
+  filter: brightness(85%);
+  cursor: pointer;
+}
+
+.button-order:active {
+  transform: translateY(2px);
+  filter: brightness(75%);
+}
+
+.max-lines {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
+  display: -webkit-box;
+  display: -moz-box;
+  line-height: 24px;
+  max-height: 96px;
+  line-clamp: 5;
+  -webkit-line-clamp: 5;
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
 }
 </style>

@@ -62,12 +62,12 @@ const routes = [
     },
     {
         path : '/menusalad',
-        name : 'Menu Steak',
+        name : 'Menu Salad',
         component : Menu
     },
     {
         path : '/menudrinks',
-        name : 'Menu Steak',
+        name : 'Menu Drinks',
         component : Menu
     },
     {

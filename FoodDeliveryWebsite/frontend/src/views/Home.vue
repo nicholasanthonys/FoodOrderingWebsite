@@ -16,19 +16,19 @@
       @sliding-end="onSlideEnd"
     >
       <!-- Text slides with image -->
-      <b-carousel-slide img-src="../assets/bg_home_1.png">
+      <b-carousel-slide img-src="../assets/bg_home_1.png" style="filter: brightness(70%);">
         <h3 style="margin-bottom: 24px; text-align: left;">"Lapar? Mau Makan?"</h3>
         <h3 style="margin-bottom: 35%; margin-left: 100px; text-align: left;">Pesan saja di sini...</h3>
       </b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide img-src="../assets/bg_home_2.png">
+      <b-carousel-slide img-src="../assets/bg_home_2.png" style="filter: brightness(70%);">
         <h3 style="margin-bottom: 24px; text-align: left;">"Pengen Bakery?"</h3>
         <h3 style="margin-bottom: 35%; margin-left: 100px; text-align: left;">Pesan saja di sini...</h3>
       </b-carousel-slide>
 
       <!-- Slides with image only -->
-      <b-carousel-slide img-src="../assets/bg_home_3.png">
+      <b-carousel-slide img-src="../assets/bg_home_3.png" style="filter: brightness(70%);">
         <h3 style="margin-bottom: 24px; text-align: left;">"Pengen yang banyak?"</h3>
         <h3 style="margin-bottom: 35%; margin-left: 100px; text-align: left;">Pesan saja di sini...</h3>
       </b-carousel-slide>
