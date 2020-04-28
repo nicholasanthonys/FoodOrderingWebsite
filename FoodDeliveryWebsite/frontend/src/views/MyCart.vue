@@ -30,7 +30,12 @@
         </b-card>
       </div>
 
-      <b-button v-if="menus != null" class="button-order">Order</b-button>
+      <b-button v-if="menus.length != 0" class="button-order">Order</b-button>
+
+      <div v-if="menus.length == 0" class="empty">
+        <img src="@/assets/cart.png" alt="Empty Cart" />
+        <h3 class="cart-empty">Your cart is empty, please order first...</h3>
+      </div>
     </div>
   </div>
 </template>
@@ -107,53 +112,10 @@ export default {
   margin-bottom: 30px;
   width: 100%;
   height: auto;
-  padding: 20px 20px 0px 20px;
+  padding: 20px;
   margin-left: 5%;
   border-radius: 10px;
   background-color: #fff;
-}
-
-.menu-name {
-  margin-top: 11.5px;
-  margin-bottom: 0px;
-  font-style: bold;
-  font-size: 18px;
-  color: #0b3993;
-  text-align: center;
-}
-
-.menu-price {
-  font-size: 14px;
-  margin-bottom: 25px;
-  color: #000;
-  text-align: center;
-}
-
-.detail_menu {
-  width: 80%;
-  max-width: 170px;
-  height: 45px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 10px;
-  color: #fff;
-  margin-bottom: 12px;
-  background-color: #275dc5;
-  box-shadow: 0px 2px rgba(0, 0, 0, 0.25);
-}
-
-.pesan {
-  width: 80%;
-  max-width: 170px;
-  height: 45px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 10px;
-  color: #fff;
-  background-color: #bf9e6b;
-  box-shadow: 0px 2px rgba(0, 0, 0, 0.25);
 }
 
 .button-order {
@@ -189,5 +151,24 @@ export default {
   -webkit-line-clamp: 5;
   -moz-box-orient: vertical;
   -webkit-box-orient: vertical;
+}
+
+.empty {
+  width: 100%;
+  height: 100%;
+}
+
+.empty img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 0px auto 20px auto;
+}
+
+.cart-empty {
+  color: white;
+  display: block;
+  margin: auto;
+  text-align: center;
 }
 </style>

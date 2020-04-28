@@ -1,3 +1,5 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
 <template>
   <div class="menu-pasta">
     <!---Sidebar-->
@@ -16,9 +18,65 @@
           <p class="menu-price">Rp {{menu.price}} </p>
 
           <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
-          <button class="pesan">Pesan</button>
+          <button class="pesan" v-on:click="setSelectedMenu(menu.id, menu.name, menu.price, menu.url_image)" v-b-modal.modal-center>Pesan</button>
         </div>
       </div>
+    </div>
+
+    <div id="modal">
+      <b-modal
+        id="modal-center"
+        class="modal-body styling=modal"
+        ref="modal"
+        centered
+        size="lg"
+        hide-footer
+        hide-header
+        header-text-variant="light"
+        body-text-variant="light"
+        body-bg-variant="dark"
+        body-border-variant="transparent"
+        content-class="shadow"
+        @ok="handleOk">
+
+        <div class="modal-header modal-title">
+          <p id="b-title">Konfirmasi Pesanan Ini?</p>
+        </div>
+
+        <div class="content-modal">
+          <h6>Konfirmasi pesanan anda</h6>
+
+          <h6> {{ selectedMenu.name }} </h6>
+
+          <b-img class="modal-img" thumbnail fluid v-bind:src="selectedMenu.url_image" rounded></b-img>
+
+          <div class="form-group row" style="margin-left: 0px">
+            <h6 class="col-sm-4" style="text-align: left; padding: 0px; margin: auto 20px auto 0px;">Quantity : </h6>
+
+            <div v-on:click="plusQuantity()" id="button-plus" class="col-sm-1">+</div>
+
+            <b-form-input
+            id="input-1"
+            class="col-sm-2"
+            v-model="quantity"
+            type="number"
+            min="1"
+            required
+            placeholder="Enter quantity">
+            </b-form-input>
+
+            <div v-on:click="minusQuantity()" id="button-minus" class="col-sm-1">-</div>
+          </div>
+
+          <h6 style="margin-bottom: 20px">Total: Rp {{ selectedMenu.price * quantity }} </h6>
+        </div>
+
+        <b-button class="button-ya" v-on:click="handleOk">Pesan Sekarang</b-button>
+      </b-modal>
+    </div>
+
+    <div class="button-cart" v-on:click="goToMyCart">
+      <img src="@/assets/cart.png" alt="Cart" />
     </div>
   </div>
 </template>
@@ -43,7 +101,14 @@ export default {
   },
   data: function() {
     return {
-      menus: []
+      menus: [],
+      selectedMenu: {
+        id: 0,
+        name: "",
+        price: 0,
+        url_image: ""
+      }, 
+      quantity: 1
     };
   },
   methods: {
@@ -78,9 +143,7 @@ export default {
 
           case '/menudrinks' : 
             res = await getMenuDrinks();
-            break;
-          
-
+            break
         }
 
         console.log("res data is ");
@@ -93,6 +156,34 @@ export default {
     },
     goToDetail: function(id) {
       this.$router.push("/detailmenu/" + id);
+    },
+    goToMyCart(){
+      this.$router.push('/mycart');
+    },
+    setSelectedMenu(id, name, price, url_image) {
+      this.selectedMenu.id = id;
+      this.selectedMenu.name = name;
+      this.selectedMenu.price = price;
+      this.selectedMenu.url_image = url_image;
+
+      this.quantity = 1;
+    },
+    handleOk(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      // Trigger submit handler
+      this.handleSubmit();
+    },
+    handleSubmit() {
+      // Nicho tolong isi ini
+    },
+    plusQuantity() {
+      this.quantity = this.quantity + 1;
+    },
+    minusQuantity() {
+      if (this.quantity > 1) {
+        this.quantity = this.quantity - 1;
+      }
     }
   },
   mounted: function() {
@@ -184,5 +275,140 @@ export default {
   color: #fff;
   background-color: #bf9e6b;
   box-shadow: 0px 2px rgba(0, 0, 0, 0.25);
+}
+
+.button-cart {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background-color: #bf9e6b;
+  transition-duration: 0.4s;
+}
+
+.button-cart img {
+  width: 50px;
+  height: 50px;
+  margin: 15px;
+}
+
+.button-cart:hover {
+  cursor: pointer;
+  transform: translateY(-4px);
+  filter: brightness(110%);
+}
+
+.button-cart:active {
+  transform: translateY(4px);
+  filter: brightness(90%);
+}
+
+.shadow {
+  background-color: #887962 !important;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+#b-title {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+  width: 100%;
+}
+
+.modal-title {
+  text-align: center;
+  border-bottom: none;
+}
+
+.content-modal {
+  width: 100%;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.modal-img {
+  display: block;
+  margin: 0px auto 0.5rem auto;
+}
+
+.button-ya {
+  width: 40%;
+  height: 3em;
+  display: block;
+  margin: 0.5rem auto 1rem auto;
+  background-color: #BF9E6B;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  transition-duration: 0.4s;
+}
+
+#button-plus {
+  margin: 0px;
+  border-radius: 10px 0px 0px 10px;
+  background-color: white;
+  color: black;
+  min-width: 40px;
+  max-width: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  transition-duration: 0.4s;
+
+  /* Text can't be selected */
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+#button-minus {
+  margin: 0px;
+  border-radius: 0px 10px 10px 0px;
+  background-color: white;
+  min-width: 40px;
+  max-width: 40px;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  transition-duration: 0.4s;
+  
+  /* Text can't be selected */
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+#button-minus:hover, #button-plus:hover {
+  cursor: pointer;
+  background-color: #BF9E6B;
+}
+
+#button-minus:active, #button-plus:active {
+  transform: translateY(2px);
+}
+
+#input-1 {
+  border-radius: 0px;
+  border: none;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  min-width: 100px;
+  max-width: 100px;
 }
 </style>

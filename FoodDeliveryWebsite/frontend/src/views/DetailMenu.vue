@@ -77,7 +77,7 @@
                 <h6> {{ menu.name }} </h6>
                 <h6> {{ quantity }} pcs</h6>
                 <b-img class="modal-img" thumbnail fluid v-bind:src="menu.url_image" rounded></b-img>
-                <h6>Total: Rp {{ menu.price * quantity }} </h6>
+                <h6 style="margin-bottom: 20px;">Total: Rp {{ menu.price * quantity }} </h6>
               </div>
 
               <b-button class="button-ya" v-on:click="handleOk">Pesan Sekarang</b-button>
@@ -86,6 +86,10 @@
 
         </b-col>
       </b-row>
+    </div>
+
+    <div class="button-cart" v-on:click="goToMyCart">
+      <img src="@/assets/cart.png" alt="Cart" />
     </div>
   </div>
 </template>
@@ -208,6 +212,9 @@ export default {
       if (this.quantity > 1) {
         this.quantity = this.quantity - 1;
       }
+    },
+    goToMyCart(){
+      this.$router.push('/mycart');
     }
   },
   mounted: function() {
@@ -403,5 +410,35 @@ export default {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   transition-duration: 0.4s;
+}
+
+.button-cart {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background-color: #bf9e6b;
+  transition-duration: 0.4s;
+}
+
+.button-cart img {
+  width: 50px;
+  height: 50px;
+  margin: 15px;
+}
+
+.button-cart:hover {
+  cursor: pointer;
+  transform: translateY(-4px);
+  filter: brightness(110%);
+}
+
+.button-cart:active {
+  transform: translateY(4px);
+  filter: brightness(90%);
 }
 </style>
