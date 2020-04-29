@@ -16,6 +16,20 @@
           v-for="(menu, index) in menus"
           v-bind:key="menu.id"
         >
+          <div class="top-card">
+            <div 
+              class="button-remove" 
+              v-on:click="openModal('modal-center-remove',menu.id,menu.type, menu.name, menu.price, menu.url_image,menu.description,menu.quantity,index)">
+              <span class="remove-tooltip">Remove Order</span>
+            </div>
+
+            <div 
+              class="button-edit" 
+              v-on:click="openModal('modal-center-edit',menu.id,menu.type, menu.name, menu.price, menu.url_image,menu.description,menu.quantity,index)">
+              <span class="edit-tooltip">Edit Order</span>  
+            </div>
+          </div>
+
           <b-row no-gutters>
             <b-col md="6">
               <b-card-img v-bind:src="menu.url_image" alt="Image" class="rounded-1"></b-card-img>
@@ -28,15 +42,7 @@
                 </b-card-text>
               </b-card-body>
             </b-col>
-            <b-button
-              class="button-edit col-sm-4"
-              v-on:click="openModal('modal-center-edit',menu.id,menu.type, menu.name, menu.price, menu.url_image,menu.description,menu.quantity,index)"
-            >Edit</b-button>
           </b-row>
-          <b-button
-            class="button-edit col-sm-4"
-            v-on:click="openModal('modal-center-remove',menu.id,menu.type, menu.name, menu.price, menu.url_image,menu.description,menu.quantity,index)"
-          >remove</b-button>
         </b-card>
       </div>
 
@@ -161,9 +167,9 @@
 
           <div class="content-modal">
             <h6>All item in your cart will be lost</h6>
-            <h2>Clear Cart ?</h2>
+            <h5 style="font-weight: bold;">Are you sure?</h5>
           </div>
-          <b-button class="button-ya" v-on:click="handleOk($event,'modal-center-clear')">Clear Cart</b-button>
+          <b-button class="button-ya" v-on:click="handleOk($event, 'modal-center-clear')">Clear Cart</b-button>
         </b-modal>
         <!---END MODAL CLEAR -->
       </div>
@@ -174,7 +180,7 @@
         v-if="menus.length != 0"
         class="button-clear"
         @click="openModal('modal-center-clear')"
-      >clear</b-button>
+      >Clear</b-button>
 
       <div v-if="menus.length == 0" class="empty">
         <img src="@/assets/cart.png" alt="Empty Cart" />
@@ -308,7 +314,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .menu-pasta {
   /*semetara font family poppins belum ada */
   /* font-family: Poppins; */
@@ -334,13 +340,13 @@ export default {
   margin-bottom: 30px;
   width: 100%;
   height: auto;
-  padding: 20px;
+  padding: 10px 20px 20px 20px;
   margin-left: 5%;
   border-radius: 10px;
   background-color: #fff;
 }
 
-.button-order {
+.button-order, .button-clear {
   display: block;
   width: 40%;
   height: 50px;
@@ -350,13 +356,13 @@ export default {
   background-color: #bf9e6b;
 }
 
-.button-order:hover {
+.button-order:hover, .button-clear:hover {
   transform: translateY(1px);
   filter: brightness(85%);
   cursor: pointer;
 }
 
-.button-order:active {
+.button-order:active, .button-clear:active {
   transform: translateY(2px);
   filter: brightness(75%);
 }
@@ -460,4 +466,117 @@ export default {
   max-width: 100px;
 }
 
+.button-ya {
+  width: 40%;
+  height: 3em;
+  display: block;
+  margin: 0.5rem auto 1rem auto;
+  background-color: #bf9e6b;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  transition-duration: 0.4s;
+}
+
+.shadow {
+  background-color: #887962 !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+#b-title {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+  width: 100%;
+}
+
+.modal-title {
+  text-align: center;
+  border-bottom: none;
+}
+
+.content-modal {
+  width: 100%;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.modal-img {
+  display: block;
+  margin: 0px auto 0.5rem auto;
+  max-width: 40vw;
+  max-height: 40vh;
+}
+
+.top-card {
+  display: block;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.button-edit {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: url('~@/assets/edit-black.png') no-repeat center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  float: right;
+  margin-right: 15px;
+}
+
+.edit-tooltip, .remove-tooltip {
+  visibility: hidden;
+  width: 150px;
+  height: auto;
+  padding: 5px;
+  background-color: #887962;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  display: block;
+
+  position: absolute;
+  z-index: 1;
+}
+
+.button-remove {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: url('~@/assets/signs-black.png') no-repeat center;
+  border-radius: 15px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  float: right;
+}
+
+.button-edit:hover {
+  cursor: pointer;
+  background-image: url('~@/assets/edit.png');
+}
+
+.button-edit:hover .edit-tooltip {
+  visibility: visible;
+  top: 35px;
+  opacity: 0.7;
+  right: -50px;
+}
+
+.button-remove:hover {
+  cursor: pointer;
+  background-image: url('~@/assets/signs.png');
+}
+
+.button-remove:hover .remove-tooltip {
+  visibility: visible;
+  top: 35px;
+  opacity: 0.7;
+  left: -110px;
+}
 </style>

@@ -63,7 +63,6 @@
               hide-header
               header-text-variant="light"
               body-text-variant="light"
-              body-bg-variant="dark"
               body-border-variant="transparent"
               content-class="shadow"
               @ok="handleOk">
@@ -399,6 +398,8 @@ export default {
 .modal-img {
   display: block;
   margin: 0px auto 0.5rem auto;
+  max-width: 40vw;
+  max-height: 40vh;
 }
 
 .button-ya {
