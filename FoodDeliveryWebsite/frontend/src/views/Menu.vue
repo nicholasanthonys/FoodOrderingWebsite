@@ -14,11 +14,15 @@
         <div class="menu" v-for="menu in menus" :key="menu.id">
           <img class="menu-img" v-bind:src="menu.url_image" alt="Menu" />
 
-          <p class="menu-name"> {{menu.name}} </p>
-          <p class="menu-price">Rp {{menu.price}} </p>
+          <p class="menu-name">{{menu.name}}</p>
+          <p class="menu-price">Rp {{menu.price}}</p>
 
           <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
-          <button class="pesan" v-on:click="setSelectedMenu(menu.id, menu.name, menu.price, menu.url_image)" v-b-modal.modal-center>Pesan</button>
+          <button
+            class="pesan"
+            v-on:click="setSelectedMenu(menu.id,menu.type, menu.name, menu.price, menu.url_image,menu.description)"
+            v-b-modal.modal-center
+          >Pesan</button>
         </div>
       </div>
     </div>
@@ -37,8 +41,8 @@
         body-bg-variant="dark"
         body-border-variant="transparent"
         content-class="shadow"
-        @ok="handleOk">
-
+        @ok="handleOk"
+      >
         <div class="modal-header modal-title">
           <p id="b-title">Konfirmasi Pesanan Ini?</p>
         </div>
@@ -46,29 +50,32 @@
         <div class="content-modal">
           <h6>Konfirmasi pesanan anda</h6>
 
-          <h6> {{ selectedMenu.name }} </h6>
+          <h6>{{ selectedMenu.name }}</h6>
 
           <b-img class="modal-img" thumbnail fluid v-bind:src="selectedMenu.url_image" rounded></b-img>
 
           <div class="form-group row" style="margin-left: 0px">
-            <h6 class="col-sm-4" style="text-align: left; padding: 0px; margin: auto 20px auto 0px;">Quantity : </h6>
+            <h6
+              class="col-sm-4"
+              style="text-align: left; padding: 0px; margin: auto 20px auto 0px;"
+            >Quantity :</h6>
 
             <div v-on:click="plusQuantity()" id="button-plus" class="col-sm-1">+</div>
 
             <b-form-input
-            id="input-1"
-            class="col-sm-2"
-            v-model="quantity"
-            type="number"
-            min="1"
-            required
-            placeholder="Enter quantity">
-            </b-form-input>
+              id="input-1"
+              class="col-sm-2"
+              v-model="selectedMenu.quantity"
+              type="number"
+              min="1"
+              required
+              placeholder="Enter quantity"
+            ></b-form-input>
 
             <div v-on:click="minusQuantity()" id="button-minus" class="col-sm-1">-</div>
           </div>
 
-          <h6 style="margin-bottom: 20px">Total: Rp {{ selectedMenu.price * quantity }} </h6>
+          <h6 style="margin-bottom: 20px">Total: Rp {{ selectedMenu.price * selectedMenu.quantity }}</h6>
         </div>
 
         <b-button class="button-ya" v-on:click="handleOk">Pesan Sekarang</b-button>
@@ -84,7 +91,9 @@
 <script>
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import { 
+import Cookies from "js-cookie";
+
+import {
   getMenuPasta,
   getMenuSteak,
   getMenuPizza,
@@ -92,7 +101,6 @@ import {
   getMenuSoup,
   getMenuSalad,
   getMenuDrinks
-
 } from "@/services";
 export default {
   components: {
@@ -104,11 +112,13 @@ export default {
       menus: [],
       selectedMenu: {
         id: 0,
+        type: "",
         name: "",
         price: 0,
-        url_image: ""
-      }, 
-      quantity: 1
+        quantity : 0,
+        url_image: "",
+        description: ""
+      },
     };
   },
   methods: {
@@ -117,33 +127,33 @@ export default {
         let res = null;
         let path = this.$router.history.current.fullPath;
         switch (path) {
-          case '/menupasta':
-             res = await getMenuPasta();
-             break;
+          case "/menupasta":
+            res = await getMenuPasta();
+            break;
 
-          case '/menusteak' :
+          case "/menusteak":
             res = await getMenuSteak();
             break;
 
-          case '/menupizza':
+          case "/menupizza":
             res = await getMenuPizza();
             break;
-          
-          case '/menurice' : 
+
+          case "/menurice":
             res = await getMenuRice();
             break;
 
-          case '/menusoup' : 
+          case "/menusoup":
             res = await getMenuSoup();
             break;
 
-          case '/menusalad' :
+          case "/menusalad":
             res = await getMenuSalad();
             break;
 
-          case '/menudrinks' : 
+          case "/menudrinks":
             res = await getMenuDrinks();
-            break
+            break;
         }
 
         console.log("res data is ");
@@ -157,16 +167,17 @@ export default {
     goToDetail: function(id) {
       this.$router.push("/detailmenu/" + id);
     },
-    goToMyCart(){
-      this.$router.push('/mycart');
+    goToMyCart() {
+      this.$router.push("/mycart");
     },
-    setSelectedMenu(id, name, price, url_image) {
+    setSelectedMenu(id, type, name, price, url_image, description) {
       this.selectedMenu.id = id;
       this.selectedMenu.name = name;
       this.selectedMenu.price = price;
       this.selectedMenu.url_image = url_image;
-
-      this.quantity = 1;
+      this.selectedMenu.type = type;
+      this.selectedMenu.description = description;
+      this.selectedMenu.quantity = 1;
     },
     handleOk(bvModalEvt) {
       // Prevent modal from closing
@@ -174,15 +185,55 @@ export default {
       // Trigger submit handler
       this.handleSubmit();
     },
+    checkSessionExist() {
+      const valid = this.$session.exists();
+      console.log("valid ? " + valid);
+      return valid;
+    },
     handleSubmit() {
       // Nicho tolong isi ini
+      // Exit when the form isn't valid
+      if (!this.checkSessionExist()) {
+        alert("You have to log in first");
+      } else {
+        //push selectedmenu ke cart
+        let email = Cookies.get("email");
+        let cart = JSON.parse(Cookies.get("cart-" + email));
+
+        //cek apakah sudah ada di cart kalo ada tinggal tambahin quantity nya;
+        let isMenuInCart = false;
+        cart.forEach(element => {
+          if (element.id == this.selectedMenu.id) {
+            let quantity = parseInt(element.quantity);
+            quantity += parseInt(this.selectedMenu.quantity);
+            element.quantity = quantity;
+            isMenuInCart = true;
+          }
+        });
+
+        //jika menu tidak ada di cart maka push sebagai menu baru di cart
+        if (!isMenuInCart) {
+          cart.push(this.selectedMenu);
+        }
+
+        //timpa nilai cookie nya
+        Cookies.set("cart-" + email, JSON.stringify(cart));
+      }
+
+      // Push the name to submitted names
+      // this.submittedNames.push(this.name);
+
+      // Hide the modal manually
+      this.$nextTick(() => {
+        this.$bvModal.hide("modal-center");
+      });
     },
     plusQuantity() {
-      this.quantity = this.quantity + 1;
+      this.selectedMenu.quantity = this.selectedMenu.quantity + 1;
     },
     minusQuantity() {
-      if (this.quantity > 1) {
-        this.quantity = this.quantity - 1;
+      if (this.selectedMenu.quantity > 1) {
+        this.selectedMenu.quantity = this.selectedMenu.quantity - 1;
       }
     }
   },
@@ -309,7 +360,7 @@ export default {
 
 .shadow {
   background-color: #887962 !important;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
 #b-title {
@@ -342,7 +393,7 @@ export default {
   height: 3em;
   display: block;
   margin: 0.5rem auto 1rem auto;
-  background-color: #BF9E6B;
+  background-color: #bf9e6b;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   transition-duration: 0.4s;
@@ -385,7 +436,7 @@ export default {
   border-top: 1px solid black;
   border-right: 1px solid black;
   transition-duration: 0.4s;
-  
+
   /* Text can't be selected */
   user-select: none; /* supported by Chrome and Opera */
   -webkit-user-select: none; /* Safari */
@@ -394,12 +445,14 @@ export default {
   -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
-#button-minus:hover, #button-plus:hover {
+#button-minus:hover,
+#button-plus:hover {
   cursor: pointer;
-  background-color: #BF9E6B;
+  background-color: #bf9e6b;
 }
 
-#button-minus:active, #button-plus:active {
+#button-minus:active,
+#button-plus:active {
   transform: translateY(2px);
 }
 
