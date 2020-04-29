@@ -40,7 +40,7 @@
         </b-card>
       </div>
 
-      <div id="modal">
+      <div id="modals">
         <!--- MODAL EDIT -->
         <b-modal
           id="modal-center-edit"
@@ -52,7 +52,6 @@
           hide-header
           header-text-variant="light"
           body-text-variant="light"
-          body-bg-variant="dark"
           body-border-variant="transparent"
           content-class="shadow"
           @ok="handleOk($event,'modal-center-edit')"
@@ -109,7 +108,6 @@
           hide-header
           header-text-variant="light"
           body-text-variant="light"
-          body-bg-variant="dark"
           body-border-variant="transparent"
           content-class="shadow"
           @ok="handleOk"
@@ -153,7 +151,6 @@
           hide-header
           header-text-variant="light"
           body-text-variant="light"
-          body-bg-variant="dark"
           body-border-variant="transparent"
           content-class="shadow"
           @ok="handleOk"
@@ -462,4 +459,5 @@ export default {
   min-width: 100px;
   max-width: 100px;
 }
+
 </style>
