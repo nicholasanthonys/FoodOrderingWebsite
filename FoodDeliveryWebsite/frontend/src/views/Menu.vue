@@ -1,7 +1,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <template>
-  <div class="menu-container">
+  <div class="menu-pasta">
     <!---Sidebar-->
     <Sidebar />
 
@@ -128,30 +128,37 @@ export default {
         switch (path) {
           case "/menupasta":
             res = await getMenuPasta();
+            this.$root.$emit('changeActive', 'pasta');
             break;
 
           case "/menusteak":
             res = await getMenuSteak();
+            this.$root.$emit('changeActive', 'steak');
             break;
 
           case "/menupizza":
             res = await getMenuPizza();
+            this.$root.$emit('changeActive', 'pizza');
             break;
 
           case "/menurice":
             res = await getMenuRice();
+            this.$root.$emit('changeActive', 'rice');
             break;
 
           case "/menusoup":
             res = await getMenuSoup();
+            this.$root.$emit('changeActive', 'soup');
             break;
 
           case "/menusalad":
             res = await getMenuSalad();
+            this.$root.$emit('changeActive', 'salad');
             break;
 
           case "/menudrinks":
             res = await getMenuDrinks();
+            this.$root.$emit('changeActive', 'drinks');
             break;
         }
 
@@ -245,7 +252,7 @@ export default {
 </script>
 
 <style scoped>
-.menu-container{
+.menu-pasta {
   /*semetara font family poppins belum ada */
   /* font-family: Poppins; */
   width: auto;

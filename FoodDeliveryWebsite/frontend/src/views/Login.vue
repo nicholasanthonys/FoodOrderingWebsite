@@ -49,9 +49,9 @@
             >Submit</b-button>
           </b-form>
 
-          <span>
-            Don't Have an Account ?
-            <router-link to="/register">Register Here</router-link>
+          <span style="display: block; text-align: center; color: white; margin-top: 10px;">
+            Don't Have an Account? Register
+            <router-link to="/register" class="link">Here</router-link>
           </span>
 
           <!-- <b-card class="mt-3" header="Form Data Result">
@@ -160,5 +160,19 @@ body {
   height: auto;
   min-height: 100vh;
   background-size: cover !important;
+}
+
+.link {
+  color: #BF9E6B;
+  font-weight: bold;
+}
+
+.link:hover {
+  text-decoration: underline #BF9E6B;
+}
+
+.link:active {
+  color: #887962;
+  text-decoration: underline #887962;
 }
 </style>

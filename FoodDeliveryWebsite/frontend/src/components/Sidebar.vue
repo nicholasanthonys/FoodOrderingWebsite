@@ -8,30 +8,73 @@
 
       <ul class="list-unstyled components">
         <li>
-          <a href="/menupasta" class="link-to-other" active>Pasta</a>
+          <a id="pasta" ref="pasta" href="/menupasta" class="link-to-other" :class="pasta">Pasta</a>
         </li>
         <li>
-          <a href="/menusteak" class="link-to-other">Steak</a>
+          <a id="steak" ref="steak" href="/menusteak" class="link-to-other" :class="steak">Steak</a>
         </li>
         <li>
-          <a href="/menupizza" class="link-to-other">Pizza</a>
+          <a id="pizza" ref="pizza" href="/menupizza" class="link-to-other" :class="pizza">Pizza</a>
         </li>
         <li>
-          <a href="/menurice" class="link-to-other">Rice</a>
+          <a id="rice" ref="rice" href="/menurice" class="link-to-other" :class="rice">Rice</a>
         </li>
         <li>
-          <a href="/menusoup" class="link-to-other">Soup</a>
+          <a id="soup" ref="soup" href="/menusoup" class="link-to-other" :class="soup">Soup</a>
         </li>
         <li>
-          <a href="/menusalad" class="link-to-other">Salad</a>
+          <a id="salad" ref="salad" href="/menusalad" class="link-to-other" :class="salad">Salad</a>
         </li>
         <li>
-          <a href="/menudrinks" class="link-to-other">Drinks</a>
+          <a id="drinks" ref="drinks" href="/menudrinks" class="link-to-other" :class="drinks">Drinks</a>
         </li>
       </ul>
     </nav>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      pasta: '',
+      steak: '',
+      pizza: '',
+      rice: '',
+      soup: '',
+      salad: '',
+      drinks: ''
+    }
+  },
+  mounted: function () {
+    this.$root.$on('changeActive', (link) => {
+      switch (link) {
+        case "pasta":
+          this.pasta = 'active';
+          break;
+        case "steak":
+          this.steak = 'active';
+          break;
+        case "pizza":
+          this.pizza = 'active';
+          break;
+        case "rice":
+          this.rice = 'active';
+          break;
+        case "soup":
+          this.soup = 'active';
+          break;
+        case "salad":
+          this.salad = 'active';
+          break;
+        case "drinks":
+          this.drinks = 'active';
+          break;
+      }
+    })
+  }
+}
+</script>
 
 <style scoped>
 .wrapper {
@@ -57,13 +100,15 @@
   color: #fff;
 }
 
-.link-to-other:hover .link-to-other:focus {
+.link-to-other:hover, .link-to-other:focus {
   text-decoration: underline;
   text-decoration-color: #fff;
 }
 
-.link-to-other:active .link-to-other:visited {
+.link-to-other.active, .link-to-other.active:hover {
   color: #ff9d9d;
+  text-decoration: none;
+  cursor: default;
 }
 
 li {

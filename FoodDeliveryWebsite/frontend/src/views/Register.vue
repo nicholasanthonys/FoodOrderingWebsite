@@ -82,7 +82,7 @@
 
             <!---province -->
             <b-form-group id="input-group-province" class="input-title" label-for="input-0">
-              <model-select :options="provinceOptions" v-model="province" placeholder="Province"></model-select>
+              <model-select :options="provinceOptions" v-model="province" placeholder="Province" size="3"></model-select>
             </b-form-group>
             <!---end of province -->
 
@@ -106,8 +106,13 @@
               class="mt-5"
               type="submit"
               variant="info"
-              style="margin-bottom: 50px"
+              style="margin-bottom: 10px"
             >Submit</b-button>
+
+            <span style="display: block; text-align: center; color: white; margin-bottom: 50px;">
+              Already Have an Account? Login
+              <router-link to="/" class="link">Here</router-link>
+            </span>
           </b-form>
         </div>
       </b-col>
@@ -278,5 +283,23 @@ body {
   height: auto;
   min-height: 100vh;
   background-size: cover !important;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow: auto;
+  padding-bottom: 50px;
+}
+
+.link {
+  color: #BF9E6B;
+  font-weight: bold;
+}
+
+.link:hover {
+  text-decoration: underline #BF9E6B;
+}
+
+.link:active {
+  color: #887962;
+  text-decoration: underline #887962;
 }
 </style>
