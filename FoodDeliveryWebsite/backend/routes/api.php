@@ -76,11 +76,17 @@ Route::post('showmenuorder','OrderController@showUserMenuOrder');
 /*END ORDER-------------------------------------------------- */
 
 
+/* EDIT PROFILE AND PASSWORD----------------------------- */
 //get user based on email
 Route::post("getUser","UserController@edit");
 
 //update user profile
 Route::put('updateProfile',"UserController@update");
+//update user password
+
+Route::put('updatePassword','UserController@updatePassword');
+
+/* END EDIT PROFILE AND PASSWORD----------------------------- */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
