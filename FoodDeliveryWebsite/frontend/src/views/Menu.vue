@@ -245,6 +245,7 @@ export default {
   },
   mounted: function() {
     this.fillMenus();
+    this.$root.$emit('doesnt need logo', 'there sidebar');
     console.log("route is ");
     console.log(this.$router.history.current.fullPath == "/menusteak");
   }

@@ -310,6 +310,7 @@ export default {
 
   mounted: function() {
     this.fillMenus();
+    this.$root.$emit('doesnt need logo', 'there sidebar');
   }
 };
 </script>

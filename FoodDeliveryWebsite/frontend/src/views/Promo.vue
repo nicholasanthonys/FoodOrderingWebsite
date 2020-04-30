@@ -180,6 +180,9 @@ export default {
       //   slide
       this.sliding = false;
     }
+  },
+  mounted: function() {
+    this.$root.$emit('doesnt need logo', 'there sidebar');
   }
 };
 </script>
