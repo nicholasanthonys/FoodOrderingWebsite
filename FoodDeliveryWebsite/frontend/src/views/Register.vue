@@ -169,7 +169,7 @@ export default {
           password: this.password,
           dob: this.DOB,
           address: this.address,
-          province: this.city,
+          province: this.province,
           city: this.city
         };
         this.register(form);
