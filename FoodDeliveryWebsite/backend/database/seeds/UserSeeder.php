@@ -20,8 +20,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'dob' => "1999-08-12",
             'address' => 'Perumahan Cibaduyut',
-            'province' => 'West Java',
-            'city' =>  'Bandung'
+            'province' => '1',
+            'city' =>  '1'
         ]);
     }
 }
