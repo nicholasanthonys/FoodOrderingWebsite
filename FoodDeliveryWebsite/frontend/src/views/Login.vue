@@ -48,6 +48,12 @@
               variant="info"
             >Submit</b-button>
           </b-form>
+
+          <span>
+            Don't Have an Account ?
+            <router-link to="/register">Register Here</router-link>
+          </span>
+
           <!-- <b-card class="mt-3" header="Form Data Result">
             <pre class="m-0">{{ form }}</pre>
           </b-card>-->
@@ -62,7 +68,7 @@
 <script>
 import Navbar from "../components/Navbar";
 import { loginUser } from "@/services";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 export default {
   components: {
@@ -79,10 +85,10 @@ export default {
       show: true
     };
   },
-    beforeCreate : function(){
+  beforeCreate: function() {
     //kalo session ada redirect ke home
-    if(this.$session.exists()){
-      this.$router.push('/home');
+    if (this.$session.exists()) {
+      this.$router.push("/home");
     }
   },
   methods: {
@@ -91,24 +97,21 @@ export default {
       // alert(JSON.stringify(this.form));
       this.authenticationUser();
     },
-    
+
     authenticationUser: async function() {
       try {
         let res = await loginUser(this.form);
         console.log("response is ");
         this.user = res.data.user;
         if (this.user != null) {
-
           //session start
-          this.$session.start()
+          this.$session.start();
 
           //redirect
           this.$router.push("/home");
 
           //set email cookie
-          Cookies.set('email',this.form.email);
-          
-
+          Cookies.set("email", this.form.email);
         } else {
           this.message = "Log In Failed";
           //destroy session
