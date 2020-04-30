@@ -3,21 +3,25 @@
     <ProfileSidebar />
     <div class="content">
       <Navbar id="navbar" />
+
+      <h1 class="content-title">Update your password</h1>
+
       <b-container>
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
           <!--------input name ---->
           <b-form-group
             id="input-group-0"
-            class="input-title"
-            label="Current Password:"
+            class="input-row"
             label-for="input-0"
           >
+            <img src="../assets/password.png" class="icon" alt="Password" />
             <b-form-input
               id="update-name"
               v-model="form.currentPassword"
               type="password"
+              class="icon-holder"
               required
-              placeholder="Enter your current password"
+              placeholder="Old Password"
             ></b-form-input>
           </b-form-group>
           <!-------END input name ---->
@@ -25,33 +29,51 @@
           <!--------input email ---->
           <b-form-group
             id="input-group-1"
-            class="input-title"
-            label="New Password:"
+            class="input-row"
             label-for="input-1"
           >
+            <img src="../assets/password.png" class="icon" alt="Password" />
             <b-form-input
               id="update-email"
               v-model="form.newPassword"
               type="password"
+              class="icon-holder"
               required
-              placeholder="Enter your new password"
+              placeholder="New Password"
+            ></b-form-input>
+          </b-form-group>
+          <!--------END input email ---->
+
+          <!--------input email ---->
+          <b-form-group
+            id="input-group-2"
+            class="input-row"
+            label-for="input-2"
+            style="margin-bottom: 70px"
+          >
+            <img src="../assets/password.png" class="icon" alt="Password" />
+            <b-form-input
+              id="update-email"
+              v-model="form.confirmNewPassword"
+              type="password"
+              class="icon-holder"
+              required
+              placeholder="Confirm New Password"
             ></b-form-input>
           </b-form-group>
           <!--------END input email ---->
 
           <b-button
-            pill
             block
-            id="btn-update-profile"
+            id="btn-update-password"
             class="mt-5"
             type="submit"
             variant="info"
           >Confirm</b-button>
 
           <b-button
-            pill
             block
-            id="btn-update-profile"
+            id="btn-cancel"
             class="mt-5"
             @click="onReset"
             variant="info"
@@ -79,7 +101,8 @@ export default {
       email: Cookies.get("email"),
       form: {
         currentPassword: "",
-        newPassword: ""
+        newPassword: "",
+        confrimNewPassword: ""
       },
       show: true
     };
@@ -99,7 +122,7 @@ export default {
       evt.preventDefault();
       // alert(JSON.stringify(this.form));
 
-      if(this.form.newPassword == this.form.currentPassword){
+      if(this.form.newPassword == this.form.confrimNewPassword){
           this.updatePassword();
       }else{
           alert('Password doesnt match');
@@ -111,6 +134,7 @@ export default {
       console.log("on reset clicked");
       this.form.currentPassword = "";
       this.form.newPassword = "";
+      this.form.confrimNewPassword = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
@@ -120,6 +144,7 @@ export default {
   },
   mounted(){
       console.log("email : " + this.email);
+      this.$root.$emit('doesnt need logo', 'there sidebar');
   }
 };
 </script>
@@ -128,11 +153,18 @@ export default {
 .update-password-container {
   /*semetara font family poppins belum ada */
   /* font-family: Poppins; */
-  width: auto;
-  min-height: 100vh;
+  background: linear-gradient(
+      to bottom,
+      rgba(11, 11, 11, 0.5),
+      rgba(11, 11, 11, 0.5)
+    ),
+    url("../assets/bg-register.png");
   height: auto;
-  padding-bottom: 20px;
-  background-color: #282828;
+  min-height: 100vh;
+  background-size: cover !important;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow: auto;
 }
 
 .content {
@@ -142,5 +174,78 @@ export default {
 
 .container {
   color: white !important;
+}
+
+.content-title {
+  text-align: center;
+  color: white;
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 72px;
+  margin-bottom: 50px;
+}
+
+#btn-update-password {
+  width: 30vw;
+  height: 50px;
+  border-radius: 10px;
+  margin: 0px auto 40px auto;
+  background-color: #BF9E6B;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: 0.2em;
+  color: white;
+  text-align: center;
+  display: block;
+  border: 1px solid transparent;
+}
+
+#btn-update-password:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+  text-decoration: none;
+}
+
+#btn-cancel {
+  width: 30vw;
+  height: 50px;
+  border-radius: 10px;
+  margin: 0px auto 40px auto;
+  background-color: #C9C5C1;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: 0.2em;
+}
+
+#btn-cancel:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
+.input-row {
+  margin-bottom: 30px;
+  position: relative;
+  width: 30vw;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 6.5px;
+  left: 12.5px;
+  z-index: 2;
+}
+
+.icon-holder, input.search {
+  height: 38px;
+  padding-left: 50px;
 }
 </style>

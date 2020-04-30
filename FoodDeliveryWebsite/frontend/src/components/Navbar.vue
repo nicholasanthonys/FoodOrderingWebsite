@@ -34,7 +34,7 @@
                 <em>User</em>
               </template>
               <b-dropdown-item v-on:click="goToProfile">Profile</b-dropdown-item>
-              <b-dropdown-item v-on:click="goToMyCart">MyCart</b-dropdown-item>
+              <b-dropdown-item v-on:click="goToMyCart">My Cart</b-dropdown-item>
               <b-dropdown-item v-on:click="signOut">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
 
@@ -117,6 +117,7 @@ export default {
 }
 
 .search-input {
+  width: 12vw;
   border-radius: 0px;
   border-right: none;
   border-left: none;
@@ -159,5 +160,10 @@ export default {
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   transition-duration: 0.4s;
+}
+
+.button-member:hover {
+  cursor: pointer;
+  filter: brightness(90%);
 }
 </style>

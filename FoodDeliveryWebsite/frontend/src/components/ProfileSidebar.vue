@@ -6,9 +6,9 @@
         <img class="logo" src="../assets/logo-kitchen-black.png" alt="Logo Kitchen" />
       </div>
 
-      <h3>welcome</h3>
+      <h3 class="welcome">Welcome</h3>
       <h3 class="name">
-        <u>{{name}}</u>
+        <u> {{ name }}!</u>
       </h3>
     </nav>
   </div>
@@ -35,6 +35,7 @@ export default {
   z-index: 999;
   background: #c9c5c1;
   color: #fff;
+  overflow: hidden;
 }
 
 #sidebar {
@@ -42,10 +43,13 @@ export default {
   height: 100%;
 }
 
-h3,
-.name {
+.welcome, .name {
   color: black;
+  padding-left: 2vw;
+  font-size: 24px;
+  line-height: 36px;
 }
+
 .logo {
   width: 80%;
   display: block;

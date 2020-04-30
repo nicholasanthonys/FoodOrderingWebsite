@@ -4,90 +4,111 @@
     <div class="content">
       <Navbar id="navbar" />
 
-      <h1>Edit your profile</h1>
+      <h1 class="content-title">Edit your profile</h1>
 
       <b-container>
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-          <!--------input name ---->
-          <b-form-group id="input-group-0" class="input-title" label="Name:" label-for="input-0">
-            <b-form-input id="update-name" v-model="name" type="text" required placeholder="Name"></b-form-input>
-          </b-form-group>
-          <!-------END input name ---->
 
-          <!--------input email ---->
-          <b-form-group
-            id="input-group-1"
-            class="input-title"
-            label="Email address:"
-            label-for="input-1"
-          >
-            <b-form-input
-              id="update-email"
-              v-model="email"
-              disabled
-              type="email"
-              required
-              placeholder="Email"
-            ></b-form-input>
-          </b-form-group>
-          <!--------END input email ---->
+          <div class="row" style="margin-bottom: 70px">
+            <!-- Left side -->
+            <div class="col-sm-6" style="padding: 0px 5vw 0px 5vw">
+              <!--------input name ---->
+              <b-form-group id="input-group-0" class="input-row">
+                <img src="../assets/username.png" class="icon" alt="Username" />
+                <b-form-input id="update-name" class="icon-holder" v-model="name" type="text" required placeholder="Name"></b-form-input>
+              </b-form-group>
+              <!-------END input name ---->
 
-    
+              <!--------input email ---->
+              <b-form-group
+                id="input-group-1"
+                class="input-row"
+              >
+                <img src="../assets/email.png" class="icon" alt="Email" />
+                <b-form-input
+                  id="update-email"
+                  class="icon-holder"
+                  v-model="email"
+                  disabled
+                  type="email"
+                  required
+                  placeholder="Email"
+                ></b-form-input>
+              </b-form-group>
+              <!--------END input email ---->
 
-          <!---date of birth --->
-          <b-form-group id="input-group-dob" class="input-title" label-for="input-1">
-            <b-form-datepicker
-              id="example-datepicker"
-              v-model="DOB"
-              class="mb-2"
-              placeholder=" Date Of Birth"
-            ></b-form-datepicker>
-          </b-form-group>
-          <!--- end of date of birth -->
+              <!---date of birth --->
+              <b-form-group id="input-group-dob" class="input-row" label-for="input-1">
+                <b-form-datepicker
+                  id="example-datepicker"
+                  v-model="DOB"
+                  class="mb-2"
+                  placeholder="Date Of Birth"
+                ></b-form-datepicker>
+              </b-form-group>
+              <!--- end of date of birth -->
+            </div>
 
-          <!---address -->
-          <b-form-group id="input-group-address" class="input-title" label-for="input-0">
-            <b-form-input
-              id="register-name"
-              v-model="address"
-              type="text"
-              required
-              placeholder="Address"
-            ></b-form-input>
-          </b-form-group>
-          <!---end of address -->
+            <!-- Right side -->
+            <div class="col-sm-6" style="padding: 0px 5vw 0px 5vw">
+              <!---address -->
+              <b-form-group id="input-group-address" class="input-row" label-for="input-0">
+                <img src="../assets/home.png" class="icon" alt="Home Address" />
+                <b-form-input
+                  id="register-name"
+                  class="icon-holder"
+                  v-model="address"
+                  type="text"
+                  required
+                  placeholder="Address"
+                ></b-form-input>
+              </b-form-group>
+              <!---end of address -->
 
-          <!---province -->
-          <b-form-group id="input-group-province" class="input-title" label-for="input-0">
-            <model-select :options="provinceOptions" v-model="province" placeholder="Province"></model-select>
-          </b-form-group>
-          <!---end of province -->
+              <!---province -->
+              <b-form-group id="input-group-province" class="input-row" label-for="input-0">
+                <img src="../assets/location.png" class="icon" alt="Province" />
+                <model-select class="icon-holder" :options="provinceOptions" v-model="province" placeholder="Province"></model-select>
+              </b-form-group>
+              <!---end of province -->
 
-          <!---city -->
-          <b-form-group id="input-group-city" class="input-title" label-for="input-0">
-            <modelSelect
-              v-if="province == null "
-              :options="cityOptions"
-              placeholder="City"
-              :isDisabled="true"
-            ></modelSelect>
-            <modelSelect v-else :options="cityOptions" v-model="city"></modelSelect>
-          </b-form-group>
-          <!---end of city -->
-
+              <!---city -->
+              <b-form-group id="input-group-city" class="input-row" label-for="input-0">
+                <img src="../assets/city.png" class="icon" alt="City" />
+                <modelSelect
+                  v-if="province == null "
+                  :options="cityOptions"
+                  placeholder="City"
+                  :isDisabled="true"
+                  class="icon-holder"
+                ></modelSelect>
+                <modelSelect v-else class="icon-holder" :options="cityOptions" v-model="city"></modelSelect>
+              </b-form-group>
+              <!---end of city -->
+            </div>
+          </div>
+          
           <b-button
-            pill
             block
             id="btn-update-profile"
-            class="mt-5"
             type="submit"
             variant="info"
           >Confirm</b-button>
-        </b-form>
 
-        <!-- <b-card class="mt-3" header="Form Data Result">
-            <pre class="m-0">{{ form }}</pre>
-        </b-card>-->
+          <router-link
+            id="btn-update-password"
+            type="submit"
+            variant="info"
+            to="/updatepassword"
+          >Update Password</router-link>
+
+          <b-button
+            block
+            id="btn-cancel"
+            @click="onReset"
+            variant="info"
+          >Cancel</b-button>
+        </b-form>
       </b-container>
     </div>
   </div>
@@ -213,6 +234,7 @@ export default {
     this.fillProvinceOptions().then(() => {
       that.getUser();
     });
+    this.$root.$emit('doesnt need logo', 'there sidebar');
   }
 };
 </script>
@@ -221,11 +243,18 @@ export default {
 .profile-container {
   /*semetara font family poppins belum ada */
   /* font-family: Poppins; */
-  width: auto;
-  min-height: 100vh;
+  background: linear-gradient(
+      to bottom,
+      rgba(11, 11, 11, 0.5),
+      rgba(11, 11, 11, 0.5)
+    ),
+    url("../assets/bg-register.png");
   height: auto;
-  padding-bottom: 20px;
-  background-color: #282828;
+  min-height: 100vh;
+  background-size: cover !important;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  overflow: auto;
 }
 
 .content {
@@ -233,7 +262,80 @@ export default {
   margin-left: 15%;
 }
 
+.content-title {
+  text-align: center;
+  color: white;
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 72px;
+  margin-bottom: 50px;
+}
+
 .container {
   color: white !important;
+}
+
+.input-row {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+#btn-update-profile, #btn-update-password {
+  width: 30vw;
+  height: 50px;
+  border-radius: 10px;
+  margin: 0px auto 40px auto;
+  background-color: #BF9E6B;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: 0.2em;
+  color: white;
+  text-align: center;
+  display: block;
+  border: 1px solid transparent;
+}
+
+#btn-update-password {
+  line-height: 50px;
+}
+
+#btn-update-profile:hover, #btn-update-password:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+  text-decoration: none;
+}
+
+#btn-cancel {
+  width: 30vw;
+  height: 50px;
+  border-radius: 10px;
+  margin: 0px auto 40px auto;
+  background-color: #C9C5C1;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: 0.2em;
+}
+
+#btn-cancel:hover {
+  cursor: pointer;
+  filter: brightness(90%);
+}
+
+.icon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 6.5px;
+  left: 12.5px;
+  z-index: 2;
+}
+
+.icon-holder, input.search {
+  height: 38px;
+  padding-left: 50px;
 }
 </style>
