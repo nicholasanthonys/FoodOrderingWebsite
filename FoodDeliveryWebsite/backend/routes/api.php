@@ -76,6 +76,12 @@ Route::post('showmenuorder','OrderController@showUserMenuOrder');
 /*END ORDER-------------------------------------------------- */
 
 
+//get user based on email
+Route::post("getUser","UserController@edit");
+
+//update user profile
+Route::put('updateProfile',"UserController@update");
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
