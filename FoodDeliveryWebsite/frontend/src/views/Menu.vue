@@ -1,7 +1,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <template>
-  <div class="menu-pasta">
+  <div class="menu-container">
     <!---Sidebar-->
     <Sidebar />
 
@@ -245,7 +245,7 @@ export default {
 </script>
 
 <style scoped>
-.menu-pasta {
+.menu-container{
   /*semetara font family poppins belum ada */
   /* font-family: Poppins; */
   width: auto;
