@@ -8,7 +8,7 @@
 
       <h3>welcome</h3>
       <h3 class="name">
-        <u>{{userName}}</u>
+        <u>{{name}}</u>
       </h3>
     </nav>
   </div>
@@ -18,7 +18,7 @@
 export default {
   name: "ProfileNavbar",
   props: {
-    userName: String
+    name: String
   }
 };
 </script>

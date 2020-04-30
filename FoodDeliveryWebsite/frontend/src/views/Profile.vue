@@ -1,6 +1,6 @@
 <template>
   <div class="profile-container">
-    <ProfileNavbar userName="nicholas" />
+    <ProfileSidebar :name="name" />
     <div class="content">
       <Navbar id="navbar" />
 
@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import ProfileNavbar from "@/components/ProfileNavbar";
+import ProfileSidebar from "@/components/ProfileSidebar";
 import Navbar from "@/components/Navbar";
 import { ModelSelect } from "vue-search-select";
 import {
@@ -107,7 +107,7 @@ import Cookies from "js-cookie";
 export default {
   name: "Profile",
   components: {
-    ProfileNavbar,
+    ProfileSidebar,
     Navbar,
     ModelSelect
   },
