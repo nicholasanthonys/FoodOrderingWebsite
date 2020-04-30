@@ -88,7 +88,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * 
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -99,24 +99,37 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * //getUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Request $req)
     {
-        //
+        $user = User::find($req->email);
+        return response()->json([
+            'user'=>$user
+        ],201);
     }
 
     /**
      * Update the specified resource in storage.
-     *
+     *route : put updateProfile
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $req)
     {
-        //
+        $user = User::find($req->email);
+        $user->name = $req->name;
+        $user->dob = $req->dob;
+        $user->address = $req->address;
+        $user->province = $req->province;
+        $user->city = $req->city;
+        $user->save();
+
+        return response()->json([
+            'updatedUser' => $user
+        ],201);
     }
 
     /**
