@@ -8,6 +8,7 @@ import Promo from '@/views/Promo'
 import Menu from '@/views/Menu'
 import DetailMenu from '@/views/DetailMenu'
 import Profile from '@/views/Profile'
+import UpdatePassword from '@/views/UpdatePassword'
 import MyCart from '@/views/MyCart'
 import VueSession from 'vue-session'
 
@@ -79,6 +80,11 @@ const routes = [
         path :'/profile',
         name : 'Profile',
         component : Profile
+    },
+    {
+        path :'/updatepassword',
+        name : 'Update Pasword',
+        component : UpdatePassword
     },
     {
         path :'/mycart',

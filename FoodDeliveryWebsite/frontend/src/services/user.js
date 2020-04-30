@@ -20,3 +20,11 @@ export const updateProfile = async (form) => {
 
         });
 }
+
+export const updatePassword = async(email,newPassword) => {
+    return axios
+        .put('/api/updatePassword',{
+            email : email,
+            newPassword : newPassword
+        });
+}

@@ -132,6 +132,17 @@ class UserController extends Controller
         ],201);
     }
 
+    //put updatePassword
+    public function updatePassword(Request $req){
+        $user = User::find($req->email);
+        $user->password = Hash::make($req->newPassword);
+        $user->save();
+
+        return response()->json([
+            'status'  => "update password berhasil"
+        ],201);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
