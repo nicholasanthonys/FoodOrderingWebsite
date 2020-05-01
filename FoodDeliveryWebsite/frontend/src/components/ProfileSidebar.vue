@@ -15,10 +15,30 @@
 </template>
 
 <script>
+import {getUser} from '@/services';
+import Cookies from 'js-cookie';
+
 export default {
   name: "ProfileNavbar",
-  props: {
-    name: String
+  data(){
+    return{
+      name : ""
+    }
+  },
+  methods : {
+    async fillName(){
+      try{
+        let res = await getUser(Cookies.get('email'));
+        if(res.status >= 200 && res.status < 300){
+          this.name = res.data.user.name;
+        }
+      }catch(err){
+        console.log(err);
+      }
+    }
+  },
+  mounted(){
+    this.fillName();
   }
 };
 </script>
