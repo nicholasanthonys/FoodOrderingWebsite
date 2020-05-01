@@ -1,6 +1,6 @@
 <template>
   <div class="profile-container">
-    <ProfileSidebar :name="name" />
+    <ProfileSidebar  />
     <div class="content">
       <Navbar id="navbar" />
 
