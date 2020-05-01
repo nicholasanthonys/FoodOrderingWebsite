@@ -3,7 +3,7 @@
 <template>
   <div class="menu-pasta">
     <!---Sidebar-->
-    <Sidebar />
+    <Sidebar v-if="this.$router.history.current.fullPath != '/promo'"/>
 
     <div class="content">
       <!-- Navbar -->

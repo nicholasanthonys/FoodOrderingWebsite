@@ -52,6 +52,22 @@ export const getMenuDrinks = async() => {
     .get('/api/menus/drinks');
 }
 
+//promos
+export const getMenuPromo = async()=> {
+    return axios
+        .get('/api/promo')
+}
+
+//recommended
+export const getRecommended = async()=>{
+    return axios
+        .get('/api/recommended');
+}
+
+export const getNewest = async()=> {
+    return axios
+        .get('/api/newest');
+}
 
 
 
