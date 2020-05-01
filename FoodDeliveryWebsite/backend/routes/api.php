@@ -32,6 +32,8 @@ Route::get('cities/province/{idProvince}', 'CityController@getCityByProvinceId')
 //get list all menus
 Route::get('menus','MenuController@index');
 
+
+
 //pasta
 Route::get('menus/pasta','MenuController@indexPasta');
 
@@ -56,6 +58,14 @@ Route::get('menus/drinks','MenuController@indexDrinks');
 //get specific menu
 Route::get('menus/{idMenu}', 'MenuController@show');
 
+//get specific menu
+Route::get('promo', 'MenuController@indexPromo');
+
+//get specific menu
+Route::get('recommended', 'MenuController@indexRecommended');
+
+//get menu terbaru
+Route::get('newest', 'MenuController@indexNewest');
 /* MENU END ------------------------------------------*/
 
 

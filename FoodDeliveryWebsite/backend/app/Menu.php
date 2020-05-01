@@ -12,4 +12,8 @@ class Menu extends Model
     public function orders(){
         return $this->belongsToMany('App\Order')->withPivot('quantity','price');
     }
+
+    public function promos(){
+        return $this->hasMany('App\Promo');
+    }
 }

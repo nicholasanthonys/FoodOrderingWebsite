@@ -15,18 +15,18 @@ class CreatePromosTable extends Migration
     {
         Schema::create('promos', function (Blueprint $table) {
             $table->id();
-            $table->string('menu', 5);
+            $table->string('menu_id', 5);
             $table->bigInteger('new_price');
             $table->date('start_date');
             $table->date('end_date');
         });
 
-        Schema::table('promos', function (Blueprint $table) {
-            $table->foreign('menu')
-                ->references('id')
-                ->on('menus')
-                ->onDelete('cascade');
-        });
+        // Schema::table('promos', function (Blueprint $table) {
+        //     $table->foreign('menu_id')
+        //         ->references('id')
+        //         ->on('menus')
+        //         ->onDelete('cascade');
+        // });
     }
 
     /**
