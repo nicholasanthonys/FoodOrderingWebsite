@@ -28,14 +28,13 @@ class UserController extends Controller
     {
         $isLoginSucess = false;
 
-        $user = User::where('email',$req->email)->first();
-        if($user){
+        $user = User::where('email', $req->email)->first();
+        if ($user) {
             //check password
-            if(Hash::check ($req->password, $user->password)){
+            if (Hash::check($req->password, $user->password)) {
                 //bisa login
                 $isLoginSucess = true;
-            }
-            else{
+            } else {
                 //password salah, status tidak boleh ditampilkan demi alasan keamanan
                 // return response()->json([
                 //     'messsage' => 'password salah'
@@ -44,12 +43,11 @@ class UserController extends Controller
         }
 
         //if failed return null
-        if($isLoginSucess){
+        if ($isLoginSucess) {
             return response()->json([
                 'user' => $user
-            ],201);
+            ], 201);
         }
-    
     }
 
     /**
@@ -60,7 +58,7 @@ class UserController extends Controller
      */
     public function signUp(Request $req)
     {
-        $user = User::find($req->email) ;
+        $user = User::find($req->email);
 
         if (!$user) { //check user udah terdaftar apa belom
             $newUser = new User;
@@ -72,7 +70,7 @@ class UserController extends Controller
             $newUser->address = $req->address;
             $newUser->province = $req->province;
             $newUser->city = $req->city;
-             $newUser->save();
+            $newUser->save();
             return response()->json([
                 'newUser' => $newUser,
                 'signUp' => 'success'
@@ -106,8 +104,8 @@ class UserController extends Controller
     {
         $user = User::find($req->email);
         return response()->json([
-            'user'=>$user
-        ],201);
+            'user' => $user
+        ], 201);
     }
 
     /**
@@ -129,17 +127,27 @@ class UserController extends Controller
 
         return response()->json([
             'updatedUser' => $user
-        ],201);
+        ], 201);
     }
 
     //put updatePassword
-    public function updatePassword(Request $req){
+    public function updatePassword(Request $req)
+    {
         $user = User::find($req->email);
-        $user->password = Hash::make($req->newPassword);
-        $user->save();
+        if (Hash::check($req->currentPassword, $user->password)) {
+            //password match
+            $user->password = Hash::make($req->newPassword);
+            $user->save();
+
+            return response()->json([
+                'status'  => "update password berhasil",
+                "currentPassword" =>$req->currentPassword
+            ], 201);
+        }
 
         return response()->json([
-            'status'  => "update password berhasil"
+            'status' => "update password gagal",
+            "currentPassword" =>$req->currentPassword
         ],201);
     }
 

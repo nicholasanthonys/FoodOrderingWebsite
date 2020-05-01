@@ -9,11 +9,7 @@
       <b-container>
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
           <!--------input name ---->
-          <b-form-group
-            id="input-group-0"
-            class="input-row"
-            label-for="input-0"
-          >
+          <b-form-group id="input-group-0" class="input-row" label-for="input-0">
             <img src="../assets/password.png" class="icon" alt="Password" />
             <b-form-input
               id="update-name"
@@ -27,11 +23,7 @@
           <!-------END input name ---->
 
           <!--------input email ---->
-          <b-form-group
-            id="input-group-1"
-            class="input-row"
-            label-for="input-1"
-          >
+          <b-form-group id="input-group-1" class="input-row" label-for="input-1">
             <img src="../assets/password.png" class="icon" alt="Password" />
             <b-form-input
               id="update-email"
@@ -63,21 +55,9 @@
           </b-form-group>
           <!--------END input email ---->
 
-          <b-button
-            block
-            id="btn-update-password"
-            class="mt-5"
-            type="submit"
-            variant="info"
-          >Confirm</b-button>
+          <b-button block id="btn-update-password" class="mt-5" type="submit" variant="info">Confirm</b-button>
 
-          <b-button
-            block
-            id="btn-cancel"
-            class="mt-5"
-            @click="onReset"
-            variant="info"
-          >Cancel</b-button>
+          <b-button block id="btn-cancel" class="mt-5" @click="onReset" variant="info">Cancel</b-button>
         </b-form>
       </b-container>
     </div>
@@ -88,7 +68,7 @@
 import ProfileSidebar from "@/components/ProfileSidebar";
 import Navbar from "@/components/Navbar";
 import Cookies from "js-cookie";
-import {updatePassword}  from '@/services';
+import { updatePassword } from "@/services";
 
 export default {
   name: "UpdatePassword",
@@ -108,24 +88,28 @@ export default {
     };
   },
   methods: {
-    async updatePassword (){
-        try{
-            let res = await updatePassword(this.email, this.form.newPassword);
-            if(res.status >=200 && res.status <300){
-                alert('Update Password Berhasil');
-            }
-        }catch(err){
-            console.log(err);
+    async updatePassword() {
+      try {
+        let res = await updatePassword(
+          this.email,
+          this.form.currentPassword,
+          this.form.newPassword
+        );
+        if (res.status >= 200 && res.status < 300) {
+          alert(res.data.status);
         }
+      } catch (err) {
+        console.log(err);
+      }
     },
     onSubmit(evt) {
       evt.preventDefault();
       // alert(JSON.stringify(this.form));
 
-      if(this.form.newPassword == this.form.confirmNewPassword){
-          this.updatePassword();
-      }else{
-          alert('Password doesnt match');
+      if (this.form.newPassword == this.form.confirmNewPassword) {
+        this.updatePassword();
+      } else {
+        alert("Password doesnt match");
       }
     },
     onReset(evt) {
@@ -142,9 +126,9 @@ export default {
       });
     }
   },
-  mounted(){
-      console.log("email : " + this.email);
-      this.$root.$emit('doesnt need logo', 'there sidebar');
+  mounted() {
+    console.log("email : " + this.email);
+    this.$root.$emit("doesnt need logo", "there sidebar");
   }
 };
 </script>
@@ -190,7 +174,7 @@ export default {
   height: 50px;
   border-radius: 10px;
   margin: 0px auto 40px auto;
-  background-color: #BF9E6B;
+  background-color: #bf9e6b;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-weight: 500;
   font-size: 18px;
@@ -213,7 +197,7 @@ export default {
   height: 50px;
   border-radius: 10px;
   margin: 0px auto 40px auto;
-  background-color: #C9C5C1;
+  background-color: #c9c5c1;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-weight: 500;
   font-size: 18px;
@@ -244,7 +228,8 @@ export default {
   z-index: 2;
 }
 
-.icon-holder, input.search {
+.icon-holder,
+input.search {
   height: 38px;
   padding-left: 50px;
 }
