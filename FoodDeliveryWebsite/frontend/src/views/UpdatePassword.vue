@@ -102,7 +102,7 @@ export default {
       form: {
         currentPassword: "",
         newPassword: "",
-        confrimNewPassword: ""
+        confirmNewPassword: ""
       },
       show: true
     };
@@ -122,7 +122,7 @@ export default {
       evt.preventDefault();
       // alert(JSON.stringify(this.form));
 
-      if(this.form.newPassword == this.form.confrimNewPassword){
+      if(this.form.newPassword == this.form.confirmNewPassword){
           this.updatePassword();
       }else{
           alert('Password doesnt match');
@@ -134,7 +134,7 @@ export default {
       console.log("on reset clicked");
       this.form.currentPassword = "";
       this.form.newPassword = "";
-      this.form.confrimNewPassword = "";
+      this.form.confirmNewPassword = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
