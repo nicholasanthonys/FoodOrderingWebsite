@@ -21,6 +21,8 @@ class CreateMenusTable extends Migration
             $table->bigInteger('price');
             $table->text('description');
             $table->integer('stock');
+            $table->boolean('chef_recommended');
+            $table->date('date_added');
         });
     }
 
