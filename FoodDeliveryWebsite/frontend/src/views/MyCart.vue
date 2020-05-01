@@ -17,16 +17,18 @@
           v-bind:key="menu.id"
         >
           <div class="top-card">
-            <div 
-              class="button-remove" 
-              v-on:click="openModal('modal-center-remove',menu.id,menu.type, menu.name, menu.price, menu.url_image,menu.description,menu.quantity,index)">
+            <div
+              class="button-remove"
+              v-on:click="openModal('modal-center-remove',menu.id,menu.type, menu.name, menu.price, menu.url_image,menu.description,menu.quantity,index)"
+            >
               <span class="remove-tooltip">Remove Order</span>
             </div>
 
-            <div 
-              class="button-edit" 
-              v-on:click="openModal('modal-center-edit',menu.id,menu.type, menu.name, menu.price, menu.url_image,menu.description,menu.quantity,index)">
-              <span class="edit-tooltip">Edit Order</span>  
+            <div
+              class="button-edit"
+              v-on:click="openModal('modal-center-edit',menu.id,menu.type, menu.name, menu.price, menu.url_image,menu.description,menu.quantity,index)"
+            >
+              <span class="edit-tooltip">Edit Order</span>
             </div>
           </div>
 
@@ -172,9 +174,44 @@
           <b-button class="button-ya" v-on:click="handleOk($event, 'modal-center-clear')">Clear Cart</b-button>
         </b-modal>
         <!---END MODAL CLEAR -->
+
+        <!--MODAL ORDER -->
+        <b-modal
+          id="modal-center-order"
+          class="modal-body styling=modal"
+          ref="modal-center-order"
+          centered
+          size="lg"
+          hide-footer
+          hide-header
+          header-text-variant="light"
+          body-text-variant="light"
+          body-border-variant="transparent"
+          content-class="shadow"
+          @ok="handleOk"
+        >
+          <div class="modal-header modal-title">
+            <p id="b-title">Konfirmasi Semua Pesanan Ini ?</p>
+          </div>
+
+          <div class="content-modal">
+            <h6
+              v-for="menu in menus"
+              :key="menu.id"
+            >{{menu.name}} - {{menu.quantity}} pcs Rp.{{menu.price * menu.quantity}}</h6>
+            <h6>Subtotal : {{subtotal}}</h6>
+            <h6>Tax : {{tax}}</h6>
+          </div>
+          <b-button class="button-ya" v-on:click="handleOk($event, 'modal-center-order')">Ya</b-button>
+        </b-modal>
+        <!---END MODAL ORDER -->
       </div>
 
-      <b-button v-if="menus.length != 0" class="button-order">Order</b-button>
+      <b-button
+        v-if="menus.length != 0"
+        @click="openModal('modal-center-order')"
+        class="button-order"
+      >Order</b-button>
 
       <b-button
         v-if="menus.length != 0"
@@ -203,6 +240,8 @@ export default {
     return {
       email: Cookies.get("email"),
       menus: [],
+      subtotal: 0,
+      tax: 0,
       selectedMenu: {
         id: 0,
         type: "",
@@ -224,7 +263,7 @@ export default {
         console.log(cart);
 
         this.menus = cart;
-
+        this.countSubtotalAndTax();
         // let res = await getMenuPasta();
         // console.log("res data is ");
         // if (res.status >= 200 && res.status < 300) {
@@ -233,6 +272,19 @@ export default {
       } catch (err) {
         console.log(err);
       }
+    },
+    countSubtotalAndTax() {
+      //get subtotal
+      //reset subtotal ke 0
+      this.subtotal = 0;
+      this.menus.forEach(menu => {
+        this.subtotal += (menu.price * menu.quantity);
+        console.log('item subtotal : ' + this.subtotal);
+      });
+      //get tax
+      this.tax = 0.1 * this.subtotal;
+      //get subtotal
+      this.total = this.subtotal + this.tax;
     },
     goToDetail: function(id) {
       this.$router.push("/detailmenu/" + id);
@@ -248,14 +300,16 @@ export default {
       quantity,
       index
     ) {
-      this.selectedMenu.id = id;
-      this.selectedMenu.name = name;
-      this.selectedMenu.price = price;
-      this.selectedMenu.url_image = url_image;
-      this.selectedMenu.type = type;
-      this.selectedMenu.description = description;
-      this.selectedMenu.quantity = quantity;
-      this.selectedMenu.index = index;
+      if (ref == "modal-center-edit" || ref == "modal-center-remove") {
+        this.selectedMenu.id = id;
+        this.selectedMenu.name = name;
+        this.selectedMenu.price = price;
+        this.selectedMenu.url_image = url_image;
+        this.selectedMenu.type = type;
+        this.selectedMenu.description = description;
+        this.selectedMenu.quantity = quantity;
+        this.selectedMenu.index = index;
+      }
 
       this.$refs[ref].show();
     },
@@ -271,7 +325,6 @@ export default {
       this.handleSubmit(ref);
     },
     handleSubmit(ref) {
-      // Nicho tolong isi ini
       switch (ref) {
         case "modal-center-edit":
           this.menus[
@@ -288,10 +341,15 @@ export default {
         case "modal-center-clear":
           this.menus = [];
           break;
+        case "modal-center-order":
+          break;
       }
 
       //timpa nilai cookie nya
       Cookies.set("cart-" + this.email, JSON.stringify(this.menus));
+      this.fillMenus();
+      //hitung subtotal dan tax nya lagi
+      this.countSubtotalAndTax();
 
       // Hide the modal manually
       this.$nextTick(() => {
@@ -310,7 +368,7 @@ export default {
 
   mounted: function() {
     this.fillMenus();
-    this.$root.$emit('doesnt need logo', 'there sidebar');
+    this.$root.$emit("doesnt need logo", "there sidebar");
   }
 };
 </script>
@@ -347,7 +405,8 @@ export default {
   background-color: #fff;
 }
 
-.button-order, .button-clear {
+.button-order,
+.button-clear {
   display: block;
   width: 40%;
   height: 50px;
@@ -357,13 +416,15 @@ export default {
   background-color: #bf9e6b;
 }
 
-.button-order:hover, .button-clear:hover {
+.button-order:hover,
+.button-clear:hover {
   transform: translateY(1px);
   filter: brightness(85%);
   cursor: pointer;
 }
 
-.button-order:active, .button-clear:active {
+.button-order:active,
+.button-clear:active {
   transform: translateY(2px);
   filter: brightness(75%);
 }
@@ -520,7 +581,7 @@ export default {
   position: relative;
   width: 30px;
   height: 30px;
-  background: url('~@/assets/edit-black.png') no-repeat center;
+  background: url("~@/assets/edit-black.png") no-repeat center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -529,7 +590,8 @@ export default {
   margin-right: 15px;
 }
 
-.edit-tooltip, .remove-tooltip {
+.edit-tooltip,
+.remove-tooltip {
   visibility: hidden;
   width: 150px;
   height: auto;
@@ -548,7 +610,7 @@ export default {
   position: relative;
   width: 30px;
   height: 30px;
-  background: url('~@/assets/signs-black.png') no-repeat center;
+  background: url("~@/assets/signs-black.png") no-repeat center;
   border-radius: 15px;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -559,7 +621,7 @@ export default {
 
 .button-edit:hover {
   cursor: pointer;
-  background-image: url('~@/assets/edit.png');
+  background-image: url("~@/assets/edit.png");
 }
 
 .button-edit:hover .edit-tooltip {
@@ -571,7 +633,7 @@ export default {
 
 .button-remove:hover {
   cursor: pointer;
-  background-image: url('~@/assets/signs.png');
+  background-image: url("~@/assets/signs.png");
 }
 
 .button-remove:hover .remove-tooltip {
