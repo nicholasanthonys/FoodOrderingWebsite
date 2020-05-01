@@ -272,6 +272,7 @@ export default {
       menus: [],
       subtotal: 0,
       tax: 0,
+      total : 0,
       selectedMenu: {
         id: 0,
         type: "",
