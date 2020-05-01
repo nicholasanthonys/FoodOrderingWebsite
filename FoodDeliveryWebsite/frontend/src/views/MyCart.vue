@@ -195,12 +195,42 @@
           </div>
 
           <div class="content-modal">
-            <h6
+            <!-- <h6
               v-for="menu in menus"
               :key="menu.id"
             >{{menu.name}} - {{menu.quantity}} pcs Rp.{{menu.price * menu.quantity}}</h6>
             <h6>Subtotal : {{subtotal}}</h6>
-            <h6>Tax : {{tax}}</h6>
+            <h6>Tax : {{tax}}</h6> -->
+
+            <table class="table table-borderless" style="margin-bottom: 3rem;">
+              <tbody style="color: white;">
+                <tr 
+                  v-for="menu in menus"
+                  :key="menu.id">
+                  <td scope="col" class="row-name"> {{ menu.name }} </td>
+                  <td scope="col" class="row-quantity"> {{ menu.quantity }} pcs </td>
+                  <td scope="col" class="row-price"> Rp {{ menu.price * menu.quantity }} </td>
+                </tr>
+                <tr>
+                  <td scope="col" colspan="3" style="height: 1rem;" />
+                </tr>
+                <tr>
+                  <td scope="col" colspan="2">Subtotal : </td>
+                  <td scope="col">Rp {{ subtotal }} </td>
+                </tr>
+                <tr>
+                  <td scope="col" colspan="2">Tax <span style="padding-left: 37px;" /> : </td>
+                  <td scope="col">Rp {{ tax }} </td>
+                </tr>
+                <tr>
+                  <td scope="col" colspan="3" style="height: 2rem;" />
+                </tr>
+                <tr style="font-weight: bold;">
+                  <td scope="col" colspan="2">Total <span style="padding-left: 21px;" /> : </td>
+                  <td scope="col">Rp {{ total }} </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <b-button class="button-ya" v-on:click="handleOk($event, 'modal-center-order')">Ya</b-button>
         </b-modal>
@@ -560,8 +590,8 @@ export default {
 
 .content-modal {
   width: 100%;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: 3em;
+  padding-right: 3em;
 }
 
 .modal-img {
@@ -641,5 +671,9 @@ export default {
   top: 35px;
   opacity: 0.7;
   left: -110px;
+}
+
+.table td {
+  padding: 0px;
 }
 </style>
