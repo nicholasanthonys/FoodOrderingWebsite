@@ -81,6 +81,7 @@
                   placeholder="City"
                   :isDisabled="true"
                   class="icon-holder"
+                  style=""
                 ></modelSelect>
                 <modelSelect v-else class="icon-holder" :options="cityOptions" v-model="city"></modelSelect>
               </b-form-group>
@@ -337,5 +338,10 @@ export default {
 .icon-holder, input.search {
   height: 38px;
   padding-left: 50px;
+}
+
+/*padding utk modalSelect*/
+#app .ui.selection.dropdown{
+      padding-left: 50px;
 }
 </style>
