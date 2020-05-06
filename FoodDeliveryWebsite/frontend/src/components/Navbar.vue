@@ -1,7 +1,12 @@
 <template>
   <div class="NavBar">
     <b-navbar toggleable="lg">
-      <b-navbar-brand href="#" variant="i" style="width: auto; margin-top: 0px;" v-if="needLogo == true">
+      <b-navbar-brand
+        href="#"
+        variant="i"
+        style="width: auto; margin-top: 0px;"
+        v-if="needLogo == true"
+      >
         <div class="logo" />
       </b-navbar-brand>
 
@@ -10,10 +15,20 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-nav-form>
           <img class="search-icon" src="../assets/search.png" />
-          <b-form-input size="sm" class="search-input" placeholder="Search" style="margin-right: 0px"></b-form-input>
+          <b-form-input
+            size="sm"
+            class="search-input"
+            placeholder="Search"
+            style="margin-right: 0px"
+          ></b-form-input>
           <img class="filter-icon" src="../assets/filter.png" />
 
-          <b-button size="sm" class="my-2 my-sm-0" type="submit" style="padding-right: 10px; padding-left: 10px;">Search</b-button>
+          <b-button
+            size="sm"
+            class="my-2 my-sm-0"
+            type="submit"
+            style="padding-right: 10px; padding-left: 10px;"
+          >Search</b-button>
         </b-nav-form>
 
         <!-- Right aligned nav items -->
@@ -29,12 +44,18 @@
               <router-link to="/promo">Promo</router-link>
             </b-nav-item>
 
-            <b-nav-item-dropdown right v-if="isSessionExist" class="button-member" style="padding: 0px 10px 0px 10px">
+            <b-nav-item-dropdown
+              right
+              v-if="isSessionExist"
+              class="button-member"
+              style="padding: 0px 10px 0px 10px"
+            >
               <template v-slot:button-content>
                 <em>User</em>
               </template>
               <b-dropdown-item v-on:click="goToProfile">Profile</b-dropdown-item>
               <b-dropdown-item v-on:click="goToMyCart">My Cart</b-dropdown-item>
+              <b-dropdown-item v-on:click="goToHistoryOrder">History Order</b-dropdown-item>
               <b-dropdown-item v-on:click="signOut">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
 
@@ -63,11 +84,14 @@ export default {
       //redirect to login
       this.$router.push("/");
     },
-    goToProfile (){
-      this.$router.push('/profile');
+    goToProfile() {
+      this.$router.push("/profile");
     },
-    goToMyCart(){
-      this.$router.push('/mycart');
+    goToMyCart() {
+      this.$router.push("/mycart");
+    },
+    goToHistoryOrder() {
+      this.$router.push("/historyorder");
     }
   },
   mounted: function() {
@@ -76,11 +100,11 @@ export default {
     console.log("from navbar route is ");
     console.log(this.$router);
 
-    this.$root.$on('doesnt need logo', (text) => {
-      if (text == 'there sidebar') {
+    this.$root.$on("doesnt need logo", text => {
+      if (text == "there sidebar") {
         this.needLogo = false;
       }
-    })
+    });
   }
 };
 </script>
@@ -107,7 +131,7 @@ export default {
 }
 
 .logo {
-  background: url('../assets/logo-kitchen-black.png') no-repeat center;
+  background: url("../assets/logo-kitchen-black.png") no-repeat center;
   width: 125px;
   height: 75px;
   -webkit-background-size: cover;
@@ -137,7 +161,8 @@ export default {
   border-right: none;
 }
 
-.search-icon:hover, .filter-icon:hover {
+.search-icon:hover,
+.filter-icon:hover {
   cursor: pointer;
 }
 
@@ -156,7 +181,7 @@ export default {
 
 .button-member {
   padding: 10px 25px 10px 25px;
-  background-color: #BF9E6B;
+  background-color: #bf9e6b;
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   transition-duration: 0.4s;

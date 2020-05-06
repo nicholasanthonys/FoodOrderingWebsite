@@ -1,5 +1,5 @@
 <template>
-  <div class="menu-pasta">
+  <div class="my-cart">
     <!---Sidebar-->
     <Sidebar />
 
@@ -453,7 +453,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.menu-pasta {
+.my-cart {
   /*semetara font family poppins belum ada */
   /* font-family: Poppins; */
   width: auto;

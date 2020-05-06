@@ -173,12 +173,33 @@ class OrderController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     * delete : /api/historyorders/clear
      * @param  \App\Province  $province
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function clearHistory(Request $req)
     {
-        //
+        $orders = Order::where('customer',$req->email);
+        
+        //get array
+        $arrayOrders = $orders->get();
+
+        foreach ($arrayOrders as $order) {
+            //hapus semua menu dalam order di database
+            $menus = $order->menus()->detach();
+        }
+        //hapus semua orders berdasarkan email
+        $orders->delete();
+        
+        return response()->json([
+            'orders' => $orders,
+        ],201);
+
+        // $order = Order::where('customer',$req->email)->first();
+        // $menus = $order->menus()->detach();
+        // return response()->json([
+        //     "menus" =>$menus
+        // ],201);
+
     }
 }
