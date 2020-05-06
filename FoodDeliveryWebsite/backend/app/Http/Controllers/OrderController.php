@@ -52,12 +52,12 @@ class OrderController extends Controller
                 "paid" : 1,
                 "menus" : [
                     {
-                        "idMenu" : "drk02",
+                        "id" : "drk02",
                         "quantity" : 2,
                         "price" :  12000
                     },
                     {
-                        "idMenu" : "drk03",
+                        "id" : "drk03",
                         "quantity" : 1,
                         "price" : 12000
                         
@@ -82,16 +82,16 @@ class OrderController extends Controller
         $menus = $request->menus;
 
         //count total price
-        $totalPrice = 0;
-        foreach($menus as $menu){
-            $totalPrice += $menu['price'] * $menu['quantity'];
-        }
-        $order->total_price = $totalPrice;
+        // $totalPrice = 0;
+        // foreach($menus as $menu){
+        //     $totalPrice += $menu['price'] * $menu['quantity'];
+        // }
+        // $order->total_price = $totalPrice;
         $order->save();
 
         //save order to menu_order table
         foreach($menus as $temp){
-           $menu = Menu::find($temp['idMenu']);
+           $menu = Menu::find($temp['id']);
              $order->menus() -> attach([
                 $menu->id => [
                     'quantity'=> $temp['quantity'],
@@ -101,8 +101,8 @@ class OrderController extends Controller
         }
 
         return response()->json([
-            'newOrder' => $order
-        ]);
+            'newOrder' => $request->menus
+        ],201);
     }
 
     /**
@@ -138,10 +138,13 @@ class OrderController extends Controller
         ]);
     }
 
+    //post /historyorders
     public function showHistoryOrders(Request $req){
         //select all order based on user email
         $allUserOrder = Order::where('customer',$req->email) -> get();
-
+        foreach ($allUserOrder as $order) {
+            $order['menus'] = $order->menus;
+        }
         return response()-> json($allUserOrder);
     }
 

@@ -200,34 +200,38 @@
               :key="menu.id"
             >{{menu.name}} - {{menu.quantity}} pcs Rp.{{menu.price * menu.quantity}}</h6>
             <h6>Subtotal : {{subtotal}}</h6>
-            <h6>Tax : {{tax}}</h6> -->
+            <h6>Tax : {{tax}}</h6>-->
 
             <table class="table table-borderless" style="margin-bottom: 3rem;">
               <tbody style="color: white;">
-                <tr 
-                  v-for="menu in menus"
-                  :key="menu.id">
-                  <td scope="col" class="row-name"> {{ menu.name }} </td>
-                  <td scope="col" class="row-quantity"> {{ menu.quantity }} pcs </td>
-                  <td scope="col" class="row-price"> Rp {{ menu.price * menu.quantity }} </td>
+                <tr v-for="menu in menus" :key="menu.id">
+                  <td scope="col" class="row-name">{{ menu.name }}</td>
+                  <td scope="col" class="row-quantity">{{ menu.quantity }} pcs</td>
+                  <td scope="col" class="row-price">Rp {{ menu.price * menu.quantity }}</td>
                 </tr>
                 <tr>
                   <td scope="col" colspan="3" style="height: 1rem;" />
                 </tr>
                 <tr>
-                  <td scope="col" colspan="2">Subtotal : </td>
-                  <td scope="col">Rp {{ subtotal }} </td>
+                  <td scope="col" colspan="2">Subtotal :</td>
+                  <td scope="col">Rp {{ subtotal }}</td>
                 </tr>
                 <tr>
-                  <td scope="col" colspan="2">Tax <span style="padding-left: 37px;" /> : </td>
-                  <td scope="col">Rp {{ tax }} </td>
+                  <td scope="col" colspan="2">
+                    Tax
+                    <span style="padding-left: 37px;" /> :
+                  </td>
+                  <td scope="col">Rp {{ tax }}</td>
                 </tr>
                 <tr>
                   <td scope="col" colspan="3" style="height: 2rem;" />
                 </tr>
                 <tr style="font-weight: bold;">
-                  <td scope="col" colspan="2">Total <span style="padding-left: 21px;" /> : </td>
-                  <td scope="col">Rp {{ total }} </td>
+                  <td scope="col" colspan="2">
+                    Total
+                    <span style="padding-left: 21px;" /> :
+                  </td>
+                  <td scope="col">Rp {{ total }}</td>
                 </tr>
               </tbody>
             </table>
@@ -261,6 +265,7 @@
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import Cookies from "js-cookie";
+import { createOrder } from "@/services";
 export default {
   components: {
     Navbar,
@@ -272,7 +277,7 @@ export default {
       menus: [],
       subtotal: 0,
       tax: 0,
-      total : 0,
+      total: 0,
       selectedMenu: {
         id: 0,
         type: "",
@@ -282,7 +287,8 @@ export default {
         url_image: "",
         description: "",
         index: 0
-      }
+      },
+      isOrderSucceed: false
     };
   },
   methods: {
@@ -309,8 +315,8 @@ export default {
       //reset subtotal ke 0
       this.subtotal = 0;
       this.menus.forEach(menu => {
-        this.subtotal += (menu.price * menu.quantity);
-        console.log('item subtotal : ' + this.subtotal);
+        this.subtotal += menu.price * menu.quantity;
+        console.log("item subtotal : " + this.subtotal);
       });
       //get tax
       this.tax = 0.1 * this.subtotal;
@@ -372,20 +378,55 @@ export default {
         case "modal-center-clear":
           this.menus = [];
           break;
-        case "modal-center-order":
-          break;
       }
+      this.setCart();
+      // //timpa nilai cookie nya;
+      // Cookies.set("cart-" + this.email, JSON.stringify(this.menus));
+      // this.fillMenus();
+      // //hitung subtotal dan tax nya lagi;
+      // this.countSubtotalAndTax();
 
-      //timpa nilai cookie nya
-      Cookies.set("cart-" + this.email, JSON.stringify(this.menus));
-      this.fillMenus();
-      //hitung subtotal dan tax nya lagi
-      this.countSubtotalAndTax();
+      //async function dipanggil
+      if (ref == "modal-center-order") {
+        let order = {
+          email: this.email,
+          totalPrice: this.total,
+          orderStatus: "arrived",
+          paid: 1,
+          menus: this.menus
+        };
+        console.log("order : ");
+        console.log(order);
+
+        let isSucceed = this.createOrder(order);
+        let that = this;
+        isSucceed.then(() => {
+          console.log("is succeed ? " + that.isOrderSucceed);
+          if (that.isOrderSucceed) {
+            this.menus = [];
+            that.setCart();
+          }
+        });
+      }
 
       // Hide the modal manually
       this.$nextTick(() => {
         this.$refs[ref].hide();
       });
+    },
+    async createOrder(order) {
+      try {
+        let res = await createOrder(order);
+        if (res.status >= 200 && res.status < 300) {
+          console.log("response order");
+          console.log(res.data.newOrder);
+          this.isOrderSucceed = true;
+        }
+      } catch (err) {
+        console.log(err);
+      }
+
+      return false;
     },
     plusQuantity() {
       this.selectedMenu.quantity = this.selectedMenu.quantity + 1;
@@ -394,6 +435,13 @@ export default {
       if (this.selectedMenu.quantity > 1) {
         this.selectedMenu.quantity = this.selectedMenu.quantity - 1;
       }
+    },
+    setCart() {
+      //timpa nilai cookie nya
+      Cookies.set("cart-" + this.email, JSON.stringify(this.menus));
+      this.fillMenus();
+      //hitung subtotal dan tax nya lagi
+      this.countSubtotalAndTax();
     }
   },
 
