@@ -70,13 +70,13 @@ class OrderController extends Controller
         $order=  new Order();
         $order->customer = $request->email;
         $order->total_price = $request->totalPrice;
-        $order->order_status = $request->orderStatus;
-        $order->paid = $request->paid;
+        // $order->order_status = $request->orderStatus;
+        // $order->paid = $request->paid;
         $order->order_time = Carbon::now();
 
 
         //asumsi : shipped time sama dengan order time
-        $order->shipped_time = Carbon::now();
+        // $order->shipped_time = Carbon::now();
         
         //ambil array menus
         $menus = $request->menus;

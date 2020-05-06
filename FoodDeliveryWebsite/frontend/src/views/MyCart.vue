@@ -391,8 +391,8 @@ export default {
         let order = {
           email: this.email,
           totalPrice: this.total,
-          orderStatus: "arrived",
-          paid: 1,
+          // orderStatus: "arrived",
+          // paid: 1,
           menus: this.menus
         };
         console.log("order : ");

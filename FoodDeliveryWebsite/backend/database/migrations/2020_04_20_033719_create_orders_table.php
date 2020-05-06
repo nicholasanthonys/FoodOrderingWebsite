@@ -17,10 +17,10 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('customer');
             $table->bigInteger('total_price');
-            $table->string('order_status');
-            $table->tinyInteger('paid');
+            // $table->string('order_status');
+            // $table->tinyInteger('paid');
             $table->timestamp('order_time');
-            $table->timestamp('shipped_time')->nullable();
+            // $table->timestamp('shipped_time')->nullable();
 
         });
 

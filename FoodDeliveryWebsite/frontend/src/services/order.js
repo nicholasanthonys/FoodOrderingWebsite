@@ -6,9 +6,9 @@ export const createOrder = async (order) => {
   return axios.post("/api/orders", {
     email: order.email,
     totalPrice: order.totalPrice,
-    orderStatus: order.orderStatus,
-    paid: order.paid,
-    menus: order.menus,
+    // orderStatus: order.orderStatus,
+    // paid: order.paid,
+    menus: order.menus
   });
 };
 
