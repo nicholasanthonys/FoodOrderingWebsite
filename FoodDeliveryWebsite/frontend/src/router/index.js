@@ -10,6 +10,7 @@ import DetailMenu from '@/views/DetailMenu'
 import Profile from '@/views/Profile'
 import UpdatePassword from '@/views/UpdatePassword'
 import MyCart from '@/views/MyCart'
+import HistoryOrder from '@/views/HistoryOrder'
 import VueSession from 'vue-session'
 
 Vue.use(VueRouter);
@@ -90,6 +91,11 @@ const routes = [
         path :'/mycart',
         name : 'My Cart',
         component : MyCart
+    },
+    {
+        path :'/historyorder',
+        name : 'HistoryOrder',
+        component : HistoryOrder
     }
 ]
 

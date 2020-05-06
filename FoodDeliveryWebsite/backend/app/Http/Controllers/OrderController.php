@@ -52,12 +52,12 @@ class OrderController extends Controller
                 "paid" : 1,
                 "menus" : [
                     {
-                        "idMenu" : "drk02",
+                        "id" : "drk02",
                         "quantity" : 2,
                         "price" :  12000
                     },
                     {
-                        "idMenu" : "drk03",
+                        "id" : "drk03",
                         "quantity" : 1,
                         "price" : 12000
                         
@@ -70,28 +70,28 @@ class OrderController extends Controller
         $order=  new Order();
         $order->customer = $request->email;
         $order->total_price = $request->totalPrice;
-        $order->order_status = $request->orderStatus;
-        $order->paid = $request->paid;
+        // $order->order_status = $request->orderStatus;
+        // $order->paid = $request->paid;
         $order->order_time = Carbon::now();
 
 
         //asumsi : shipped time sama dengan order time
-        $order->shipped_time = Carbon::now();
+        // $order->shipped_time = Carbon::now();
         
         //ambil array menus
         $menus = $request->menus;
 
         //count total price
-        $totalPrice = 0;
-        foreach($menus as $menu){
-            $totalPrice += $menu['price'] * $menu['quantity'];
-        }
-        $order->total_price = $totalPrice;
+        // $totalPrice = 0;
+        // foreach($menus as $menu){
+        //     $totalPrice += $menu['price'] * $menu['quantity'];
+        // }
+        // $order->total_price = $totalPrice;
         $order->save();
 
         //save order to menu_order table
         foreach($menus as $temp){
-           $menu = Menu::find($temp['idMenu']);
+           $menu = Menu::find($temp['id']);
              $order->menus() -> attach([
                 $menu->id => [
                     'quantity'=> $temp['quantity'],
@@ -101,8 +101,8 @@ class OrderController extends Controller
         }
 
         return response()->json([
-            'newOrder' => $order
-        ]);
+            'newOrder' => $request->menus
+        ],201);
     }
 
     /**
@@ -138,10 +138,13 @@ class OrderController extends Controller
         ]);
     }
 
+    //post /historyorders
     public function showHistoryOrders(Request $req){
         //select all order based on user email
         $allUserOrder = Order::where('customer',$req->email) -> get();
-
+        foreach ($allUserOrder as $order) {
+            $order['menus'] = $order->menus;
+        }
         return response()-> json($allUserOrder);
     }
 
@@ -170,12 +173,33 @@ class OrderController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     * delete : /api/historyorders/clear
      * @param  \App\Province  $province
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function clearHistory(Request $req)
     {
-        //
+        $orders = Order::where('customer',$req->email);
+        
+        //get array
+        $arrayOrders = $orders->get();
+
+        foreach ($arrayOrders as $order) {
+            //hapus semua menu dalam order di database
+            $menus = $order->menus()->detach();
+        }
+        //hapus semua orders berdasarkan email
+        $orders->delete();
+        
+        return response()->json([
+            'orders' => $orders,
+        ],201);
+
+        // $order = Order::where('customer',$req->email)->first();
+        // $menus = $order->menus()->detach();
+        // return response()->json([
+        //     "menus" =>$menus
+        // ],201);
+
     }
 }

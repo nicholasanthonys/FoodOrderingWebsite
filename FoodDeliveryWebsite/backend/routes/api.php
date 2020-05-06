@@ -77,8 +77,12 @@ Route::post('orders','OrderController@store');
 
 //get 1 user order
 Route::post('showorder', 'OrderController@showUserOrder');
-//get histroy order
+
+//get history order
 Route::post('historyorders', 'OrderController@showHistoryOrders');
+
+//clear history order
+Route::post('historyorders/clear', 'OrderController@clearHistory');
 
 //get menu from order based on user email and order id
 Route::post('showmenuorder','OrderController@showUserMenuOrder');
