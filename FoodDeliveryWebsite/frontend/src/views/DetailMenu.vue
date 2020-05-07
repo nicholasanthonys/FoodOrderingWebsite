@@ -8,35 +8,45 @@
 
       <b-row class="detail-menu-row">
         <b-col cols="4">
-          <b-img class="menu-img" thumbnail fluid v-bind:src="menu.url_image" rounded="Bottom-rounded image"></b-img>
+          <b-img
+            class="menu-img"
+            thumbnail
+            fluid
+            v-bind:src="menu.url_image"
+            rounded="Bottom-rounded image"
+          ></b-img>
         </b-col>
 
         <b-col cols="8">
-          <h5 class="title"> {{ menu.name }} </h5>
-          <h6 class="price"> {{ menu.price }} </h6>
+          <h5 class="title">{{ menu.name }}</h5>
+          <!-- <h6 class="price"> Rp {{ menu.price }} </h6> -->
+          <div class="price" v-if="menu.old_price">
+            <p class="menu-price" style="margin-bottom:0px;">
+              <span class="strikethrough">Rp {{menu.old_price}}</span>
+            </p>
+          </div>
+
+          <p class="menu-price">Rp {{menu.price}}</p>
+
           <div class="description">
-            <p> {{menu.description}} </p>
+            <p>{{menu.description}}</p>
           </div>
 
           <div>
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-              <b-form-group
-                id="input-group-1"
-                label="Quantity : "
-                label-for="input-1">
-
+              <b-form-group id="input-group-1" label="Quantity : " label-for="input-1">
                 <div class="form-group row" style="margin-left: 0px">
                   <div v-on:click="plusQuantity()" id="button-plus" class="col-sm-1">+</div>
 
                   <b-form-input
-                  id="input-1"
-                  class="col-sm-2"
-                  v-model="quantity"
-                  type="number"
-                  min="1"
-                  required
-                  placeholder="Enter quantity">
-                  </b-form-input>
+                    id="input-1"
+                    class="col-sm-2"
+                    v-model="quantity"
+                    type="number"
+                    min="1"
+                    required
+                    placeholder="Enter quantity"
+                  ></b-form-input>
 
                   <div v-on:click="minusQuantity()" id="button-minus" class="col-sm-1">-</div>
                 </div>
@@ -65,24 +75,23 @@
               body-text-variant="light"
               body-border-variant="transparent"
               content-class="shadow"
-              @ok="handleOk">
-
+              @ok="handleOk"
+            >
               <div class="modal-header modal-title">
                 <p id="b-title">Konfirmasi Pesanan Ini?</p>
               </div>
 
               <div class="content-modal">
                 <h6>Konfirmasi pesanan anda</h6>
-                <h6> {{ menu.name }} </h6>
-                <h6> {{ quantity }} pcs</h6>
+                <h6>{{ menu.name }}</h6>
+                <h6>{{ quantity }} pcs</h6>
                 <b-img class="modal-img" thumbnail fluid v-bind:src="menu.url_image" rounded></b-img>
-                <h6 style="margin-bottom: 20px;">Total: Rp {{ menu.price * quantity }} </h6>
+                <h6 style="margin-bottom: 20px;">Total: Rp {{ menu.price * quantity }}</h6>
               </div>
 
               <b-button class="button-ya" v-on:click="handleOk">Pesan Sekarang</b-button>
             </b-modal>
           </div>
-
         </b-col>
       </b-row>
     </div>
@@ -191,7 +200,7 @@ export default {
         if (!isMenuInCart) {
           cart.push(menuOrder);
         }
-        
+
         //timpa nilai cookie nya
         Cookies.set("cart-" + email, JSON.stringify(cart));
       }
@@ -212,8 +221,8 @@ export default {
         this.quantity = this.quantity - 1;
       }
     },
-    goToMyCart(){
-      this.$router.push('/mycart');
+    goToMyCart() {
+      this.$router.push("/mycart");
     }
   },
   mounted: function() {
@@ -261,7 +270,7 @@ export default {
 }
 
 .title {
-  color: #BF9E6B;
+  color: #bf9e6b;
   font-size: 20px;
   font-weight: 500;
 }
@@ -325,7 +334,7 @@ export default {
   border-top: 1px solid black;
   border-right: 1px solid black;
   transition-duration: 0.4s;
-  
+
   /* Text can't be selected */
   user-select: none; /* supported by Chrome and Opera */
   -webkit-user-select: none; /* Safari */
@@ -334,27 +343,30 @@ export default {
   -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
-#button-minus:hover, #button-plus:hover {
+#button-minus:hover,
+#button-plus:hover {
   cursor: pointer;
-  background-color: #BF9E6B;
+  background-color: #bf9e6b;
 }
 
-#button-minus:active, #button-plus:active {
+#button-minus:active,
+#button-plus:active {
   transform: translateY(2px);
 }
 
 .button-pesan {
   margin-bottom: 20px;
-  background-color: #BF9E6B;
+  background-color: #bf9e6b;
   color: white;
-  box-shadow:  0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   max-width: 180px;
   min-width: 180px;
   transition-duration: 0.4s;
 }
 
-.button-pesan:hover, .button-ya:hover {
+.button-pesan:hover,
+.button-ya:hover {
   transform: translateY(-1px);
   filter: brightness(85%);
   color: white;
@@ -364,7 +376,7 @@ export default {
 .button-reset {
   margin-bottom: 20px;
   color: white;
-  box-shadow:  0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   max-width: 180px;
   min-width: 180px;
@@ -372,7 +384,7 @@ export default {
 
 .shadow {
   background-color: #887962 !important;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
 #b-title {
@@ -407,7 +419,7 @@ export default {
   height: 3em;
   display: block;
   margin: 0.5rem auto 1rem auto;
-  background-color: #BF9E6B;
+  background-color: #bf9e6b;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   transition-duration: 0.4s;
@@ -441,5 +453,24 @@ export default {
 .button-cart:active {
   transform: translateY(4px);
   filter: brightness(90%);
+}
+
+.strikethrough {
+  position: relative;
+}
+
+.strikethrough:before {
+  position: absolute;
+  content: "";
+  left: 0px;
+  top: 50%;
+  right: 0px;
+  border-top: 1.5px solid red;
+
+  transform: rotate(-5deg);
+  -moz-transform: rotate(-5deg);
+  -ms-transform: rotate(-5deg);
+  -o-transform: rotate(-5deg);
+  -webkit-transform: rotate(-5deg);
 }
 </style>

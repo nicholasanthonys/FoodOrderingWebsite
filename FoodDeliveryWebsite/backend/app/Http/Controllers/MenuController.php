@@ -25,16 +25,31 @@ class MenuController extends Controller
     //Route::get('menus/pasta','MenuController@indexPasta');
     public function indexPasta()
     {
+        $today = Carbon::now()->toDateString();
         $listMenus = Menu::where('type', 'pasta')->get();
+        foreach ($listMenus as $menu) {
+            $menu['promo'] = $menu->promos
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>', $today)
+            ->first();
+        }
         return response()->json([
-            'menus' => $listMenus
+            'menus' => $listMenus,
+            "today"=>$today
         ], 201);
     }
 
     //Route::get('menus/steak','MenuController@indexSteak');
     public function indexSteak()
     {
+        $today = Carbon::now()->toDateString();
         $listMenus = Menu::where('type', 'steak')->get();
+        foreach ($listMenus as $menu) {
+            $menu['promo'] = $menu->promos
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>', $today)
+            ->first();
+        }
         return response()->json([
             'menus' => $listMenus
         ], 201);
@@ -43,7 +58,15 @@ class MenuController extends Controller
     //Route::get('menus/pizza','MenuController@indexPizza');
     public function indexPizza()
     {
+        $today = Carbon::now()->toDateString();
+
         $listMenus = Menu::where('type', 'pizza')->get();
+        foreach ($listMenus as $menu) {
+            $menu['promo'] = $menu->promos
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>', $today)
+            ->first();
+        }
         return response()->json([
             'menus' => $listMenus
         ], 201);
@@ -52,7 +75,15 @@ class MenuController extends Controller
     // Route::get('menus/rice','MenuController@indexRice');
     public function indexRice()
     {
+        $today = Carbon::now()->toDateString();
+
         $listMenus = Menu::where('type', 'rice')->get();
+        foreach ($listMenus as $menu) {
+            $menu['promo'] = $menu->promos
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>', $today)
+            ->first();
+        }
         return response()->json([
             'menus' => $listMenus
         ], 201);
@@ -61,7 +92,15 @@ class MenuController extends Controller
     // Route::get('menus/soup','MenuController@indexSoup');
     public function indexSoup()
     {
+        $today = Carbon::now()->toDateString();
+
         $listMenus = Menu::where('type', 'soup')->get();
+        foreach ($listMenus as $menu) {
+            $menu['promo'] = $menu->promos
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>', $today)
+            ->first();
+        }
         return response()->json([
             'menus' => $listMenus
         ], 201);
@@ -70,7 +109,15 @@ class MenuController extends Controller
     // Route::get('menus/salad','MenuController@indexSalad');
     public function indexSalad()
     {
+        $today = Carbon::now()->toDateString();
+
         $listMenus = Menu::where('type', 'salad')->get();
+        foreach ($listMenus as $menu) {
+            $menu['promo'] = $menu->promos
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>', $today)
+            ->first();
+        }
         return response()->json([
             'menus' => $listMenus
         ], 201);
@@ -79,7 +126,15 @@ class MenuController extends Controller
     // Route::get('menus/drinks','MenuController@indexDrinks');
     public function indexDrinks()
     {
+        $today = Carbon::now()->toDateString();
+
         $listMenus = Menu::where('type', 'drink')->get();
+        foreach ($listMenus as $menu) {
+            $menu['promo'] = $menu->promos
+            ->where('start_date', '<=', $today)
+            ->where('end_date', '>', $today)
+            ->first();
+        }
         return response()->json([
             'menus' => $listMenus
         ], 201);
@@ -94,7 +149,7 @@ class MenuController extends Controller
         ], 201);
     }
 
-/// get /promo
+    /// get /promo
     public function indexPromo()
     {
         $now = Carbon::now();
@@ -111,7 +166,6 @@ class MenuController extends Controller
             $promo['description'] = $menu->description;
             $promo['old_price'] = $menu->price;
             $promo['chef_recommended'] = $menu->chef_recommended;
-
         }
 
         return response()->json([
@@ -120,14 +174,14 @@ class MenuController extends Controller
     }
 
     // get /newest
-    public function indexNewest(){
-        $listMenus = Menu::orderBy('date_added','DESC')
+    public function indexNewest()
+    {
+        $listMenus = Menu::orderBy('date_added', 'DESC')
             ->take(8)
             ->get();
         return response()->json([
             'menus' => $listMenus
         ], 201);
-
     }
 
     /**
@@ -159,7 +213,20 @@ class MenuController extends Controller
      */
     public function show($idMenu)
     {
+        $today = Carbon::now()->toDateString();
+
         $menu = Menu::find($idMenu);
+        $promo =  $menu->promos
+        ->where('start_date', '<=', $today)
+        ->where('end_date', '>', $today)
+        ->first();
+
+        if($promo != null){
+            $menu['old_price'] = $menu->price;
+            $menu['price'] = $promo->new_price;
+            
+        }
+    
         return response()->json([
             'menu' => $menu
         ], 201);

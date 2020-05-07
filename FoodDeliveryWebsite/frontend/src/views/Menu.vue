@@ -3,7 +3,7 @@
 <template>
   <div class="menu-pasta">
     <!---Sidebar-->
-    <Sidebar v-if="this.$router.history.current.fullPath != '/promo'"/>
+    <Sidebar v-if="this.$router.history.current.fullPath != '/promo'" />
 
     <div class="content">
       <!-- Navbar -->
@@ -15,7 +15,13 @@
           <img class="menu-img" v-bind:src="menu.url_image" alt="Menu" />
 
           <p class="menu-name">{{menu.name}}</p>
-          <p class="menu-price">Rp {{menu.price}}</p>
+          <div class="price" v-if="menu.promo">
+            <p class="menu-price" style="margin-bottom:0px;"><span class="strikethrough">Rp {{menu.price}} </span></p>
+            <p class="menu-price">Rp {{menu.promo.new_price}}</p>
+          </div>
+          <div class="price" v-else>
+            <p class="menu-price">Rp {{menu.price}}</p>
+          </div>
 
           <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
           <button
@@ -114,10 +120,10 @@ export default {
         type: "",
         name: "",
         price: 0,
-        quantity : 0,
+        quantity: 0,
         url_image: "",
         description: ""
-      },
+      }
     };
   },
   methods: {
@@ -128,37 +134,37 @@ export default {
         switch (path) {
           case "/menupasta":
             res = await getMenuPasta();
-            this.$root.$emit('changeActive', 'pasta');
+            this.$root.$emit("changeActive", "pasta");
             break;
 
           case "/menusteak":
             res = await getMenuSteak();
-            this.$root.$emit('changeActive', 'steak');
+            this.$root.$emit("changeActive", "steak");
             break;
 
           case "/menupizza":
             res = await getMenuPizza();
-            this.$root.$emit('changeActive', 'pizza');
+            this.$root.$emit("changeActive", "pizza");
             break;
 
           case "/menurice":
             res = await getMenuRice();
-            this.$root.$emit('changeActive', 'rice');
+            this.$root.$emit("changeActive", "rice");
             break;
 
           case "/menusoup":
             res = await getMenuSoup();
-            this.$root.$emit('changeActive', 'soup');
+            this.$root.$emit("changeActive", "soup");
             break;
 
           case "/menusalad":
             res = await getMenuSalad();
-            this.$root.$emit('changeActive', 'salad');
+            this.$root.$emit("changeActive", "salad");
             break;
 
           case "/menudrinks":
             res = await getMenuDrinks();
-            this.$root.$emit('changeActive', 'drinks');
+            this.$root.$emit("changeActive", "drinks");
             break;
         }
 
@@ -245,7 +251,7 @@ export default {
   },
   mounted: function() {
     this.fillMenus();
-    this.$root.$emit('doesnt need logo', 'there sidebar');
+    this.$root.$emit("doesnt need logo", "there sidebar");
     console.log("route is ");
     console.log(this.$router.history.current.fullPath == "/menusteak");
   }
@@ -472,5 +478,24 @@ export default {
   border-top: 1px solid black;
   min-width: 100px;
   max-width: 100px;
+}
+
+.strikethrough {
+  position: relative;
+}
+
+.strikethrough:before {
+  position: absolute;
+  content: "";
+  left: 0px;
+  top: 50%;
+  right: 0px;
+  border-top: 1.5px solid red;
+
+  transform: rotate(-5deg);
+  -moz-transform: rotate(-5deg);
+  -ms-transform: rotate(-5deg);
+  -o-transform: rotate(-5deg);
+  -webkit-transform: rotate(-5deg);
 }
 </style>
