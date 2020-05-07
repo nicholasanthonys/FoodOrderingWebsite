@@ -73,6 +73,7 @@ class OrderController extends Controller
         // $order->order_status = $request->orderStatus;
         // $order->paid = $request->paid;
         $order->order_time = Carbon::now();
+        $order->order_time->setTimezone('Asia/Jakarta');
 
 
         //asumsi : shipped time sama dengan order time
