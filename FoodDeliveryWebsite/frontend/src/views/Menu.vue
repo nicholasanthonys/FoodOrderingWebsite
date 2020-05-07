@@ -72,7 +72,7 @@
               style="text-align: left; padding: 0px; margin: auto 20px auto 0px;"
             >Quantity :</h6>
 
-            <div v-on:click="plusQuantity()" id="button-plus" class="col-sm-1">+</div>
+            <div v-on:click="minusQuantity()" id="button-minus" class="col-sm-1">-</div>
 
             <b-form-input
               id="input-1"
@@ -84,7 +84,7 @@
               placeholder="Enter quantity"
             ></b-form-input>
 
-            <div v-on:click="minusQuantity()" id="button-minus" class="col-sm-1">-</div>
+            <div v-on:click="plusQuantity()" id="button-plus" class="col-sm-1">+</div>
           </div>
 
           <h6 style="margin-bottom: 20px">Total: Rp {{ selectedMenu.price * selectedMenu.quantity }}</h6>
@@ -425,7 +425,7 @@ export default {
   transition-duration: 0.4s;
 }
 
-#button-plus {
+#button-minus {
   margin: 0px;
   border-radius: 10px 0px 0px 10px;
   background-color: white;
@@ -448,7 +448,7 @@ export default {
   -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
-#button-minus {
+#button-plus {
   margin: 0px;
   border-radius: 0px 10px 10px 0px;
   background-color: white;
