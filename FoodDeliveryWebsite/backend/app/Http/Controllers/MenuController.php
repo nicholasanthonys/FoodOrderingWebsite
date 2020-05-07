@@ -32,6 +32,11 @@ class MenuController extends Controller
             ->where('start_date', '<=', $today)
             ->where('end_date', '>', $today)
             ->first();
+
+            if($menu['promo'] !=null){
+                $menu['old_price'] = $menu->price;
+                $menu->price = $menu['promo']->new_price;
+            }
         }
         return response()->json([
             'menus' => $listMenus,
@@ -49,6 +54,11 @@ class MenuController extends Controller
             ->where('start_date', '<=', $today)
             ->where('end_date', '>', $today)
             ->first();
+
+            if($menu['promo'] !=null){
+                $menu['old_price'] = $menu->price;
+                $menu->price = $menu['promo']->new_price;
+            }
         }
         return response()->json([
             'menus' => $listMenus
@@ -66,6 +76,11 @@ class MenuController extends Controller
             ->where('start_date', '<=', $today)
             ->where('end_date', '>', $today)
             ->first();
+
+            if($menu['promo'] !=null){
+                $menu['old_price'] = $menu->price;
+                $menu->price = $menu['promo']->new_price;
+            }
         }
         return response()->json([
             'menus' => $listMenus
@@ -83,6 +98,11 @@ class MenuController extends Controller
             ->where('start_date', '<=', $today)
             ->where('end_date', '>', $today)
             ->first();
+
+            if($menu['promo'] !=null){
+                $menu['old_price'] = $menu->price;
+                $menu->price = $menu['promo']->new_price;
+            }
         }
         return response()->json([
             'menus' => $listMenus
@@ -100,6 +120,11 @@ class MenuController extends Controller
             ->where('start_date', '<=', $today)
             ->where('end_date', '>', $today)
             ->first();
+
+            if($menu['promo'] !=null){
+                $menu['old_price'] = $menu->price;
+                $menu->price = $menu['promo']->new_price;
+            }
         }
         return response()->json([
             'menus' => $listMenus
@@ -117,6 +142,11 @@ class MenuController extends Controller
             ->where('start_date', '<=', $today)
             ->where('end_date', '>', $today)
             ->first();
+
+            if($menu['promo'] !=null){
+                $menu['old_price'] = $menu->price;
+                $menu->price = $menu['promo']->new_price;
+            }
         }
         return response()->json([
             'menus' => $listMenus
@@ -134,6 +164,11 @@ class MenuController extends Controller
             ->where('start_date', '<=', $today)
             ->where('end_date', '>', $today)
             ->first();
+
+            if($menu['promo'] !=null){
+                $menu['old_price'] = $menu->price;
+                $menu->price = $menu['promo']->new_price;
+            }
         }
         return response()->json([
             'menus' => $listMenus

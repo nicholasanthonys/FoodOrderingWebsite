@@ -23,9 +23,9 @@
           <p class="menu-name">{{menu.name}}</p>
           <div class="price" v-if="menu.promo">
             <p class="menu-price" style="margin-bottom:0px;">
-              <span class="strikethrough">Rp {{menu.price}}</span>
+              <span class="strikethrough">Rp {{menu.old_price}}</span>
             </p>
-            <p class="menu-price">Rp {{menu.promo.new_price}}</p>
+            <p class="menu-price">Rp {{menu.price}}</p>
           </div>
           <div class="price" v-else>
             <p class="menu-price">Rp {{menu.price}}</p>
