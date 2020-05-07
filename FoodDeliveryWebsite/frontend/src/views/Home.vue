@@ -86,19 +86,22 @@
 
         <div id="menu-favorit">
           <h4>Menu Recommended</h4>
-          <div class="menu-row row">
-            <div class="menu" v-for="menu in menus" :key="menu.id">
-              <img class="menu-img" v-bind:src="menu.url_image" alt="Menu" />
+          <div class="container-fluid overflow-auto">
+            <div class="menu-row row flex-row flex-nowrap">
+              <div class="menu card card-block" v-for="menu in menus" :key="menu.id">
+                <img class="menu-img" v-bind:src="menu.url_image" alt="Menu" />
+                <img class="menu-logo" src="../assets/chef-recommend.png" alt="Chef Recommend Logo" />
 
-              <p class="menu-name">{{menu.name}}</p>
-              <p class="menu-price">Rp {{menu.price}}</p>
+                <p class="menu-name"> {{ menu.name }} </p>
+                <p class="menu-price">Rp {{ menu.price }} </p>
 
-              <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
-              <button
-                class="pesan"
-                v-on:click="setSelectedMenu(menu.id,menu.menu_type, menu.type, menu.price, menu.url_image,menu.description)"
-                v-b-modal.modal-center
-              >Pesan</button>
+                <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
+                <button
+                  class="pesan"
+                  v-on:click="setSelectedMenu(menu.id,menu.menu_type, menu.type, menu.price, menu.url_image,menu.description)"
+                  v-b-modal.modal-center
+                >Pesan</button>
+              </div>
             </div>
           </div>
         </div>
@@ -108,19 +111,22 @@
         <!---Menu Terbaru -->
         <div id="menu-terbaru">
           <h4>Menu Terbaru</h4>
-          <div class="menu-row row">
-            <div class="menu" v-for="menu in menusNewest" :key="menu.id">
-              <img class="menu-img" v-bind:src="menu.url_image" alt="Menu" />
+          <div class="container-fluid overflow-auto">
+            <div class="menu-row row flex-row flex-nowrap">
+              <div class="menu card card-block" v-for="menu in menusNewest" :key="menu.id">
+                <img class="menu-img" v-bind:src="menu.url_image" alt="Menu" />
+                <img class="menu-logo" src="../assets/new-product.png" alt="New Menu Logo" style="width: 120px; right: -30px;" />
 
-              <p class="menu-name">{{menu.name}}</p>
-              <p class="menu-price">Rp {{menu.price}}</p>
+                <p class="menu-name"> {{ menu.name }} </p>
+                <p class="menu-price">Rp {{ menu.price }}</p>
 
-              <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
-              <button
-                class="pesan"
-                v-on:click="setSelectedMenu(menu.id,menu.menu_type, menu.type, menu.price, menu.url_image,menu.description)"
-                v-b-modal.modal-center
-              >Pesan</button>
+                <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
+                <button
+                  class="pesan"
+                  v-on:click="setSelectedMenu(menu.id,menu.menu_type, menu.type, menu.price, menu.url_image,menu.description)"
+                  v-b-modal.modal-center
+                >Pesan</button>
+              </div>
             </div>
           </div>
         </div>
@@ -406,21 +412,24 @@ export default {
   margin-bottom: 200px;
 }
 
-menu-row {
-  margin-top: 55px;
+.menu-row {
+  margin-top: 30px;
   margin-right: 0px;
   margin-left: 0px;
+  position: relative;
 }
 
 .menu {
   margin-bottom: 30px;
-  width: 18.75%;
+  flex: 0 0 20%;
   height: auto;
   padding-bottom: 18px;
   min-height: 400px;
-  margin-left: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   border-radius: 10px;
   background-color: #fff;
+  position: relative;
 }
 
 .menu-img {
@@ -428,6 +437,7 @@ menu-row {
   height: 200px;
   object-fit: fill;
   border-radius: 10px 10px 0px 0px;
+  position: relative;
 }
 
 .menu-name {
@@ -437,6 +447,21 @@ menu-row {
   font-size: 18px;
   color: #0b3993;
   text-align: center;
+}
+
+.menu-logo {
+  position: absolute;
+  z-index: 5;
+  width: 100px;
+  height: 100px;
+  right: -25px;
+  top: -25px;
+  
+  transform: rotate(20deg);
+  -moz-transform: rotate(20deg);
+  -ms-transform: rotate(20deg);
+  -o-transform: rotate(20deg);
+  -webkit-transform: rotate(20deg);
 }
 
 .menu-price {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Menu;
 use App\Promo;
+use Carbon\Carbon;
 
 class MenuController extends Controller
 {
@@ -96,7 +97,12 @@ class MenuController extends Controller
 /// get /promo
     public function indexPromo()
     {
-        $promos = Promo::all();
+        $now = Carbon::now();
+        $today = $now->toDateTimeString();
+
+        // $promos = Promo::all();
+        //Mengambil promo yang sesuai tanggal
+        $promos = Promo::where('start_date', '<=', $today)->where('end_date', '>', $today)->get();
         foreach ($promos as $promo) {
             $menu = Menu::find($promo->menu_id);
             $promo['name'] = $menu->name;
@@ -105,7 +111,7 @@ class MenuController extends Controller
             $promo['description'] = $menu->description;
             $promo['old_price'] = $menu->price;
             $promo['chef_recommended'] = $menu->chef_recommended;
-            
+
         }
 
         return response()->json([
@@ -162,7 +168,7 @@ class MenuController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($idMenu)

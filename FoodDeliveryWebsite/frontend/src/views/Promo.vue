@@ -79,20 +79,22 @@
         <!--- Menu promo-->
         <div id="menu-promo">
           <h4>Menu Promo</h4>
-          <div class="menu-row row">
-            <div class="menu" v-for="promo in menusPromo" :key="promo.id">
-              <img class="menu-img" v-bind:src="promo.url_image" alt="Menu" />
+          <div class="container-fluid overflow-auto">
+            <div class="menu-row row flex-row flex-nowrap">
+              <div class="menu" v-for="promo in menusPromo" :key="promo.id">
+                <img class="menu-img" v-bind:src="promo.url_image" alt="Menu" />
 
-              <p class="menu-name">{{promo.name}}</p>
-              <p class="menu-price">Old Price : Rp {{promo.old_price}}</p>
-              <p class="menu-price">New Price : Rp {{promo.new_price}}</p>
+                <p class="menu-name">{{promo.name}}</p>
+                <p class="menu-price" style="margin-bottom: 0px;"><span class="strikethrough">Rp {{promo.old_price}}</span> </p>
+                <p class="menu-price">Rp {{promo.new_price}}</p>
 
-              <button class="detail_menu" v-on:click="goToDetail(promo.menu_id)">Detail Menu</button>
-              <button
-                class="pesan"
-                v-on:click="setSelectedMenu(promo.menu_id,promo.type, promo.name, promo.new_price, promo.url_image,promo.description)"
-                v-b-modal.modal-center
-              >Pesan</button>
+                <button class="detail_menu" v-on:click="goToDetail(promo.menu_id)">Detail Menu</button>
+                <button
+                  class="pesan"
+                  v-on:click="setSelectedMenu(promo.menu_id,promo.type, promo.name, promo.new_price, promo.url_image,promo.description)"
+                  v-b-modal.modal-center
+                >Pesan</button>
+              </div>
             </div>
           </div>
         </div>
@@ -178,7 +180,7 @@ export default {
   },
   data() {
     return {
-      slide: 0,
+      slide: 0, 
       sliding: null,
       menusPromo: [],
       selectedMenu: {
@@ -340,20 +342,23 @@ export default {
 }
 
 .menu-row {
-  margin-top: 55px;
+  margin-top: 30px;
   margin-right: 0px;
   margin-left: 0px;
+  position: relative;
 }
 
 .menu {
   margin-bottom: 30px;
-  width: 18.75%;
+  flex: 0 0 20%;
   height: auto;
   padding-bottom: 18px;
   min-height: 400px;
-  margin-left: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   border-radius: 10px;
   background-color: #fff;
+  position: relative;
 }
 
 .menu-img {
@@ -543,5 +548,24 @@ export default {
 .shadow {
   background-color: #887962 !important;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.strikethrough {
+  position: relative;
+}
+
+.strikethrough:before {
+  position: absolute;
+  content: "";
+  left: 0px;
+  top: 50%;
+  right: 0px;
+  border-top: 1.5px solid red;
+
+  transform: rotate(-5deg);
+  -moz-transform: rotate(-5deg);
+  -ms-transform: rotate(-5deg);
+  -o-transform: rotate(-5deg);
+  -webkit-transform: rotate(-5deg);
 }
 </style>
