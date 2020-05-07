@@ -13,7 +13,8 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-nav-form>
+        
+        <!-- <b-nav-form>
           <img class="search-icon" src="../assets/search.png" />
           <b-form-input
             size="sm"
@@ -29,7 +30,7 @@
             type="submit"
             style="padding-right: 10px; padding-left: 10px;"
           >Search</b-button>
-        </b-nav-form>
+        </b-nav-form> -->
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
