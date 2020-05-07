@@ -44,7 +44,7 @@
             <b-form @submit="onSubmit" @reset="onReset" v-if="show">
               <b-form-group id="input-group-1" label="Quantity : " label-for="input-1">
                 <div class="form-group row" style="margin-left: 0px">
-                  <div v-on:click="plusQuantity()" id="button-plus" class="col-sm-1">+</div>
+                  <div v-on:click="minusQuantity()" id="button-minus" class="col-sm-1">-</div>
 
                   <b-form-input
                     id="input-1"
@@ -56,7 +56,7 @@
                     placeholder="Enter quantity"
                   ></b-form-input>
 
-                  <div v-on:click="minusQuantity()" id="button-minus" class="col-sm-1">-</div>
+                  <div v-on:click="plusQuantity()" id="button-plus" class="col-sm-1">+</div>
                 </div>
               </b-form-group>
 
@@ -306,7 +306,7 @@ export default {
   max-width: 100px;
 }
 
-#button-plus {
+#button-minus {
   margin: 0px;
   border-radius: 10px 0px 0px 10px;
   background-color: white;
@@ -329,7 +329,7 @@ export default {
   -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
-#button-minus {
+#button-plus {
   margin: 0px;
   border-radius: 0px 10px 10px 0px;
   background-color: white;
