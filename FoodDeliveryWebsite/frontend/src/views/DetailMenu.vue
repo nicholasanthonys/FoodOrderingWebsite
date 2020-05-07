@@ -15,24 +15,26 @@
             v-bind:src="menu.url_image"
             rounded="Bottom-rounded image"
           ></b-img>
-        </b-col>
 
-        <b-col cols="8">
-          <h5 class="title">{{ menu.name }}</h5>
           <img
             v-if="menu.chef_recommended"
             class="menu-logo"
             src="../assets/chef-recommend.png"
             alt="Chef Recommend Logo"
           />
+        </b-col>
+
+        <b-col cols="8">
+          <h5 class="title">{{ menu.name }}</h5>
+          
           <!-- <h6 class="price"> Rp {{ menu.price }} </h6> -->
-          <div class="price" v-if="menu.old_price">
-            <p class="menu-price" style="margin-bottom:0px;">
+          <div class="price" v-if="menu.old_price" style="margin-bottom: 0px;">
+            <p class="menu-price" style="margin-bottom: 0px;">
               <span class="strikethrough">Rp {{menu.old_price}}</span>
             </p>
           </div>
 
-          <p class="menu-price">Rp {{menu.price}}</p>
+          <p class="price menu-price" style="margin-left: 15%;">Rp {{menu.price}}</p>
 
           <div class="description">
             <p>{{menu.description}}</p>
@@ -484,10 +486,10 @@ export default {
 .menu-logo {
   position: absolute;
   z-index: 5;
-  width: 100px;
-  height: 100px;
-  right: 10px;
-  top: -25px;
+  width: 7vw;
+  right: -5px;
+  height: 7vw;
+  top: -30px;
 
   transform: rotate(20deg);
   -moz-transform: rotate(20deg);

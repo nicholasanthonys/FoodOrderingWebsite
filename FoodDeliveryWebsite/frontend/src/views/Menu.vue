@@ -515,8 +515,8 @@ export default {
   z-index: 5;
   width: 100px;
   height: 100px;
-  right: -25px;
-  top: -25px;
+  right: -15px;
+  top: -15px;
 
   transform: rotate(20deg);
   -moz-transform: rotate(20deg);

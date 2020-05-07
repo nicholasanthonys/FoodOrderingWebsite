@@ -287,6 +287,7 @@ body {
   background-repeat: no-repeat;
   overflow: auto;
   padding-bottom: 50px;
+  image-rendering: pixelated;
 }
 
 .link {
