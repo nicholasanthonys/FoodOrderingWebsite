@@ -19,6 +19,12 @@
 
         <b-col cols="8">
           <h5 class="title">{{ menu.name }}</h5>
+          <img
+            v-if="menu.chef_recommended"
+            class="menu-logo"
+            src="../assets/chef-recommend.png"
+            alt="Chef Recommend Logo"
+          />
           <!-- <h6 class="price"> Rp {{ menu.price }} </h6> -->
           <div class="price" v-if="menu.old_price">
             <p class="menu-price" style="margin-bottom:0px;">
@@ -259,6 +265,7 @@ export default {
   margin-top: 20px;
   margin-right: 0px;
   margin-left: 0px;
+  position: relative;
 }
 
 .menu-img {
@@ -472,5 +479,20 @@ export default {
   -ms-transform: rotate(-5deg);
   -o-transform: rotate(-5deg);
   -webkit-transform: rotate(-5deg);
+}
+
+.menu-logo {
+  position: absolute;
+  z-index: 5;
+  width: 100px;
+  height: 100px;
+  right: 10px;
+  top: -25px;
+
+  transform: rotate(20deg);
+  -moz-transform: rotate(20deg);
+  -ms-transform: rotate(20deg);
+  -o-transform: rotate(20deg);
+  -webkit-transform: rotate(20deg);
 }
 </style>

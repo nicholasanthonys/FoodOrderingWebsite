@@ -13,16 +13,23 @@
       <div class="menu-row row">
         <div class="menu" v-for="menu in menus" :key="menu.id">
           <img class="menu-img" v-bind:src="menu.url_image" alt="Menu" />
+          <img
+            v-if="menu.chef_recommended"
+            class="menu-logo"
+            src="../assets/chef-recommend.png"
+            alt="Chef Recommend Logo"
+          />
 
           <p class="menu-name">{{menu.name}}</p>
           <div class="price" v-if="menu.promo">
-            <p class="menu-price" style="margin-bottom:0px;"><span class="strikethrough">Rp {{menu.price}} </span></p>
+            <p class="menu-price" style="margin-bottom:0px;">
+              <span class="strikethrough">Rp {{menu.price}}</span>
+            </p>
             <p class="menu-price">Rp {{menu.promo.new_price}}</p>
           </div>
           <div class="price" v-else>
             <p class="menu-price">Rp {{menu.price}}</p>
           </div>
-
           <button class="detail_menu" v-on:click="goToDetail(menu.id)">Detail Menu</button>
           <button
             class="pesan"
@@ -275,20 +282,23 @@ export default {
 }
 
 .menu-row {
-  margin-top: 55px;
+  margin-top: 30px;
   margin-right: 0px;
   margin-left: 0px;
+  position: relative;
 }
 
 .menu {
   margin-bottom: 30px;
-  width: 18.75%;
+  flex: 0 0 20%;
   height: auto;
   padding-bottom: 18px;
   min-height: 400px;
-  margin-left: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   border-radius: 10px;
   background-color: #fff;
+  position: relative;
 }
 
 .menu-img {
@@ -296,6 +306,7 @@ export default {
   height: 200px;
   object-fit: fill;
   border-radius: 10px 10px 0px 0px;
+  position: relative;
 }
 
 .menu-name {
@@ -497,5 +508,20 @@ export default {
   -ms-transform: rotate(-5deg);
   -o-transform: rotate(-5deg);
   -webkit-transform: rotate(-5deg);
+}
+
+.menu-logo {
+  position: absolute;
+  z-index: 5;
+  width: 100px;
+  height: 100px;
+  right: -25px;
+  top: -25px;
+
+  transform: rotate(20deg);
+  -moz-transform: rotate(20deg);
+  -ms-transform: rotate(20deg);
+  -o-transform: rotate(20deg);
+  -webkit-transform: rotate(20deg);
 }
 </style>
